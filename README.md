@@ -4,6 +4,8 @@ Paths are hard-coded so it will require a slight bit of configuration to get it 
 
 Here are a couple of examples of figures made with the library:
 
+<img src="tests/ninepoint.png" width=300>
+
 <img src="broken_chord/figures/bc1.png" width=300>
 
 <img src="tangents/eyeball1.png" width=400>
