@@ -1,0 +1,20 @@
+bisector proof - internal
+
+Draw a line through B parallel to AC
+and extend bisector AD to meet it at E
+
+Parallel lines give three red dots
+
+2 similar triangles ADC and BDE
+with ratios
+
+CA/CD = BE/BD
+
+But ABE is isosceles with AB = BE
+
+CA/CD = BA/BD
+
+√
+
+bisector proof - internal
+

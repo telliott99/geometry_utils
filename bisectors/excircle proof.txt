@@ -1,0 +1,76 @@
+(1)
+Let
+AZ = AY = x
+BX = BZ = y
+CY = CX = z
+
+Then if s is semiperimeter
+x + y + z = s
+
+so
+s = AZ + BX + CX
+  = AZ + a
+AZ = s-a
+BX = s-b
+CY = s-c
+
+also
+s-a = (a+b+c)/2 - a
+    = (-a+b+c)/2
+
+(2)
+Let 
+BD = BF = p and 
+CE = CF = q
+
+p + q = a
+p = a - q
+
+also
+AD = AE
+(s-a) + (s-b) + p = (s-a) + (s-c) + q
+p - b = q - c
+a - q - b = q - c
+2q = a - b + c
+   = a + b + c - 2b
+   = 2s - 2b
+s = q + b = AE
+
+q = CE = s-b
+
+p + q = a
+p + s - b = a
+p = a + b - s
+  = a/2 + b/2 - c/2
+  = s-c
+
+
+AD = AE = (s-a) + (s-b) + p 
+   = (s-a) + (s-b) + (s-c)
+   = 3s - 2s = s
+
+(3)
+Similar right triangles
+R/s = r/(s-a)
+rs = R(s-a)
+# R is for circle on side a
+
+(4)
+< IaBI is 90 b/c two bisectors
+< IBZ + < IaBD = 90
+IZB and BDIa similar triangles
+R/(s-c) = (s-b)/r
+
+
+(5)
+from (4)
+rR = (s-b)(s-c)
+
+from (3)
+rs = R(s-a)
+
+r^2Rs = R(s-a)(s-b)(s-c)
+r^2s = (s-)(s-b)(s-c)
+r^2s^2 = s(s-)(s-b)(s-c)
+
+√

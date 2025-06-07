@@ -1,0 +1,153 @@
+proof 1
+
+mark off E | BD = ED
+so tri MBE is iso
+mark off H | MB = MH
+draw AH and AM
+
+blue dots:  isosceles triangle
+red dots:   inscribed angle thm
+
+< MBE = red + < HMA:  inscribed < thm
+< BEM = red + < AME
+hence purple dots
+
+tri HMA cong tri EMA by ASA
+AE = AH
+
+AH = GB
+AE = GB
+AE + ED = GB + BD
+= AD 
+
+-----
+
+proof 2
+
+extend AB to Z | MZ = MA and DZ = DZ
+tri MZA is isosceles
+draw GZ, GBand GM
+
+< BGM = < MAB = < MZD:  inscribed < thm and isosceles
+MG = MA = MZ:  given and isosceles
+whole < Z = whole < G
+subtract blue
+tri BZG is isosceles
+
+ZD = AD
+ZB + BD = AD
+GD + BD = AD
+
+-----
+
+proof 3
+
+as before, blues are equal
+MB is shared
+MG = MA = MZ
+
+so comparing tri ZBM and GBM
+we have SSA
+< ZBM is obtuse (b/c external to rt + another)
+< GBM also obtuse b/c subtends arc > 1/2 circle
+therefore tri congurent
+
+-----
+
+proof 4
+
+find Z | BG = AZ
+given MG = MA
+blue:  inscribed angle thm
+
+tri BMG cong tri ZMA by SAS
+-> MB = MZ
+tri MBZ is iso
+BD = BZ
+
+AZ + ZD = BG + BD
+= AD
+
+-----
+
+proof 5
+
+-----
+
+proof 6
+
+-----
+
+proof 7
+
+draw circle on center M with radius MA = MG
+extend AB to meet the circle at Z
+
+< BGM = < A by inscribed angles
+< MZD = < A by isosceles triangle
+blue angles by inscribed angles
+
+< BZG = < BGZ by subtraction
+ZBG is iso and BG = BZ
+
+given MD perp
+AZ is a chord and MD perp through center
+therefore is is a bisector
+AD = ZD = ZB + BD = GB + BD
+
+-----
+
+proof 8
+
+extend GB to Z | MZ perp GZ
+
+< MBG is supplementary to < MBZ
+< MBZ lies on arc MAG
+< MBG corresponds to arc MG
+
+but MG = MA and
+< MBD lies on arc MA
+hence the red dots
+
+but then tri MBZ and MBD share two angles and one side
+so they are congruent
+ZB = BD
+
+Now consider tri MZG and MDA
+both are right
+< A = < G
+MG = MA
+so they are congruent with 
+AD = GZ = GB + BZ = GB + BD
+
+-----
+
+proof 9
+
+Extend MD to the circle at Z
+draw MK as a diameter of the circle
+find where MK crosses AG at T
+draw AG
+draw LK perp AB
+
+The angle at Z is right by Thales circle thm
+MZ parallel LK
+ZK parallel DL
+ZK = DL
+
+b/c parallel
+< ZKM = < LKM
+b/c similar
+< A = < LKM = < M
+BG = ZK = DL
+
+But AL = BD by rectangle in circle
+
+BD + BG = AL + DL = AD
+
+
+
+
+
+
+

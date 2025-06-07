@@ -1,0 +1,35 @@
+Equilateral triangle properties.
+
+Draw the circumcircle.  Draw the diameter through C, hitting D and M.
+
+(1) given equal sides AB = AC = BC.
+
+(2) equal angles at A, B, C by isosceles twice, or inscribed angles on equal arcs.
+
+(3) < CAD and < CBD are both right, by Thales theorem.
+
+(4) tri CAD cong tri CBD by HL.
+
+(5) -> AD = BD
+
+(6) -> CD bisects < C by inscribed angles on equal arcs.
+
+(7) AQ = DQ = BQ as radii of the circle
+
+(8) -> QAD is isosceles
+
+(9) -> < QAD = < QDA
+
+(10) But < QDA = < B, so QAD is equilateral
+
+(11) AD and DB are also equal to radii.
+
+(12) AQBD is a parallelogram (two pairs of equal sides).
+
+(13) M bisects both AB and QD.
+
+(14) Four congruent triangles with right angles at M by SSS.
+
+(Actually, 13 is a general result for any triangle).
+
+(15) CQM is bisector, median and altitude of tri ABC and Q is incenter, centroid and orthocenter as well.
