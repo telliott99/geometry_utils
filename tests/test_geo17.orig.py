@@ -1,5 +1,4 @@
-import sys,path
-
+import sys
 import matplotlib.pyplot as plt
 import numpy as np
 import random

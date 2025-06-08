@@ -1,7 +1,4 @@
 import sys,random,math
-p = '/Users/telliott/Library/CloudStorage/'
-p += 'Dropbox/geometry_project'
-sys.path.insert(0,p)    
 import geometry as geo
 
 import matplotlib.pyplot as plt

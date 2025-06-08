@@ -1,4 +1,3 @@
-import path
 import matplotlib.pyplot as plt
 import numpy as np
 import geometry as geo
@@ -17,7 +16,7 @@ geo.outline_polygon(ax,[A,B,C],ec='red')
 # to meet bisector of A
 
 M = geo.bisect_angle_Euclid(A,[B,C])
-print(M)
+#print(M)
 
 m = geo.get_slope_for_two_points([A,C])
 tmp = geo.Point(B.x + 10,B.y + 10*m)

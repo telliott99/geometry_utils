@@ -1,4 +1,3 @@
-import path
 import matplotlib
 import matplotlib.pyplot as plt
 import geometry as geo

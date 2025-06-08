@@ -1,4 +1,3 @@
-import path
 import matplotlib.pyplot as plt
 import numpy as np
 import geometry as geo
@@ -22,8 +21,9 @@ Z = geo.get_intersection_line_segment_circle(
     [M,D],[Q,r])[1]
 geo.draw_line_segment(ax,[D,Z],ec='r')
 
+# be sure to get the right one
 K = geo.get_intersection_line_segment_circle(
-    [M,Q],[Q,r])[0]
+    [M,Q],[Q,r])[1]
     
 geo.draw_line_segment(ax,[M,K],ec='r')
 

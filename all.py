@@ -1,5 +1,7 @@
 import sys,os,subprocess
-import path
+
+path = '/Users/telliott/Library/CloudStorage/Dropbox/'
+path += 'Github-Math/geometry_utils/'
 
 if len(sys.argv) > 1:
     directory = sys.argv[1] + '/'
@@ -7,9 +9,9 @@ else:
     directory = 'tests/'
 
 print('testing %s' % directory)
-p = path.p + directory
+path += directory
     
-L = os.listdir(p)
+L = os.listdir(path)
 L = [f for f in L if f.endswith('.py')]
 
 try:
@@ -23,9 +25,11 @@ except:
 L.sort()
 
 for fn in L:
+    if fn == 'geometry.py':
+        continue
     try:
         result = subprocess.run(
-            ['python3',p+fn])
+            ['python3',path+fn])
         print(result.returncode, result.args[1].split('/')[-1])
-    except Error as e:
+    except OSError as e:
         print('error',fn,e)

@@ -1,5 +1,4 @@
 import math
-import path
 import matplotlib.pyplot as plt
 import numpy as np
 import geometry as geo
@@ -27,7 +26,7 @@ D = geo.get_point_perp_on_line_for_point(
 
 # find correct point of tuple by eye
 X = geo.get_intersection_line_segment_circle(
-    [A,D],[Q,r])[0]
+    [A,D],[Q,r])[1]
     
 E = geo.get_point_perp_on_line_for_point(
     B,[A,C])

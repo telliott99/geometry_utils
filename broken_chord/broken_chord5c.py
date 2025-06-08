@@ -1,8 +1,3 @@
-try:
-    import path
-except ModuleNotFoundError:
-    pass
-    
 import sys, random
 import math
 import matplotlib.pyplot as plt

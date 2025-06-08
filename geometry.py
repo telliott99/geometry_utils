@@ -873,7 +873,8 @@ def init():
 
 def write_one_label(P,s,dx=0,dy=0):
     plt.text(P.x+dx,P.y+dy,s,fontstyle='italic',
-        fontsize=16,fontfamily='serif')
+        # 16 looks better, but screws up all the old stuff
+        fontsize=14,fontfamily='serif')
 
 def write_labels(L):
     for e in L:

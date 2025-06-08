@@ -1,4 +1,3 @@
-import path
 import matplotlib.pyplot as plt
 import numpy as np
 import geometry as geo
@@ -51,7 +50,7 @@ Ia2 = geo.get_intersection_for_two_lines(
 geo.draw_line_segments(ax,[[C,Ia2]],ls=':')
 
 #just to confirm
-print(Ia,Ia2)
+# print(Ia,Ia2)
 #147.263,133.156 147.263,133.156
 
 
@@ -61,10 +60,12 @@ E = geo.get_point_perp_on_line_for_point(Ia,[A,C])
 F = geo.get_point_perp_on_line_for_point(Ia,[B,C])
 r2 = geo.get_length([Ia,F])
 
+'''
 print(
     r2,
     geo.get_length([Ia,D]),
     geo.get_length([Ia,E]) )
+'''
 
 # 133.15586082714518 133.15586082714518 133.15586082714515
     

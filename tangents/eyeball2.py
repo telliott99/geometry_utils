@@ -2,7 +2,7 @@
 # either crossing between
 # or originating from a point outside the smaller one
 
-import sys,path
+import sys
 import matplotlib.pyplot as plt
 import numpy as np
 import geometry as geo

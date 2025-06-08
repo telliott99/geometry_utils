@@ -1,4 +1,3 @@
-import path
 import sys, random
 import math
 import matplotlib.pyplot as plt

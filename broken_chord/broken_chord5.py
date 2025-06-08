@@ -1,4 +1,3 @@
-import path
 import matplotlib.pyplot as plt
 import numpy as np
 import geometry as geo
@@ -20,9 +19,8 @@ geo.draw_line_segment(ax,[M,E],ec='r')
 # ----------------------------------------
 
 pL = geo.get_intersection_line_segment_circle([M,E],[Q,r])
-# second one is M, or very close
-# print(M,pL)
-Z = pL[0]
+
+Z = pL[1]
 geo.scatter_points(ax,[Z],s=8)
 
 geo.draw_line_segment(ax,[M,Z],ec='r')
@@ -50,6 +48,7 @@ geo.scatter_points(ax,[dot5,dot6],c='r',s=20)
 geo.scatter_points(ax,[M,A,B,E,D,G,Z],s=8)
 
  
+plt.gca().set_axis_off()
 ofn = '/Users/telliott/Desktop/broken_chord5.png'
 plt.savefig(ofn, dpi=300)
 
