@@ -791,18 +791,32 @@ def rotate_points_around_center_by_angle(pL,Q,theta):
     rL = [Point(P.x+h,P.y+k) for P in pL3]
     return rL
 
-def translate_points(*args,dx=0,dy=0):
-    pL = args[0]
+def translate_points(pL,dx=0,dy=0):
     rL = []
     for p in pL:
         rL.append(Point(p.x+dx,p.y+dy))
     return rL
 
-def mirror_points(*args):
-    pL = args[0]
+def mirror_points(pL,mL,mode='horizontal'):
     rL = []
-    for p in pL:
-        rL.append(Point(-p.x,p.y))
+    d = 10
+    assert len(mL) > 0
+    if len(mL) == 1:
+        M = mL[0]
+        if mode == 'horizontal':
+           #i.e. mirror left-right
+           N = Point(M.x,M.y+d)
+        elif mode == 'vertical':
+           #i.e. mirror up,down
+           N = Point(M.x+10,M.y)
+    else:
+        assert len(mL) == 2
+        M,N = mL
+    
+    for P in pL:
+        Q = get_point_perp_on_line_for_point(P,[M,N])
+        R = get_point_by_fractional_length([P,Q],2.0)
+        rL.append(R)
     return rL
 
 #=======================================
@@ -853,6 +867,25 @@ def get_9point_circle(pL):
     
     rD = { 'N':N, 'r':r, 'P':P, 'Q':Q, 'R':R }
     return rD  
+
+# new challenge, construct a square on a line segment
+# make square on top of [A,B]
+def make_square(pL):
+    A,B = pL
+    
+    # construct perp, arbitrary length
+    S,T = get_perp_at_point_by_fractional_length(
+        [A,B],f=1.0)
+    # T is farther from origin, regardless of orientation!
+    f = get_length([A,B])/get_length([B,T])
+    C = get_point_by_fractional_length([B,T],f)
+    
+    U,V = get_perp_at_point_by_fractional_length(
+        [B,A],f=1.0)
+    # V is farther from origin
+    f = get_length([A,B])/get_length([A,V])
+    D = get_point_by_fractional_length([A,V],f)
+    return A,B,C,D
 
 #=======================================
 

@@ -5,7 +5,7 @@ import numpy as np
 import geometry as geo
 
 fig, ax = geo.init()
-ax.set(xlim=(0,100), ylim=(0,100))
+ax.set(xlim=(-20,100), ylim=(-20,100))
 
 '''
 std functions
@@ -29,30 +29,43 @@ circle = plt.Circle(
 ax.add_patch(circle)
 '''
 
-pL = geo.get_standard_triangle()
-A,B,C = pL
+A = geo.Point(10,10)
+B = geo.Point(60,50)
+C = geo.Point(25,70)
+
+Q,r = geo.get_circumcircle([A,B,C])
+
+circle = plt.Circle(
+    (Q.x,Q.y),r,fc='none',ec='k')
+ax.add_patch(circle)
+
+#need a point on the circle for second chord
+D = geo.get_intersection_line_segment_circle(
+    [C,geo.Point(C.x+10,C.y-40)],[Q,r])[1]
+
+X = geo.get_intersection_for_two_lines([A,B],[C,D])
+
+geo.outline_polygon(ax,[A,C,X])
+geo.fill_polygon(ax,[A,C,X])
+
+geo.outline_polygon(ax,[B,D,X],ec='b')
+geo.fill_polygon(ax,[B,D,X],fc='b',alpha=0.2)
 
 
-
-
-
-
-'''
 
 points = [
-          ['B',A,'SW',6],
-          ['C',B,'SE',2],
-          ['A',C,'NE',2],
+          ['A',A,'SW',6],
+          ['B',B,'SE',2],
+          ['C',C,'NE',2],
           ['D',D,'S',5],
-          ['E',E,'W',4],
-          ['F',F,'W',4],
-         ]
+          ['X',X,'N',4],
+          ]
 
 geo.label_points(points)
-'''
+geo.scatter_points(ax,[A,B,C,D,X],s=10)
 
 #----------
 
 plt.gca().set_axis_off()
-ofn = '/Users/telliott/Desktop/problem.png'
+ofn = '/Users/telliott/Desktop/crossed_chords.png'
 plt.savefig(ofn, dpi=300)

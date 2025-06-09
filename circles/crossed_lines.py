@@ -29,30 +29,32 @@ circle = plt.Circle(
 ax.add_patch(circle)
 '''
 
-pL = geo.get_standard_triangle()
-A,B,C = pL
+A = geo.Point(10,10)
+B = geo.Point(10,60)
+C = geo.Point(50,20)
+D = geo.Point(50,70)
 
-
-
-
-
-
-'''
+geo.draw_line_segments(ax,[[A,B],[C,D]])
+geo.draw_line_segments(ax,[[A,D],[B,C]],ec='r')
+X = geo.get_intersection_for_two_lines([A,D],[B,C])
 
 points = [
-          ['B',A,'SW',6],
-          ['C',B,'SE',2],
-          ['A',C,'NE',2],
-          ['D',D,'S',5],
-          ['E',E,'W',4],
-          ['F',F,'W',4],
-         ]
+          ['A',A,'SW',4],
+          ['B',D,'NE',1],
+          ['C',B,'N',1],
+          ['D',C,'NE',1],
+          ['X',X,'S',6],
+          ]
 
 geo.label_points(points)
-'''
+
+geo.mark_angles(ax,[[A,B,X],[B,C,D]],d=5,c='r',s=20)
+geo.mark_angles(ax,[[B,A,X],[C,D,X]],d=7,c='b',s=20)
+
+geo.scatter_points(ax,[A,B,C,D,X],s=5)
 
 #----------
 
 plt.gca().set_axis_off()
-ofn = '/Users/telliott/Desktop/problem.png'
+ofn = '/Users/telliott/Desktop/crossed_lines.png'
 plt.savefig(ofn, dpi=300)

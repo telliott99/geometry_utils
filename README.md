@@ -1,6 +1,10 @@
-This project is a Python library to use in drawing figures for my geometry textbook.
+This project is a small Python library to use in drawing figures for my geometry textbook.
 
 Here are some figures made using the library:
+
+**Euclid I.47**
+
+<img src="triangles/Pyth_new_1.png" width=300>
 
 **nine point circle**
 
@@ -12,15 +16,15 @@ Here are some figures made using the library:
 
 **eyeball theorem**
 
-<img src="tangents/eyeball1.png" width=400>
+<img src="tangents/eyeball1_crop.png" width=400>
 
-*star of david* **proof of Pythagoras**
+**Heron's theorem**
 
-<img src="tests/example15.png" width=400>
+<img src="bisectors/figures/heron_crop.png" width=400>
 
 **excircle**
 
-<img src="bisectors/excircle.png" width=400>
+<img src="bisectors/figures/excircle_crop3.png" width=400>
 
 There are also a couple of write-ups, including one about Archimedes' broken chord theorem.
 
@@ -28,13 +32,13 @@ The only objects we define are members of the class **Point**, to allow access b
 
 **pL** stands for *point list*, i.e. a list of Point objects.
 
-Intersections between lines and circles are computed by analytic geometry.  We pretend to implement some of Euclid's constructions, but under the hood it is algebra.  
+We pretend to implement some of Euclid's constructions, but intersections between lines and circles are computed by analytic geometry.   Under the hood, it is algebra.  
 
-When there are two such points, the order in which they are returned is (i) the point closest to the line segment first, or (ii) the point closest to the origin.  This can take some fiddling to pick the right point.
+When there are two such points, the order in which they are returned is (i) the point closest to the line segment first, if there is one, or (ii) the point closest to the origin.  In earlier code there was some fiddling to pick the right point.
 
-At present, the output paths for figures are hard-coded so it will require a slight bit of configuration to get it to work on another machine.  That's on my todo list.
+At present, the output paths for figures are hard-coded so it will require a bit of configuration to get it to work on another machine.  That's on my todo list.  The library has a sym link in the sub-folders.
 
-Here are a few examples of the functions we can call:
+Here are some examples of the functions we can call:
 
 ```
 geo.get_intersection_for_two_lines([A,B],[C,D])
@@ -52,4 +56,25 @@ These are from the callee's POV.  In the library's function definition, you cann
 geo.get_intersection_for_two_lines(pL1,pL2)
 ```
 
-and so on.
+Errors can be hard to interpret with matplotlib.  In drawing functions like 
+
+```
+geo.outline_polygon(ax,[A,B,E,D],ec='k')
+geo.draw_line_segments(ax,[[D,F],[C,F]])
+```
+
+If you forget ``ax`` in the first one, the error is:
+
+```
+TypeError: outline_polygon() missing 1 required 
+positional argument: 'pL'
+```
+
+If you forget to make a list of line segments by adding a second pair of brackets in the second one:
+
+```
+TypeError: draw_line_segments() got multiple values 
+for argument 'ec'
+```
+
+Other mistakes with brackets may result in Python trying to access a coordinate like ``P.x`` and complaining that a list doesn't have one.
