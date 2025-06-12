@@ -1,0 +1,34 @@
+Given $\triangle ABC$ is equilateral and its circumcircle is drawn.
+
+Let M be chosen arbitrarily on arc BC and AM drawn.
+
+Draw MD through C | MD = MA and connect AD.
+
+Prove that AM = BM + MC.
+
+Proof.
+
+tri ABC is equilateral so < ACB and < ABC are marked equal (red dots), but not < CAB because the diagram would be too busy.
+
+Given triangle AMD is isosceles with AM = MD given, and the vertex < AMD equal to say, < ABC, the whole triangle is equilateral.  This accounts for the red dot on < ADB.
+
+The angle at M is bisected by AM and the half-angles are those of an equilateral triangle, by inscribed angles on equal arcs.  This accounts for the red dots at M
+
+Hence < MAD = < CAB and then by subtraction < CAM = < BAD, marked with blue dots.  < CBM lies on the same arc as < MAC but we don't need that.
+
+tri AMC has three angles the same as tri ADB and two sides the same AB = AC, particularly AM = AD.  
+
+It follows that the two triangles are congruent with MC = BD.
+
+Then MC + MB = BD + MB = MD = AM
+
+√
+
+Much easier by Ptolemy.
+
+Let the original side lengths be equal to 1.  We have:
+
+MB.1 + MC.1 = AM.1
+Am = MB + MC
+
+√

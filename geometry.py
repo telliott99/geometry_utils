@@ -90,6 +90,79 @@ def get_standard_triangle(mode='acute'):
     if mode == 'equilateral':
         return A,K,Point(50,50*3**0.5)
 
+# new challenge, construct a square on a line segment
+# make square on top of [A,B]
+def make_square(pL):
+    A,B = pL
+    
+    # construct perp, arbitrary length
+    S,T = get_perp_at_point_by_fractional_length(
+        [A,B],f=1.0)
+    # T is farther from origin, regardless of orientation!
+    f = get_length([A,B])/get_length([B,T])
+    C = get_point_by_fractional_length([B,T],f)
+    
+    U,V = get_perp_at_point_by_fractional_length(
+        [B,A],f=1.0)
+    # V is farther from origin
+    f = get_length([A,B])/get_length([A,V])
+    D = get_point_by_fractional_length([A,V],f)
+    return A,B,C,D
+
+
+def get_point_for_cyclic_quadrilateral(P,pL,m=1.0):
+    A = P
+    B,C = pL
+    Q,r = get_circumcircle([A,B,C])
+    circle = plt.Circle(
+        (Q.x,Q.y),r,fc='none',ec='k')
+    
+    k = get_intercept_for_point_slope(A,m)
+    rL = get_intersection_slope_intercept_circle(
+        m,k,[Q,r])
+    rL = order_points_by_distance_from_point(
+        rL,point=origin)
+    return rL[1]
+
+def get_pentagon(O,r):
+
+    # get its diameter
+    A,L = get_horizontal_intercept_for_circle_point(
+        [O,r],O)
+        
+    # find the point at the top
+    S = Point(O.x,O.y+r)
+    
+    # so as to bisect that radius
+    P = get_point_by_fractional_length([O,S],0.5)
+    
+    # the key construct, bisect < APO
+    tmp = bisect_angle_Euclid(P,[O,A])
+    
+    # find where the bisector cuts the diameter
+    Q = get_intersection_for_two_lines([P,tmp],[A,O])
+    
+    # go up/down vertically to find points of the pentagon
+    B,E = get_intersection_line_segment_circle(
+        [Q,Point(Q.x,Q.y+10)]
+        ,[O,r])
+    
+    # we want a right angle at P
+    tmp = get_perp_at_point_by_fractional_length(
+        [Q,P],1.0)
+    
+    # find where it intersects with the diameter
+    R = get_intersection_for_two_lines(tmp,[A,O])
+    
+    # we want a vertical through R
+    tmp = Point(R.x,R.y+10)
+    D,C = get_intersection_line_segment_circle([R,tmp],[O,r])
+    
+    rD = {'vertices':[A,B,C,D,E],
+          'extras':[L,P,Q,R,S] }
+
+    return rD
+
 #---------------------------------------
 
 def get_random_points(n=3,N=100):
@@ -470,24 +543,6 @@ def get_incenter_and_bisectors(pL):
    
 #=======================================
 
-def get_point_reflected_on_diameter(A,cL):
-    Q,r = cL
-    return get_point_by_fractional_length(
-        [A,Q],2.0)
-
-def get_point_on_circle_at_distance_for_point(cL,d,A):
-    Q,r = cL
-    rL = get_intersection_circle_circle(cL,[A,d])
-    return rL
-    
-def get_horizontal_intercept_for_circle_point(cL,A):
-    Q,r = cL
-    m = 0
-    k = A.y
-    return get_intersection_slope_intercept_circle(m,k,cL)
-
-#---------------------------------------
-
 # points where 
 # line meets circle
 # circles cross
@@ -520,15 +575,17 @@ np.roots([A,B,C])
 # use cL = [Q,r]
 # for line segment and circle, solve derivation above
 
+# note this fails for v.large slopes and v.negative intercepts
+
 def get_intersection_slope_intercept_circle(m,k,cL):
     Q,r = cL
     x0,y0 = Q.x,Q.y
-    
+        
     A = 1 + m**2
     B = 2*(m*(k-y0) - x0)
     C = x0**2 + (k-y0)**2 - r**2
     
-    roots = np.roots([A,B,C])
+    roots = np.roots([A,B,C])    
     if any(np.iscomplex(roots)):
         return []
         
@@ -537,6 +594,11 @@ def get_intersection_slope_intercept_circle(m,k,cL):
     
     rL = get_points_for_XY(X,Y)
     return rL
+
+
+#---------------------------------------
+
+
 
 # P,Q are on A,B or its extension
 # at most, only one should be in [A,B]
@@ -606,6 +668,7 @@ def get_intersection_circle_circle(cL1,cL2):
     rL = order_points_by_distance_from_point(rL,point=origin)    
     return rL
     
+
 #---------------------------------------
 
 # tangent by Euclid's method
@@ -624,7 +687,7 @@ def get_tangent_points_on_circle_for_point(cL1,P):
 
 # more circle utilities
 
-def get_chord_for_point_on_circle_with_length(ax,cL1,P,d):
+def get_chord_for_point_on_circle_with_length(cL1,P,d):
     Q,r = cL1
 
     cL2 = [P,d]
@@ -654,6 +717,45 @@ def find_midpoint_of_arc(pL,cL,major=True):
             return M2
         else:
             return M1
+
+#---------------------------------------
+
+
+def get_point_reflected_on_diameter(A,cL):
+    Q,r = cL
+    return get_point_by_fractional_length(
+        [A,Q],2.0)
+
+def get_point_on_circle_at_distance_for_point(cL,d,A):
+    Q,r = cL
+    rL = get_intersection_circle_circle(cL,[A,d])
+    return rL
+    
+def get_horizontal_intercept_for_circle_point(cL,A):
+    Q,r = cL
+    m = 0
+    k = A.y
+    pL = get_intersection_slope_intercept_circle(m,k,cL)
+    pL = order_points_by_distance_from_point(
+        pL,point=A)
+    return pL
+
+'''
+
+# the call to get_intersection... gets complex roots
+# so the whole idea fails
+
+def get_vertical_intercept_for_circle_point(cL,A):
+    Q,r = cL
+    m = big_number
+    k = get_intercept_for_point_slope(A,m)
+    pL = get_intersection_slope_intercept_circle(m,k,cL)
+    print('get_vertical',pL)
+    pL = order_points_by_distance_from_point(
+        pL,point=A)
+    return pL
+
+'''
 
 #---------------------------------------
 
@@ -867,25 +969,6 @@ def get_9point_circle(pL):
     
     rD = { 'N':N, 'r':r, 'P':P, 'Q':Q, 'R':R }
     return rD  
-
-# new challenge, construct a square on a line segment
-# make square on top of [A,B]
-def make_square(pL):
-    A,B = pL
-    
-    # construct perp, arbitrary length
-    S,T = get_perp_at_point_by_fractional_length(
-        [A,B],f=1.0)
-    # T is farther from origin, regardless of orientation!
-    f = get_length([A,B])/get_length([B,T])
-    C = get_point_by_fractional_length([B,T],f)
-    
-    U,V = get_perp_at_point_by_fractional_length(
-        [B,A],f=1.0)
-    # V is farther from origin
-    f = get_length([A,B])/get_length([A,V])
-    D = get_point_by_fractional_length([A,V],f)
-    return A,B,C,D
 
 #=======================================
 

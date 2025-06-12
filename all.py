@@ -14,11 +14,6 @@ path += directory
 L = os.listdir(path)
 L = [f for f in L if f.endswith('.py')]
 
-try:
-    L.remove('path.py')
-except:
-    pass
-
 # lexicographical sort:
 # 1 10 11 .. 2 21 .. 3 4
 

@@ -34,18 +34,12 @@ A,B,C = pL
 
 
 
-
-
-
 '''
 
 points = [
-          ['B',A,'SW',6],
-          ['C',B,'SE',2],
-          ['A',C,'NE',2],
-          ['D',D,'S',5],
-          ['E',E,'W',4],
-          ['F',F,'W',4],
+          ['A',A,'N',0],
+          ['B',B,'N',0],
+          ['C',C,'N',0],
          ]
 
 geo.label_points(points)

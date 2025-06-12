@@ -85,16 +85,15 @@ geo.label_points([('A',A,'SW',10),
                   ('Y',Y,'W',8),
                   ('Z',Z,'S',8),
                   ('I',I,'N',5),
-                  ('Ia',Ia,'S',8),
+                  ('N',Ia,'S',8),
                   ])
 
 # ----------------------------------------
 
-'''
+
 geo.fill_polygon(ax,[I,Z,B],fc='r',alpha=0.5)
 geo.fill_polygon(ax,[Ia,B,D],fc='b',alpha=0.5)
 geo.outline_polygon(ax,[A,B,C],ec='red')
-'''
 
 geo.scatter_points(ax,[A,B,C,I,Ia,D,E,F,X,Y,Z])
 

@@ -1,0 +1,24 @@
+Given that $ABDC$ is a cyclic quadrilateral.
+
+Let $BD$ bisect $\angle CBE$.  Prove that $DC = DA$.
+
+Proof.
+
+We will show that $\angle DCA = \angle DAC$.
+
+Let $\beta$ be one-half the bisected external angle.
+
+\[ \beta $\angle DBE \]
+
+$\angle DAC$ is on arc $CD$ so $\angle DAC = \beta$.
+
+$\angle DCA$ is supplementary to $\angle ABD$ by the fundamental theorem of the cyclic quadrilateral
+
+And then $\angle ABD$ supplementary to $\beta$ on the straight line $ABE$.
+
+So $\angle DCA = \beta = \angle DAC$.
+
+It follows that $\triangle DCA$ is isosceles, with $DC = DA$.
+
+$\square$
+

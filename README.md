@@ -4,7 +4,7 @@ Here are some figures made using the library:
 
 **Euclid I.47**
 
-<img src="triangles/Pyth_new_1.png" width=300>
+<img src="theorems/Pyth_new_1.png" width=300>
 
 **nine point circle**
 
@@ -20,11 +20,15 @@ Here are some figures made using the library:
 
 **Heron's theorem**
 
-<img src="bisectors/figures/heron_crop.png" width=400>
+<img src="excircles/figures/heron_crop.png" width=400>
 
 **excircle**
 
-<img src="bisectors/figures/excircle_crop3.png" width=400>
+<img src="excircles/figures/excircle_crop3.png" width=400>
+
+**similar triangles**
+
+<img src="triangles/right_tri_similarity.png" width=400>
 
 There are also a couple of write-ups, including one about Archimedes' broken chord theorem.
 
@@ -78,3 +82,7 @@ for argument 'ec'
 ```
 
 Other mistakes with brackets may result in Python trying to access a coordinate like ``P.x`` and complaining that a list doesn't have one.
+
+```
+AttributeError: 'tuple' object has no attribute 'x'
+```
