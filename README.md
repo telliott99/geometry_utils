@@ -1,5 +1,7 @@
 This project is a small Python library to use in drawing figures for my geometry textbook.
 
+Here is a [list](list.txt) of the functions defined there.
+
 Here are some figures made using the library:
 
 **Euclid I.47**

@@ -3,119 +3,81 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 import geometry as geo
+import isoutils as iso
 
 fig, ax = geo.init()
-ax.set(xlim=(0,120), ylim=(-10,100))
+ax.set(xlim=(-5,180), ylim=(-5,100))
 
-pL = geo.get_standard_triangle(mode='isosceles')
-A,B,C = pL
-lw = 2
-SZ = 22
-
-geo.outline_polygon(ax,[A,B,C],lw=lw)
-geo.fill_polygon(ax,[A,B,C])
+A = geo.Point(0,0)
+B = geo.Point(40,0)
+C = geo.Point(20,45)
          
-points = [
-          ['A',A,'W',6],
-          ['B',B,'E',2],
-          ['C',C,'NW',3],
-         ]
+K,L,M = geo.translate_points(
+    [A,B,C],dx=60)
 
-geo.label_points(points,SZ=SZ)
+S,T,U = geo.translate_points(
+    [A,B,C],dx=120)
 
-def mark_base_angles(ax,pL):
-    A,B,C = pL
-    aL = [[C,A,B],[C,B,A]]
-    geo.mark_angles(ax,aL,d=5,c='k',s=25)
+#-------------------------------
 
-def mark_top_angles(ax,pL,D):
-    A,B,C = pL
-    aL = [[A,C,D],[B,C,D]]
-    geo.mark_angles(ax,aL,d=10,c='r',s=25)
+f = iso.call_func
+tL = [[A,B,C],[K,L,M],[S,T,U]]
+L = [A,B,C,K,L,M,S,T,U]
 
-def mark_right_angle(ax,pL,D):
-    A,B,C = pL
-    box = geo.mark_right_angle(D,[C,B])
-    geo.outline_polygon(ax,box,ec='k')
 
-def draw_vertical(ax,pL,D):
-    A,B,C = pL
-    geo.draw_line_segment(ax,[C,D])
-
-def mark_side_at_point(ax,pL,P):
-    A,B = pL
+def panel_a():
+    f(ax,tL,geo.outline_polygon)
+    f(ax,tL,geo.fill_polygon)  
+    f(ax,tL,iso.mark_sides)
+    f(ax,tL[1:],iso.draw_vertical)
+    f(ax,tL[1:],iso.mark_top_angles)
+    f(ax,tL[2:],iso.mark_base_angles)
+    f(ax,tL[2:],iso.mark_right_angles)
+    f(ax,tL[2:],iso.mark_bases)
+    #geo.scatter_points(ax,L,s=8)
     
-    # we don't have get_perp_at_point yet
-    m = geo.get_length([A,P])
-    n = geo.get_length([A,B])
-    f = m/n
-    S,T = geo.get_perp_at_point_by_fractional_length(
-        pL,f)
-        
-    length = geo.get_length([P,S])
-    d = 4
-    f = d/length 
-      
-    U = geo.get_point_by_fractional_length([P,S],f)
-    length = geo.get_length([P,T])
-    f = d/length   
-    V = geo.get_point_by_fractional_length([P,T],f)
-    geo.draw_line_segment(ax,[U,V],lw=2)
 
-def mark_side_once(ax,pL):
-    A,B = pL
-    P = geo.get_point_by_fractional_length([A,B],0.5)
-    mark_side_at_point(ax,[A,B],P)
+def panel_b():
+    f(ax,tL,geo.outline_polygon)
+    f(ax,tL,geo.fill_polygon)  
+    f(ax,tL,iso.mark_base_angles)
+    f(ax,tL[1:],iso.mark_top_angles)
+    f(ax,tL[1:],iso.draw_vertical)
+    f(ax,tL[2:],iso.mark_sides)
+    f(ax,tL[2:],iso.mark_right_angles)
+    f(ax,tL[2:],iso.mark_bases)
+    #geo.scatter_points(ax,L,s=8)
+
+
+def panel_c():
+    pL1 = tL[0]
+    pL2 = tL[1]
     
-def mark_sides(ax,pL):
-    A,B,C = pL
-    mark_side_once(ax,[A,C])
-    mark_side_once(ax,[B,C])
+    f(ax,tL[:2],geo.outline_polygon)
+    f(ax,tL[:2],geo.fill_polygon)  
+    f(ax,tL[:2],iso.mark_sides)
+    f(ax,tL[:2],iso.draw_vertical)
 
-def mark_side_twice(ax,pL):
-    A,B = pL
-    delta = 0.02
-    P = geo.get_point_by_fractional_length([A,B],0.5+delta)
-    mark_side_at_point(ax,[A,B],P)
-    Q = geo.get_point_by_fractional_length([A,B],0.5-delta)
-    mark_side_at_point(ax,[A,B],Q)
+    f(ax,[tL[0]],iso.mark_right_angles)
+    f(ax,[tL[1]],iso.mark_bases)
+    #geo.scatter_points(ax,L[:6],s=8)
+
+
+def panel_d():
+    pL1 = tL[0]
+    pL2 = tL[1]
     
-def mark_base(ax,pL,D):
-    A,B,C = pL
-    mark_side_twice(ax,[D,B])
-    mark_side_twice(ax,[A,D])
+    f(ax,tL[:2],geo.outline_polygon)
+    f(ax,tL[:2],geo.fill_polygon)  
+    f(ax,tL[:2],iso.mark_base_angles)
+    f(ax,tL[:2],iso.draw_vertical)
 
-def show_P(ax,P):
-    geo.write_one_label(P,'D',dx=0,dy=-9,SZ=SZ)  
-    #geo.scatter_points(ax,[P])
-
-def all(ax,pL,P):
-    A,B,C = pL
-    draw_vertical(ax,[A,B,C],D)
-    show_P(ax,P)  
-    mark_top_angles(ax,[A,B,C],P)
-    mark_base_angles(ax,[A,B,C])  
-    mark_right_angle(ax,[A,B,C],P)
-    mark_base(ax,[A,B,C],P)
+    f(ax,[tL[0]],iso.mark_right_angles)
+    f(ax,[tL[1]],iso.mark_bases)
+    #geo.scatter_points(ax,L[:6],s=8)
 
 
-D = geo.get_point_by_fractional_length([A,B],0.5)
-
-mark_sides(ax,[A,B,C])
-
-draw_vertical(ax,[A,B,C],D)
-show_P(ax,D)
-# mark_top_angles(ax,[A,B,C],D)
-
-#all(ax,[A,B,C],D)
-
-# mark_base_angles(ax,[A,B,C])
-
-mark_base(ax,[A,B,C],D)
-
-geo.scatter_points(ax,[A,B,C],s=10)
-
-#mark_right_angle(ax,[A,B,C],D)
+panel_a()
 
 #----------
 
