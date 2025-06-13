@@ -86,7 +86,7 @@ def get_standard_triangle(mode='acute'):
     if mode == 'obtuse':
         return F,G,Point(90,0)
     if mode == 'isosceles':
-        return Point(10,0),Point(90,0),Point(50,90)
+        return Point(10,0),Point(90,0),Point(50,80)
     if mode == 'equilateral':
         return A,K,Point(50,50*3**0.5)
 
@@ -187,7 +187,7 @@ c color
 '''
 
 # standard point size SZ 
-POINT_SZ = 15
+POINT_SZ = 8
 
 # keep interface simple
 # if we need to we can always call matplotlib directly
@@ -365,6 +365,7 @@ def get_intersection_for_two_lines(pL1,pL2):
 
 # starting with point A and line segment BC
 # find point P on BC or its extension, such that AP perp BC
+# A may not be *on* BC
 
 def get_point_perp_on_line_for_point(A,pL):
     B,C = pL
@@ -987,20 +988,23 @@ def init():
 
 # original method
 
-def write_one_label(P,s,dx=0,dy=0):
+def write_one_label(P,s,dx=0,dy=0,SZ='none'):
+    if SZ == 'none':
+        SZ = 14
+
     plt.text(P.x+dx,P.y+dy,s,fontstyle='italic',
         # 16 looks better, but screws up all the old stuff
-        fontsize=14,fontfamily='serif')
+        fontsize=SZ,fontfamily='serif')
 
-def write_labels(L):
+def write_labels(L,SZ='none'):
     for e in L:
         P,s = e[0:2]
         try:
             dx,dy = e[2:4]
-            write_one_label(P,s,dx,dy)
+            write_one_label(P,s,dx,dy,SZ=SZ)
         except ValueError:
             dx,dy = 0,0
-        write_one_label(P,s,dx,dy)
+        write_one_label(P,s,dx,dy,SZ=SZ)
         
 # new approach
 
@@ -1018,11 +1022,11 @@ def nudge(P,mode='none',f=1.0):
     elif mode == 'NW':  x -= 1 * f; y += 1 * f
     return Point(x,y)
 
-def label_points(points):
+def label_points(points,SZ='none'):
     for sL in points:
         s,P,mode,how_far = sL
         tmp = nudge(P,mode=mode,f=how_far)
-        write_one_label(tmp,s)
+        write_one_label(tmp,s,SZ=SZ)
 
 # dots to show equal angles
 
