@@ -12,7 +12,8 @@ A = geo.Point(10,10)
 B = geo.Point(50,10)
 C = geo.get_point_by_fractional_length([A,B],2.0)
 
-E,D = geo.make_square([A,B])[2:]
+# default is square
+E,D = geo.get_rectangle([A,B],)[2:]
 F = geo.Point(C.x,D.y)
 
 geo.draw_line_segments(

@@ -16,7 +16,16 @@ bugs:
 
 '''
 
-#---------------------------------------
+#=======================================
+
+# initialization code for matplotlib
+
+def init():
+    fig, (ax) = plt.subplots(
+        subplot_kw = {'aspect': 'equal'})
+    ax.set(xlim=(-10, 110), ylim=(-10, 110))
+    return fig,ax
+
 
 # Point is the only *class* defined in this library
 
@@ -66,7 +75,10 @@ to specify vertices in the same direction, CCW
 also, ordering points on a circle
 '''
 
-#---------------------------------------
+
+#=======================================
+
+# polygon constructions
 
 def get_standard_triangle(mode='acute'):
     A = Point(0,0)
@@ -90,22 +102,30 @@ def get_standard_triangle(mode='acute'):
     if mode == 'equilateral':
         return A,K,Point(50,50*3**0.5)
 
-# new challenge, construct a square on a line segment
-# make square on top of [A,B]
-def make_square(pL):
+# construct a rectangle on a line segment
+def get_rectangle(pL,aspect_ratio=1.0):
     A,B = pL
+    base = get_length([A,B])
+    height = aspect_ratio*base
     
-    # construct perp, arbitrary length
+    # construct perp of arbitrary length at B
     S,T = get_perp_at_point_by_fractional_length(
         [A,B],f=1.0)
+        
     # T is farther from origin, regardless of orientation!
-    f = get_length([A,B])/get_length([B,T])
+    f = height/get_length([B,T])
     C = get_point_by_fractional_length([B,T],f)
     
+    # another way to do the rest
+    # draw AC and bisect it
+    # get the point at fractional length 2.0
+    
+    # do the same at A
     U,V = get_perp_at_point_by_fractional_length(
         [B,A],f=1.0)
+        
     # V is farther from origin
-    f = get_length([A,B])/get_length([A,V])
+    f = height/get_length([A,V])    
     D = get_point_by_fractional_length([A,V],f)
     return A,B,C,D
 
@@ -175,7 +195,8 @@ def get_random_points(n=3,N=100):
         rL.append(Point(x,y))
     return rL
 
-#---------------------------------------
+#=======================================
+
 
 '''
 abbreviations
@@ -222,7 +243,9 @@ def fill_polygon(ax,pL,fc='r',alpha=0.10):
 def outline_polygon(ax,pL,ec='red',lw=1):
     draw_chained_line_segments(ax,pL,ec=ec,lw=lw)
 
-#---------------------------------------
+
+#=======================================
+
 
 # to give slope near enough to straight up
 big_number = 1000000
@@ -262,7 +285,7 @@ def get_length(pL):
         return abs(dx)
     return (dx**2 + dy**2)**0.5
 
-#---------------------------------------
+#=======================================
 
 # slopes
 # slope for a line segment
@@ -301,7 +324,7 @@ def get_point_by_fractional_length(pL,f):
 # the code below works sometimes, but it fails b/c
 # it goes in the wrong direction depending on orientation of points
 
-# a workaround is to calculate f = d/get_length([A,B])
+# the workaround is to calculate f = d/get_length([A,B])
 # and then do get_point_by_fractional_length(pL,f)
 # as long as A ne B then get_length is not 0
 
@@ -337,7 +360,11 @@ def get_slope_intercept_for_two_points(pL):
     m = get_slope_for_two_points(pL)
     k = get_intercept_for_point_slope(A,m)
     return m,k
-    
+
+
+#=======================================
+
+
 # find intersection of two line segments (or their extensions)
 # for slope-intercept definitions
 
@@ -364,7 +391,7 @@ def get_intersection_for_two_lines(pL1,pL2):
 #---------------------------------------
 
 # starting with point A and line segment BC
-# find point P on BC or its extension, such that AP perp BC
+# find point P on BC *or its extension*, such that AP perp BC
 # A may not be *on* BC
 
 def get_point_perp_on_line_for_point(A,pL):
@@ -393,6 +420,8 @@ def get_point_perp_on_line_for_point(A,pL):
 # construct perp at fraction f of line segment
 # (even outside of line segment)
 
+# length is arbitrary, caller should adjust later
+
 def get_perp_at_point_by_fractional_length(pL,f=0.5):
     B,C = pL
     if f < 0.5:
@@ -406,6 +435,7 @@ def get_perp_at_point_by_fractional_length(pL,f=0.5):
     
     # one point is "above" BC and one below
     # we've been given no reason to prefer a particular order
+    
     return rL
 
 #=======================================
@@ -550,6 +580,8 @@ def get_incenter_and_bisectors(pL):
 # tangent line meets circle
 
 '''
+derivation:
+
 intersection of line
 y = mx + k
 
@@ -598,7 +630,6 @@ def get_intersection_slope_intercept_circle(m,k,cL):
 
 
 #---------------------------------------
-
 
 
 # P,Q are on A,B or its extension
@@ -670,7 +701,7 @@ def get_intersection_circle_circle(cL1,cL2):
     return rL
     
 
-#---------------------------------------
+#=======================================
 
 # tangent by Euclid's method
 
@@ -741,28 +772,32 @@ def get_horizontal_intercept_for_circle_point(cL,A):
         pL,point=A)
     return pL
 
-'''
-
-# the call to get_intersection... gets complex roots
-# so the whole idea fails
-
 def get_vertical_intercept_for_circle_point(cL,A):
     Q,r = cL
-    m = big_number
-    k = get_intercept_for_point_slope(A,m)
-    pL = get_intersection_slope_intercept_circle(m,k,cL)
-    print('get_vertical',pL)
+    #m = big_number
+    #k = get_intercept_for_point_slope(A,m)
+    
+    # the call to get_intersection... gets complex roots
+    # so the whole idea fails
+    #pL = get_intersection_slope_intercept_circle(m,k,cL)
+    
+    
+    # better to just compute y
+    x = A.x
+    y = math.sqrt(r**2 - x**2)
+    B = Point(A.x,Q.y+y)
+    C = Point(A.x,Q.y-y)
+    
     pL = order_points_by_distance_from_point(
-        pL,point=A)
+        [B,C],point=A)
     return pL
-
-'''
 
 #---------------------------------------
 
 # angles
 
 '''
+law of cosines
 
 u dot v = uv cos theta
 
@@ -775,7 +810,7 @@ c^2 = a^2 + b^2 - 2ab cos C
 
 '''
 
-# vertex comes first to keep things straight
+# vertex comes first to help keep things straight
 # A is the vertex, pL has other two points
 
 
@@ -817,19 +852,14 @@ def bisect_angle_Euclid(A,pL):
     # make sure K is in [A,B], L in [A,C]
     r1 = get_length([A,B])
     r2 = get_length([A,C])
+    
+    # distance to point on bisector is arbitrary
+    # we adjust this below
+    
     r = min(r1,r2)*0.3
     
     # get equidistant points from A on AB and AC
-    
-    # problem with 
-    # get_intersection_line_segment_circle
-    # it was (originally) indeterminate in which point is returned first
-    
-    # if P is closer to B or C than Q is
-    # returns P first
-    
-    # we need to be sure this returns the correct point first
-    
+        
     '''
     K = get_intersection_line_segment_circle(
         [A,B],[A,r])[0]
@@ -847,7 +877,8 @@ def bisect_angle_Euclid(A,pL):
         [A,C],d/get_length([A,C]))
           
     '''     
-    rho = 1.5 * get_length([K,L])     
+    rho = 1.5 * get_length([K,L]) 
+        
     # in principle either point gives a good line
     P,Q = get_intersection_circle_circle(
         [K,rho],[L,rho])
@@ -887,6 +918,7 @@ def rotate_point_list(pL,theta):
 # add Q back again
 
 # theta in degrees
+
 def rotate_points_around_center_by_angle(pL,Q,theta):
     h,k = Q.x,Q.y
     pL2 = [Point(P.x-h,P.y-k) for P in pL]
@@ -920,6 +952,16 @@ def mirror_points(pL,mL,mode='horizontal'):
         Q = get_point_perp_on_line_for_point(P,[M,N])
         R = get_point_by_fractional_length([P,Q],2.0)
         rL.append(R)
+    return rL
+
+def expand_triangle(pL,f=1.0):
+    A,B,C = pL
+    Q,r = get_circumcircle([A,B,C])
+    rL = []
+    for P in pL:
+        new_point = get_point_by_fractional_length(
+            [Q,P],f)
+        rL.append(new_point)
     return rL
 
 #=======================================
@@ -972,17 +1014,6 @@ def get_9point_circle(pL):
     return rD  
 
 #=======================================
-
-# initialization code for matplotlib
-
-def init():
-    fig, (ax) = plt.subplots(
-        subplot_kw = {'aspect': 'equal'})
-    ax.set(xlim=(-10, 110), ylim=(-10, 110))
-    return fig,ax
-
-#---------------------------------------
-
 
 # labels and marks
 
@@ -1051,7 +1082,8 @@ def mark_angles(ax,aL,d=5,c='k',s=20):
 
 
 # had trouble with approaches computing angles
-# this works easily
+
+# this works easily, predates get_rectangle routine
 # same trick to turn d into a fractional length
 # solves issue of which way new point is from A
 
