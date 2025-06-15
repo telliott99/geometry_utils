@@ -19,7 +19,7 @@ B = geo.get_point_reflected_on_diameter(A,[Q,r])
 # CCW first
 pL = geo.get_point_on_circle_at_distance_for_point(
     [Q,r],40,B)
-C = pL[1]
+C = pL[0]
     
 circle = plt.Circle(
     (Q.x,Q.y),r,fc='none',ec='k')

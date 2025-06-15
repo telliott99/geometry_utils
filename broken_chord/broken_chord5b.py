@@ -26,6 +26,7 @@ geo.draw_line_segment(ax,[M,E],ec='r')
 geo.scatter_points(ax,[M,A,G,B,D,E],s=8)
 
 pL = geo.get_intersection_line_segment_circle([M,E],[Q,r])
+
 # second one is M, or very close
 # print(M,pL)
 Z = pL[1]

@@ -61,7 +61,7 @@ points = [
           ['F',F,'SW',8],
          ]
 
-geo.label_points(points,s=16)
+geo.label_points(points,SZ=16)
 
 geo.scatter_points(ax,[A,B,C,D,E,F])
 geo.scatter_points(ax,[H],c='r',s=20)

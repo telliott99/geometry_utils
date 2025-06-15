@@ -17,7 +17,7 @@ ax.add_patch(circle)
 A,B = geo.get_horizontal_intercept_for_circle_point(
     [Q,r],geo.Point(10,20))
 C = geo.get_point_on_circle_at_distance_for_point(
-    [Q,r],80,A)[1]
+    [Q,r],80,A)[0]
 
 geo.outline_polygon(ax,[A,B,C])
 geo.fill_polygon(ax,[A,B,C])

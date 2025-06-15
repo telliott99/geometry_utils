@@ -20,11 +20,10 @@ circle2 = plt.Circle(
 ax.add_patch(circle2)
 
 # S,T on Q1
-# somehow, order of return changed
-[T,S] = geo.get_tangent_points_on_circle_for_point(
+[S,T] = geo.get_tangent_points_on_circle_for_point(
     [Q1,r1],Q2)
 
-[V,U] = geo.get_tangent_points_on_circle_for_point(
+[U,V] = geo.get_tangent_points_on_circle_for_point(
     [Q2,r2],Q1)
 
 geo.scatter_points(ax,[Q1,Q2,S,T,U,V])
@@ -39,14 +38,16 @@ geo.draw_line_segments(
     ax,[[Q2,S],[Q2,T],[Q1,U],[Q1,V]],ec='r')
 
 C = geo.get_intersection_line_segment_circle(
-    [Q2,S],[Q2,r2])[1]
+    [Q2,S],[Q2,r2])[0]
+    
+# why different order?
 D = geo.get_intersection_line_segment_circle(
     [Q2,T],[Q2,r2])[1]
    
 A = geo.get_intersection_line_segment_circle(
-    [Q1,U],[Q1,r1])[0]
+    [Q1,U],[Q1,r1])[1]
 B = geo.get_intersection_line_segment_circle(
-    [Q1,V],[Q1,r1])[0]
+    [Q1,V],[Q1,r1])[1]
 
 geo.scatter_points(ax,[A,B,C,D])
 

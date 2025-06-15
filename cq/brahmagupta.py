@@ -7,8 +7,10 @@ import geometry as geo
 fig, ax = geo.init()
 ax.set(xlim=(-30,120), ylim=(-30,120))
 
-pL = geo.get_cyclic_quadrilateral()
-A,B,K,C = pL
+A,B,C = geo.get_standard_triangle()
+
+K = geo.get_point_for_cyclic_quadrilateral(
+    A,[B,C],m=0.6)
 
 geo.outline_polygon(ax,[A,B,C])
 geo.fill_polygon(ax,[A,B,C])
@@ -25,6 +27,7 @@ geo.draw_line_segments(ax,[[A,K],[B,K],[C,K]])
 
 # find the vertical from D to another side
 M = geo.get_point_perp_on_line_for_point(D,[A,B])
+
 N = geo.get_intersection_for_two_lines(
     [D,M],[C,K])
     

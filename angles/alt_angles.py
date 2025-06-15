@@ -33,7 +33,7 @@ geo.draw_line_segments(ax,[[C,M],[C,N]])
 geo.draw_line_segment(ax,rL,ls=':',ec='gray')
 
 geo.mark_angles(ax,
-    [[A,B,C],[rL[0],C,N],[B,C,rL[1]]],c='r')
+    [[A,B,C],[rL[1],C,N],[B,C,rL[0]]],c='r')
 
 geo.mark_angles(ax,
     [[C,A,B],[rL[0],C,A]],c='b')

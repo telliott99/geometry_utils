@@ -6,12 +6,23 @@ import numpy as np
 '''
 todo:
 
+the main thing:
+when two points are to be returned by a routine
+figure out a policy for which one comes first
+and enforce it
+
+
+
 compute distance to mark equal angles
 based on the actual angle!
 
 would be nice to place point labels automatically
 
 bugs:
+
+linestyles don't always look the same w/different angles
+
+https://matplotlib.org/stable/gallery/lines_bars_and_markers/linestyles.html
 
 
 '''
@@ -101,7 +112,44 @@ def get_standard_triangle(mode='acute'):
         return Point(10,0),Point(90,0),Point(50,80)
     if mode == 'equilateral':
         return A,K,Point(50,50*3**0.5)
+    
 
+# implementing CCW test
+
+def is_above(A,pL):
+    B,C = pL
+    dx, dy = get_deltas(pL)
+    if dx == 0:
+        return False
+    theta = math.degrees(math.atan(dy/dx)) 
+    
+    # rotate [B,C] to be horizontal   
+    A,B,C = rotate_points_around_center_by_angle(
+        [A,B,C],B,-theta)
+    # then just check y
+    return A.y > B.y
+   
+def CCW_point_first(pL,rL):
+    if len(rL) < 2:
+        p = rL
+        return [p]
+    assert len(rL) == 2
+    p,q = rL
+    if is_above(p,pL):
+        return p,q  
+    return q,p
+
+def get_point_with_base_angle_length(pL,theta,r):
+    A,B = pL
+    S,T = get_points_at_angle_to_line(theta,[A,B])
+    d = get_length([B,S])
+    
+    U = get_point_by_fractional_length([A,S],r/d)
+    V = get_point_by_fractional_length([A,T],r/d)
+    
+    rL = CCW_point_first(pL,[U,V])
+    return rL
+    
 # construct a rectangle on a line segment
 def get_rectangle(pL,aspect_ratio=1.0):
     A,B = pL
@@ -110,25 +158,24 @@ def get_rectangle(pL,aspect_ratio=1.0):
     
     # construct perp of arbitrary length at B
     S,T = get_perp_at_point_by_fractional_length(
-        [A,B],f=1.0)
-        
-    # T is farther from origin, regardless of orientation!
-    f = height/get_length([B,T])
-    C = get_point_by_fractional_length([B,T],f)
+        [A,B],f=1.0)        
+    f = height/get_length([B,S])
+    C = get_point_by_fractional_length([B,S],f)
     
     # another way to do the rest
     # draw AC and bisect it
     # get the point at fractional length 2.0
     
     # do the same at A
+    # U should be "above" AB
     U,V = get_perp_at_point_by_fractional_length(
-        [B,A],f=1.0)
+        [A,B],f=0)
         
-    # V is farther from origin
-    f = height/get_length([A,V])    
-    D = get_point_by_fractional_length([A,V],f)
+    f = height/get_length([A,U])    
+    D = get_point_by_fractional_length([A,U],f)
     return A,B,C,D
 
+# go to circumcircle for ABC through A at slope m
 
 def get_point_for_cyclic_quadrilateral(P,pL,m=1.0):
     A = P
@@ -324,7 +371,7 @@ def get_point_by_fractional_length(pL,f):
 # the code below works sometimes, but it fails b/c
 # it goes in the wrong direction depending on orientation of points
 
-# the workaround is to calculate f = d/get_length([A,B])
+# one workaround is to calculate f = d/get_length([A,B])
 # and then do get_point_by_fractional_length(pL,f)
 # as long as A ne B then get_length is not 0
 
@@ -387,6 +434,13 @@ def get_intersection_for_two_lines(pL1,pL2):
     m1,k1 = get_slope_intercept_for_two_points([A,B])
     m2,k2 = get_slope_intercept_for_two_points([P,Q])
     return get_intersection_for_two_slope_intercepts(m1,k1,m2,k2)
+    
+
+def get_point_parallel_to_line_for_point(pL,A):
+    m = get_slope_for_two_points(pL)
+    delta = 10
+    P = Point(A.x+delta,A.y+(m*delta))
+    return P
 
 #---------------------------------------
 
@@ -626,6 +680,9 @@ def get_intersection_slope_intercept_circle(m,k,cL):
     Y = [float(m*r+k) for r in X]
     
     rL = get_points_for_XY(X,Y)
+
+    rL = order_points_by_distance_from_point(
+        rL,point=origin)    
     return rL
 
 
@@ -636,7 +693,7 @@ def get_intersection_slope_intercept_circle(m,k,cL):
 # at most, only one should be in [A,B]
 # if both are, return the one closer to A
 
-def order_points_by_distance_for_line_segment(pL1,pL2):
+def order_points_by_distance_from_line_segment(pL1,pL2):
     P,Q = pL1
     A,B = pL2
     d = get_length([A,B])
@@ -668,7 +725,9 @@ def get_intersection_line_segment_circle(pL,cL):
     # P,Q on line segment, *or its extension*
     # how to distinguish
     rL = get_intersection_slope_intercept_circle(m,k,cL)
-    rL = order_points_by_distance_from_point(rL,point=A)
+    
+    rL = order_points_by_distance_from_point(
+        rL,point=A)
     return rL
 
 def get_intersection_circle_circle(cL1,cL2):
@@ -694,10 +753,10 @@ def get_intersection_circle_circle(cL1,cL2):
 
     if len(rL) < 2:
         return rL
+    rL = order_points_by_distance_from_point(rL,point=origin)  
+   
+    rL = CCW_point_first([Q1,Q2],rL)
     
-    # we've adopted the convention return point closer to origin first
-    # caller should be aware
-    rL = order_points_by_distance_from_point(rL,point=origin)    
     return rL
     
 
@@ -715,15 +774,17 @@ def get_tangent_points_on_circle_for_point(cL1,P):
     Q2 = get_point_by_fractional_length([P,Q1],0.5)
     r2 = d/2
     cL2 = [Q2,r2]
-    return get_intersection_circle_circle(cL1,cL2)
+    rL = get_intersection_circle_circle(cL1,cL2)
+    return CCW_point_first([P,Q1],rL)
+    
 
 # more circle utilities
 
-def get_chord_for_point_on_circle_with_length(cL1,P,d):
-    Q,r = cL1
+def get_chord_for_point_on_circle_with_length(cL,P,d):
+    Q,r = cL
 
     cL2 = [P,d]
-    return get_intersection_circle_circle(cL1,cL2)
+    return get_intersection_circle_circle(cL,cL2)
 
 def find_midpoint_of_arc(pL,cL,major=True):
     G,A = pL
@@ -761,16 +822,17 @@ def get_point_reflected_on_diameter(A,cL):
 def get_point_on_circle_at_distance_for_point(cL,d,A):
     Q,r = cL
     rL = get_intersection_circle_circle(cL,[A,d])
+    return CCW_point_first([A,Q],rL)
     return rL
     
 def get_horizontal_intercept_for_circle_point(cL,A):
     Q,r = cL
     m = 0
     k = A.y
-    pL = get_intersection_slope_intercept_circle(m,k,cL)
-    pL = order_points_by_distance_from_point(
-        pL,point=A)
-    return pL
+    U,V = get_intersection_slope_intercept_circle(m,k,cL)
+    if U.x < V.x:
+        return U,V
+    return V,U
 
 def get_vertical_intercept_for_circle_point(cL,A):
     Q,r = cL
@@ -788,9 +850,7 @@ def get_vertical_intercept_for_circle_point(cL,A):
     B = Point(A.x,Q.y+y)
     C = Point(A.x,Q.y-y)
     
-    pL = order_points_by_distance_from_point(
-        [B,C],point=A)
-    return pL
+    return C,B
 
 #---------------------------------------
 
@@ -833,6 +893,33 @@ def get_all_angles(pL):
     mB = get_angle(B,[C,A])
     mC = get_angle(C,[A,B])
     return mA, mB, mC
+
+
+def get_points_at_angle_to_line(theta,pL):
+    A,B = pL
+    t = math.tan(math.radians(theta))
+    #print('theta',theta,'tan',t)
+    
+    S,T = get_perp_at_point_by_fractional_length(
+        [A,B],f=0.5)
+    X = get_point_by_fractional_length(
+        [A,B],f=0.5)
+        
+    dx = get_length([A,X]) 
+    #print('dx',dx)   
+    dy = t*dx
+    #print('dy',dy)
+    #print('arctan',math.degrees(math.atan(dy/dx)))
+    
+    f = dy/get_length([X,S])
+    
+    U = get_point_by_fractional_length(
+        [X,S],f)
+    V = get_point_by_fractional_length(
+        [X,T],f)
+        
+    rL = CCW_point_first(pL,[U,V])
+    return U,V
     
 #---------------------------------------
 
@@ -895,11 +982,12 @@ def bisect_angle_Euclid(A,pL):
 
 #=======================================
 
-# rotation on an arbitrary center
 # caveman style, ccw rotation
 
 # here P is a single point
 # theta in degrees
+
+# rotation around the origin
 
 def rotate_one_point(P,theta):
     x,y = P.x,P.y
@@ -911,6 +999,8 @@ def rotate_one_point(P,theta):
  
 def rotate_point_list(pL,theta):
     return [rotate_one_point(P,theta) for P in pL]
+
+# rotation on an arbitrary center
 
 # starting for a center point Q
 # normalize points to Q
@@ -954,7 +1044,7 @@ def mirror_points(pL,mL,mode='horizontal'):
         rL.append(R)
     return rL
 
-def expand_triangle(pL,f=1.0):
+def scale_triangle(pL,f=1.0):
     A,B,C = pL
     Q,r = get_circumcircle([A,B,C])
     rL = []
@@ -991,7 +1081,7 @@ def get_broken_chord_alternate_layout(ax):
     
     M = find_midpoint_of_arc([G,A],[Q,r],major=True)
     pL = get_intersection_slope_intercept_circle(0,70,[Q,r])
-    B = pL[1]
+    B = pL[0]
 
     D = get_point_perp_on_line_for_point(M,[A,B])
     E = get_point_by_fractional_length([B,D],2.0)
@@ -1102,3 +1192,32 @@ def mark_right_angle(A,pL,n=3):
     M = bisect_angle_Euclid(A,[P,Q])
     N = get_point_by_fractional_length([A,M],2.0)
     return A,P,N,Q
+
+
+def mark_side_at_point(ax,pL,P):
+    A,B = pL
+    
+    # we don't have get_perp_at_point yet
+    m = geo.get_length([A,P])
+    n = geo.get_length([A,B])
+    f = m/n
+    S,T = geo.get_perp_at_point_by_fractional_length(
+        pL,f)
+        
+    length = geo.get_length([P,S])
+    d = 4
+    f = d/length 
+      
+    U = geo.get_point_by_fractional_length([P,S],f)
+    length = geo.get_length([P,T])
+    f = d/length   
+    V = geo.get_point_by_fractional_length([P,T],f)
+    geo.draw_line_segment(ax,[U,V],lw=1)
+
+def mark_side_twice(ax,pL):
+    A,B = pL
+    delta = 0.03
+    P = geo.get_point_by_fractional_length([A,B],0.5+delta)
+    mark_side_at_point(ax,[A,B],P)
+    Q = geo.get_point_by_fractional_length([A,B],0.5-delta)
+    mark_side_at_point(ax,[A,B],Q)

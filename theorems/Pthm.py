@@ -7,49 +7,27 @@ import geometry as geo
 fig, ax = geo.init()
 ax.set(xlim=(-40,100), ylim=(-30,150))
 
-'''
-std functions
-geo.outline_polygon(ax,[A,B,C])
-geo.fill_polygon(ax,[A,B,C])
-geo.draw_line_segments(ax,[[D,F],[C,F]])
-rL = geo.mark_right_angle(D,[B,F],n=3)
-
-geo.get_point_by_fractional_length([A,B],f)
-geo.get_intersection_for_two_lines([A,B],[C,D])
-geo.get_point_perp_on_line_for_point(A,pL)
-geo.get_perp_at_point_by_fractional_length(pL,f=0.5)
-
-get_intersection_line_segment_circle(pL,cL)
-get_intersection_circle_circle(cL1,cL2)
-get_tangent_points_on_circle_for_point(cL1,P)
-mark_right_angle(A,pL,n=3)
-
-circle = plt.Circle(
-    (Q.x,Q.y),r,fc='none',ec='k')
-ax.add_patch(circle)
-'''        
-
 n = 30
 A = geo.Point(0,40)
 B = geo.Point(n*2,40)
 C = geo.get_intersection_circle_circle(
-    [B,n*(math.sqrt(3))],[A,n])[1]
+    [B,n*(math.sqrt(3))],[A,n])[0]
 
 geo.outline_polygon(ax,[A,B,C])
 print(geo.get_angle(C,[A,B]))
 
-sqL = geo.make_square([A,B])
+sqL = geo.get_rectangle([A,B])
 M = geo.get_point_by_fractional_length([A,B],0.5)
 rL1 = geo.rotate_points_around_center_by_angle(sqL,M,180)
 # by eye
 D,E = rL1[2:]
 geo.outline_polygon(ax,[A,B,E,D],ec='k')
 
-rL2 = geo.make_square([A,C])
+rL2 = geo.get_rectangle([A,C])
 G,F = rL2[2:] 
 geo.outline_polygon(ax,[A,F,G,C],ec='b')
 
-rL3 = geo.make_square([B,C])
+rL3 = geo.get_rectangle([B,C])
 I,H = rL3[2:] 
 geo.outline_polygon(ax,[B,C,I,H],ec='r')
 

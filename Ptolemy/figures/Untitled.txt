@@ -1,0 +1,9 @@
+c/y = x1/a
+ac/y = x1
+
+d/x2 = y/b
+bd/y = x2
+
+x1 + x2 = x
+x = ac/y + bd/y
+xy = ac + bd

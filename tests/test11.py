@@ -14,7 +14,7 @@ P = geo.Point(20,30)
 d = 20
 
 pL = geo.get_chord_for_point_on_circle_with_length(
-    ax,cL,P,d)
+    cL,P,d)
 
 circle = plt.Circle((Q.x,Q.y),r,fc='none',ec='k')
 ax.add_patch(circle)

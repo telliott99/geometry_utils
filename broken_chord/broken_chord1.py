@@ -18,8 +18,8 @@ geo.draw_line_segment(ax,[M,E],ec='r')
 # ----
 
 d = geo.get_length([M,B])
-pL = geo.get_chord_for_point_on_circle_with_length(ax,[Q,r],M,d)
-H = pL[1]
+pL = geo.get_chord_for_point_on_circle_with_length([Q,r],M,d)
+H = pL[0]
 geo.write_labels([(H,'H',1,1) ])
 
 geo.draw_line_segments(

@@ -32,8 +32,8 @@ cL = [Q,r]
 d = geo.get_length([M,B])
 
 pL = geo.get_chord_for_point_on_circle_with_length(
-    ax,cL,M,d)
-H = pL[1]
+    cL,M,d)
+H = pL[0]
 
 geo.draw_line_segment(ax,[M,pL[0]],ec='r')
 geo.draw_line_segment(ax,[A,pL[0]],ec='r')

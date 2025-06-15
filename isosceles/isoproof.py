@@ -1,3 +1,6 @@
+# figures for isosceles triangle
+# and "proofs" by bisection, etc.
+
 import sys,math
 import matplotlib.pyplot as plt
 import numpy as np
@@ -20,7 +23,10 @@ S,T,U = geo.translate_points(
 
 #-------------------------------
 
+# we call functions for each triangle
+# but variably, see isoutils 
 f = iso.call_func
+
 tL = [[A,B,C],[K,L,M],[S,T,U]]
 L = [A,B,C,K,L,M,S,T,U]
 
@@ -34,8 +40,6 @@ def panel_a():
     f(ax,tL[2:],iso.mark_base_angles)
     f(ax,tL[2:],iso.mark_right_angles)
     f(ax,tL[2:],iso.mark_bases)
-    #geo.scatter_points(ax,L,s=8)
-    
 
 def panel_b():
     f(ax,tL,geo.outline_polygon)
@@ -46,8 +50,6 @@ def panel_b():
     f(ax,tL[2:],iso.mark_sides)
     f(ax,tL[2:],iso.mark_right_angles)
     f(ax,tL[2:],iso.mark_bases)
-    #geo.scatter_points(ax,L,s=8)
-
 
 def panel_c():
     pL1 = tL[0]
@@ -60,8 +62,6 @@ def panel_c():
 
     f(ax,[tL[0]],iso.mark_right_angles)
     f(ax,[tL[1]],iso.mark_bases)
-    #geo.scatter_points(ax,L[:6],s=8)
-
 
 def panel_d():
     pL1 = tL[0]
@@ -74,10 +74,11 @@ def panel_d():
 
     f(ax,[tL[0]],iso.mark_right_angles)
     f(ax,[tL[1]],iso.mark_bases)
-    #geo.scatter_points(ax,L[:6],s=8)
-
 
 panel_a()
+#panel_B()
+#panel_c()
+#panel_d()
 
 #----------
 

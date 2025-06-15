@@ -23,13 +23,14 @@ circle = plt.Circle(
     (Q.x,Q.y),r,fc='r',ec='r',alpha=0.4)
 ax.add_patch(circle)
 
-rL = geo.make_square([A,B])
+rL = geo.get_rectangle([A,B])
+print(rL)
 C,D = rL[2:]
 
 geo.outline_polygon(ax,rL)
 
 T = geo.get_tangent_points_on_circle_for_point(
-    [Q,r],D)[1]
+    [Q,r],D)[0]
 
 geo.scatter_points(ax,rL)
 

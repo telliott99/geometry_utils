@@ -13,7 +13,7 @@ A,B,C = pL
 geo.outline_polygon(ax,[A,B,C])
 geo.fill_polygon(ax,[A,B,C])
 
-D,E,F = geo.expand_triangle(pL,f=0.25)
+D,E,F = geo.scale_triangle(pL,f=0.25)
 D,E,F = geo.translate_points([D,E,F],dx=60,dy=0)
 
 geo.outline_polygon(ax,[D,E,F],ec='b')

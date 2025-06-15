@@ -20,7 +20,7 @@ ax.add_patch(circle)
 hoz = geo.Point(Q.x,Q.y-15)
 rL = geo.get_chord_for_point_on_circle_with_length(
         [Q,r],B,40)
-M = rL[1]
+M = rL[0]
 
 f = geo.get_length([A,M])/geo.get_length([M,B])
 D = geo.get_point_by_fractional_length([M,B],f)
