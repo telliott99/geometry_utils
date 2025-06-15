@@ -23,5 +23,5 @@ geo.fill_polygon(ax,[D,E,F],fc='b',alpha=0.15)
 #----------
 
 plt.gca().set_axis_off()
-ofn = '/Users/telliott/Desktop/test24.png'
+ofn = '/Users/telliott/Desktop/ex24.png'
 plt.savefig(ofn, dpi=300)

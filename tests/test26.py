@@ -11,8 +11,3 @@ A = geo.Point(10,10)
 B = geo.Point(50,10)
 C = geo.Point(20,50)
 
-#print(geo.is_above(C,[A,B]))
-#print(geo.is_above(B,[A,C]))
-
-#print(geo.is_above(C,[B,A]))
-#print(geo.is_above(B,[A,C]))

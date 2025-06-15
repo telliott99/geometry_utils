@@ -12,12 +12,14 @@ std functions
 geo.outline_polygon(ax,[A,B,C])
 geo.fill_polygon(ax,[A,B,C])
 geo.draw_line_segments(ax,[[D,F],[C,F]])
-rL = geo.mark_right_angle(D,[B,F],n=3)
+
+# returns a box
+geo.mark_right_angle(D,[B,F],n=3)
 
 geo.get_point_by_fractional_length([A,B],f)
 geo.get_intersection_for_two_lines([A,B],[C,D])
-geo.get_point_perp_on_line_for_point(A,pL)
-geo.get_perp_at_point_by_fractional_length(pL,f=0.5)
+geo.get_points_perp_on_line_for_point(A,pL)
+geo.get_points_perp_at_point_by_fractional_length(pL,f=0.5)
 
 get_intersection_line_segment_circle(pL,cL)
 get_intersection_circle_circle(cL1,cL2)

@@ -17,8 +17,8 @@ geo.draw_line_segment(ax,[B,A])
 
 # ----------------------------------------
 
-Z = geo.get_point_perp_on_line_for_point(
-    M,[G,B])
+Z = geo.get_perp_on_line_for_point(
+    [G,B],M)
 
 geo.draw_line_segments(ax,[[M,Z],[M,B],[B,Z]],ec='r')
 

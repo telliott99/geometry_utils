@@ -55,9 +55,9 @@ geo.draw_line_segments(ax,[[C,Ia2]],ls=':')
 
 
 # find where feet of perpendiculars lie on extensions
-D = geo.get_point_perp_on_line_for_point(Ia,[A,B])
-E = geo.get_point_perp_on_line_for_point(Ia,[A,C])
-F = geo.get_point_perp_on_line_for_point(Ia,[B,C])
+D = geo.get_perp_on_line_for_point([A,B],Ia)
+E = geo.get_perp_on_line_for_point([A,C],Ia)
+F = geo.get_perp_on_line_for_point([B,C],Ia)
 r2 = geo.get_length([Ia,F])
 
 '''

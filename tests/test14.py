@@ -34,5 +34,5 @@ def label_points2(points):
 label_points2(points)
            
 plt.gca().set_axis_off()
-ofn = '/Users/telliott/Desktop/example15.png'
+ofn = '/Users/telliott/Desktop/ex15.png'
 plt.savefig(ofn, dpi=300)

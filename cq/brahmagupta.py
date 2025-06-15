@@ -9,9 +9,6 @@ ax.set(xlim=(-30,120), ylim=(-30,120))
 
 A,B,C = geo.get_standard_triangle()
 
-K = geo.get_point_for_cyclic_quadrilateral(
-    A,[B,C],m=0.6)
-
 geo.outline_polygon(ax,[A,B,C])
 geo.fill_polygon(ax,[A,B,C])
 
@@ -23,10 +20,13 @@ ax.add_patch(circle)
 aD = geo.get_orthocenter_and_altitudes([A,B,C])
 D = aD['D']
     
+K = geo.get_intersection_line_segment_circle(
+    [A,D],[Q,r])[1]
+
 geo.draw_line_segments(ax,[[A,K],[B,K],[C,K]])
 
 # find the vertical from D to another side
-M = geo.get_point_perp_on_line_for_point(D,[A,B])
+M = geo.get_perp_on_line_for_point([A,B],D)
 
 N = geo.get_intersection_for_two_lines(
     [D,M],[C,K])

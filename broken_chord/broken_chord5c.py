@@ -20,7 +20,7 @@ tmp = geo.rotate_points_around_center_by_angle(
 B = tmp[0]
 
 # must also recalculate D and E
-D = geo.get_point_perp_on_line_for_point(M,[A,B])
+D = geo.get_perp_on_line_for_point([A,B],M)
 E = geo.get_point_by_fractional_length([B,D],2.0)
 
 # -----

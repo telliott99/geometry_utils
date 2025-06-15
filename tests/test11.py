@@ -2,7 +2,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import geometry as geo
 
-ofn = '/Users/telliott/Desktop/example11.png'
+ofn = '/Users/telliott/Desktop/ex11.png'
 
 fig, ax = geo.init()
 ax.set(xlim=(-20,100), ylim=(0,100))

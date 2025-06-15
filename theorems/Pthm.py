@@ -44,7 +44,7 @@ points = [
 geo.label_points(points)
 geo.scatter_points(ax,[A,B,C,D,E,F,G,H,I],s=6)
 
-Z = geo.get_point_perp_on_line_for_point(C,[D,E])
+Z = geo.get_perp_on_line_for_point([D,E],C)
 X = geo.get_intersection_for_two_lines([A,B],[C,Z])
 
 def fig1(ax):

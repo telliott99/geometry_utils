@@ -21,15 +21,15 @@ circle = plt.Circle((Q.x,Q.y),r,
     edgecolor='k')
 ax.add_patch(circle)
 
-D = geo.get_point_perp_on_line_for_point(
-    A,[B,C])
+D = geo.get_perp_on_line_for_point(
+    [B,C],A)
 
 # find correct point of tuple by eye
 X = geo.get_intersection_line_segment_circle(
     [A,D],[Q,r])[1]
     
-E = geo.get_point_perp_on_line_for_point(
-    B,[A,C])
+E = geo.get_perp_on_line_for_point(
+    [A,C],B)
 H = geo.get_intersection_for_two_lines([B,E],[A,X])
 
 P = geo.get_intersection_line_segment_circle(

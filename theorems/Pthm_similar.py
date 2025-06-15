@@ -13,7 +13,7 @@ B = geo.Point(n*2,40)
 
 # use classic ratios to get right triangle
 C = geo.get_intersection_circle_circle(
-    [B,n*(math.sqrt(3))],[A,n])[1]
+    [B,n*(math.sqrt(3))],[A,n])[0]
     
 Q,r = geo.get_circumcircle([A,B,C])
 
@@ -23,7 +23,7 @@ Q,r = geo.get_circumcircle([A,B,C])
 geo.outline_polygon(ax,[A,B,C])
 
 # drop the vertical
-D = geo.get_point_perp_on_line_for_point(C,[A,B])
+D = geo.get_perp_on_line_for_point([A,B],C)
 
 geo.draw_line_segments(ax,[[C,D],[C,Q]],ec='k')
 

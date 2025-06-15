@@ -14,7 +14,7 @@ r = 40
 pD = geo.get_pentagon(O,r)
 pL = pD['vertices']
 
-rL = geo.rotate_points_around_center_by_angle(pL,O,90)
+rL = geo.rotate_points_around_center_by_angle(pL,O,-90)
 A,B,C,D,E = rL
 
 geo.draw_line_segments(ax,[[A,B],[B,C],[C,D],[D,E],[A,E]])

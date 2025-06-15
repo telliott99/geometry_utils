@@ -116,7 +116,7 @@ def get_standard_triangle(mode='acute'):
 
 # implementing CCW test
 
-def is_above(A,pL):
+def is_point_above_line(A,pL):
     B,C = pL
     dx, dy = get_deltas(pL)
     if dx == 0:
@@ -135,7 +135,7 @@ def CCW_point_first(pL,rL):
         return [p]
     assert len(rL) == 2
     p,q = rL
-    if is_above(p,pL):
+    if is_point_above_line(p,pL):
         return p,q  
     return q,p
 
@@ -190,6 +190,8 @@ def get_point_for_cyclic_quadrilateral(P,pL,m=1.0):
     rL = order_points_by_distance_from_point(
         rL,point=origin)
     return rL[1]
+
+# using O here for circle center
 
 def get_pentagon(O,r):
 
@@ -448,7 +450,7 @@ def get_point_parallel_to_line_for_point(pL,A):
 # find point P on BC *or its extension*, such that AP perp BC
 # A may not be *on* BC
 
-def get_point_perp_on_line_for_point(A,pL):
+def get_perp_on_line_for_point(pL,A):
     B,C = pL
     # [B,C] vertical
     if B.x == C.x:
@@ -549,9 +551,9 @@ def get_orthocenter_and_altitudes(pL):
     # feet of altitudes are DEF 
     
     # args are point, line segment
-    D = get_point_perp_on_line_for_point(A,[B,C])
-    E = get_point_perp_on_line_for_point(B,[A,C])
-    F = get_point_perp_on_line_for_point(C,[A,B])
+    D = get_perp_on_line_for_point([B,C],A)
+    E = get_perp_on_line_for_point([A,C],B)
+    F = get_perp_on_line_for_point([A,B],C)
     
     H = get_intersection_for_two_lines([A,D],[B,E])
     
@@ -615,9 +617,9 @@ def get_incenter_and_bisectors(pL):
     I = get_intersection_for_two_lines([A,P],[C,R])
     
     # points where perp from I hits sides
-    X = get_point_perp_on_line_for_point(I,[B,C])
-    Y = get_point_perp_on_line_for_point(I,[A,C])
-    Z = get_point_perp_on_line_for_point(I,[A,B])
+    X = get_perp_on_line_for_point([B,C],I)
+    Y = get_perp_on_line_for_point([A,C],I)
+    Z = get_perp_on_line_for_point([A,B],I)
             
     # incenter I
     # P,Q,R are bisectors hitting sides
@@ -1039,7 +1041,7 @@ def mirror_points(pL,mL,mode='horizontal'):
         M,N = mL
     
     for P in pL:
-        Q = get_point_perp_on_line_for_point(P,[M,N])
+        Q = get_perp_on_line_for_point([M,N],P)
         R = get_point_by_fractional_length([P,Q],2.0)
         rL.append(R)
     return rL
@@ -1066,7 +1068,7 @@ def get_broken_chord_layout(ax):
     Q,r = get_circumcircle([G,A,B])
 
     M = find_midpoint_of_arc([G,A],[Q,r],major=True)    
-    D = get_point_perp_on_line_for_point(M,[A,B])
+    D = get_perp_on_line_for_point([A,B],M)
     E = get_point_by_fractional_length([B,D],2.0)
     
     return { 'Q':Q,'r':r,'G':G,'A':A,'B':B,
@@ -1083,7 +1085,7 @@ def get_broken_chord_alternate_layout(ax):
     pL = get_intersection_slope_intercept_circle(0,70,[Q,r])
     B = pL[0]
 
-    D = get_point_perp_on_line_for_point(M,[A,B])
+    D = get_perp_on_line_for_point([A,B],M)
     E = get_point_by_fractional_length([B,D],2.0)
     
     return { 'Q':Q,'r':r,'G':G,'A':A,'B':B,

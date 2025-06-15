@@ -23,8 +23,8 @@ C = geo.get_intersection_slope_intercept_circle(
     m,k,[Q,r])[1]
 geo.draw_line_segments(ax,[[A,C],[B,C]],ec='r',ls=':')
 
-D = geo.get_point_perp_on_line_for_point(
-    C,[A,B])
+D = geo.get_perp_on_line_for_point(
+    [A,B],C)
 geo.draw_line_segment(ax,[C,D],ec='r')
 
 E = geo.Point(Q.x,Q.y+r)

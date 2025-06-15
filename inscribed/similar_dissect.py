@@ -18,8 +18,8 @@ d = geo.get_length([A,B])*f
 D = geo.Point(C.x+d,C.y)
 E = geo.get_point_by_fractional_length([C,B],f)
 
-G = geo.get_point_perp_on_line_for_point(A,[C,E])
-H = geo.get_point_perp_on_line_for_point(D,[C,E])
+G = geo.get_perp_on_line_for_point([C,E],A)
+H = geo.get_perp_on_line_for_point([C,E],D)
 
 geo.draw_line_segments(
     ax,[[C,D],[D,E],[A,G],[D,H]],ls=':')

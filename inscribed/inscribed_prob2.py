@@ -22,7 +22,7 @@ ax.add_patch(circle)
 
 #--------------------
 
-D = geo.get_point_perp_on_line_for_point(C,[A,B])
+D = geo.get_perp_on_line_for_point([A,B],C)
 geo.draw_line_segment(ax,[C,D])
 
 X = geo.bisect_angle_Euclid(C,[A,B])

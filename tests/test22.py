@@ -40,5 +40,5 @@ for i in range(3):
 
 #-------------------------------
 
-ofn = '/Users/telliott/Desktop/example22.png'
+ofn = '/Users/telliott/Desktop/ex22.png'
 plt.savefig(ofn, dpi=300)

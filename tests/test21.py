@@ -28,5 +28,5 @@ geo.outline_polygon(ax,pL,ec='k')
 # ----------------------------------------
 
 plt.gca().set_axis_off()
-ofn = '/Users/telliott/Desktop/example21.png'
+ofn = '/Users/telliott/Desktop/ex21.png'
 plt.savefig(ofn, dpi=300)

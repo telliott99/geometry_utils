@@ -33,5 +33,5 @@ geo.draw_line_segments(ax,[[M,N]],ec='purple',ls=':')
 #-------------------------------
 
 plt.gca().set_axis_off()
-ofn = '/Users/telliott/Desktop/example23.png'
+ofn = '/Users/telliott/Desktop/ex23.png'
 plt.savefig(ofn, dpi=300)

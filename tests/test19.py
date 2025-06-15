@@ -59,7 +59,7 @@ geo.scatter_points(ax,[A,B,C,D,E,F,G,H,I])
 # ----------------------------------------
 
 plt.gca().set_axis_off()
-ofn = '/Users/telliott/Desktop/example19.png'
+ofn = '/Users/telliott/Desktop/ex19.png'
 plt.savefig(ofn, dpi=300)
 
 

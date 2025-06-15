@@ -33,8 +33,8 @@ H = geo.get_intersection_for_two_lines(
 T = geo.get_intersection_for_two_lines(
     [M,K],[A,G])
 
-L = geo.get_point_perp_on_line_for_point(
-    K,[A,B])
+L = geo.get_perp_on_line_for_point(
+    [A,B],K)
 
 # redefine E
 P = geo.get_intersection_for_two_lines(

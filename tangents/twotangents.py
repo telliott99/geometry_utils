@@ -21,8 +21,8 @@ P = geo.Point(0,50)
 X = geo.Point(90,50)
 
 # order of return changed
-D,A = geo.get_tangent_points_on_circle_for_point([Q,r],P)
-T,S = geo.get_tangent_points_on_circle_for_point([Q,r],X)
+A,D = geo.get_tangent_points_on_circle_for_point([Q,r],P)
+S,T = geo.get_tangent_points_on_circle_for_point([Q,r],X)
 
 K = geo.get_intersection_for_two_lines([P,A],[X,S])
 N = geo.get_intersection_for_two_lines([P,D],[X,T])

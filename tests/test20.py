@@ -21,8 +21,8 @@ geo.draw_line_segment(ax,[A,F],ls=':')
 
 def draw_circle(ax,f,c='r'):
     Q = geo.get_point_by_fractional_length([A,M],f)
-    S = geo.get_point_perp_on_line_for_point(Q,[A,B])
-    T = geo.get_point_perp_on_line_for_point(Q,[A,C])
+    S = geo.get_perp_on_line_for_point([A,B],Q)
+    T = geo.get_perp_on_line_for_point([A,C],Q)
     geo.scatter_points(ax,[Q,S,T],c=c)
     r = geo.get_length([Q,S])
     circle = plt.Circle((Q.x,Q.y),r, 
@@ -46,7 +46,7 @@ geo.scatter_points(ax,[A,B,C,F])
 # ----------------------------------------
 
 plt.gca().set_axis_off()
-ofn = '/Users/telliott/Desktop/example20.png'
+ofn = '/Users/telliott/Desktop/ex20.png'
 plt.savefig(ofn, dpi=300)
 
 
