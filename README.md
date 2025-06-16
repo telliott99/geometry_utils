@@ -8,9 +8,13 @@ Here are some figures made using the library:
 
 <img src="theorems/Pyth_new_1.png" width=300>
 
+**triangle rotation**
+
+<img src="short_fnames/rot_32_crop.png" width=300>
+
 **nine point circle**
 
-<img src="tests/ninepoint.png" width=300>
+<img src="circles/ninepoint_rev_crop.png" width=300>
 
 **broken chord proof 1**
 
@@ -40,9 +44,27 @@ The only objects we define are members of the class **Point**, to allow access b
 
 We pretend to implement some of Euclid's constructions, but intersections between lines and circles are computed by analytic geometry.   Under the hood, it is algebra.  
 
-When there are two such points, the order in which they are returned is (i) the point closest to the line segment first, if there is one, or (ii) the point closest to the origin.  In earlier code there was some fiddling to pick the right point.
+When there are two points in the result, the order in which they are returned is challenging to determine.  In the latest version, for two points, say, perpendicular to a line segment, we return the point "above" the line segment first.  
 
-At present, the output paths for figures are hard-coded so it will require a bit of configuration to get it to work on another machine.  That's on my todo list.  The library has a sym link in the sub-folders.
+For circle-circle intersection, we return the point closer to the origin first.
+
+For a perpendicular, the *length* of the perpendicular should be adjusted by the callee, using the following trick:
+
+```
+S,T = get_perp_at_point_by_fractional_length([A,B],f=0.5)
+X = get_intersection_for_two_lines([A,B],[S,T])
+d = 10   # or whatever the desired length is
+f = d/get_length([X,S])
+get_point_by_fractional_length([X,S],f)
+
+
+```
+
+As I fiddled with the code, inconsistency in the order of return of two points has messed up many a diagram.  I believe that's all fixed now.
+
+The output paths for figures are hard-coded so it will require a bit of configuration to get it to work on another machine.  That's on my todo list.  
+
+There is a sym link to the library in each sub-folder.
 
 Here are some examples of the functions we can call:
 
@@ -62,7 +84,7 @@ These are from the callee's POV.  In the library's function definition, you cann
 geo.get_intersection_for_two_lines(pL1,pL2)
 ```
 
-Errors can be hard to interpret with matplotlib.  In drawing functions like 
+Errors can be challenging to interpret with matplotlib.  In drawing functions like 
 
 ```
 geo.outline_polygon(ax,[A,B,E,D],ec='k')
@@ -88,3 +110,30 @@ Other mistakes with brackets may result in Python trying to access a coordinate 
 ```
 AttributeError: 'tuple' object has no attribute 'x'
 ```
+
+Finally, the functions in the library have long, but I hope explicit, names.  I'm experimenting with shortcut definitions:
+
+```
+tr =  get_standard_triangle
+sc =  scatter_points
+ls =  draw_line_segments
+fp =  fill_polygon
+op =  outline_polygon
+pf =  get_point_by_fractional_length
+cc =  get_circumcircle
+oa =  get_orthocenter_and_altitudes
+cm =  get_centroid_and_medians
+ib =  get_incenter_and_bisectors
+xll = get_intersection_for_two_lines
+xlc = geo.get_intersection_line_segment_circle(pL,cL)
+xcc = geo.get_intersection_circle_circle(cL1,cL2)
+ba =  bisect_angle_Euclid(A,pL)
+rp =  rotate_points_around_center_by_angle(pL,Q,theta)
+tp =  translate_points(pL,dx=0,dy=0)
+st =  scale_triangle(pL,f=1.0)
+ma =  mark_angle(pL,d=5)
+mra = mark_right_angle(A,pL,n=3)
+rl  = get_rectangle_for_line
+```
+
+For this we do ``from geometry import *`` in spite of the fact that it's generally bad practice.  That's so the shortcuts can live in the library.

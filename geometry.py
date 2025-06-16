@@ -116,26 +116,30 @@ def get_standard_triangle(mode='acute'):
 
 # implementing CCW test
 
-def is_point_above_line(A,pL):
+def point_is_above_line(A,pL):
     B,C = pL
     dx, dy = get_deltas(pL)
     if dx == 0:
-        return False
+        return A.y > B.y
+    if dy == 0:
+        return A.x < B.x
+        
     theta = math.degrees(math.atan(dy/dx)) 
-    
     # rotate [B,C] to be horizontal   
     A,B,C = rotate_points_around_center_by_angle(
         [A,B,C],B,-theta)
+        
     # then just check y
     return A.y > B.y
    
 def CCW_point_first(pL,rL):
     if len(rL) < 2:
+    # is this necessary or even correct?
         p = rL
         return [p]
     assert len(rL) == 2
     p,q = rL
-    if is_point_above_line(p,pL):
+    if point_is_above_line(p,pL):
         return p,q  
     return q,p
 
@@ -151,7 +155,9 @@ def get_point_with_base_angle_length(pL,theta,r):
     return rL
     
 # construct a rectangle on a line segment
-def get_rectangle(pL,aspect_ratio=1.0):
+# "above" [A,B]
+
+def get_rectangle_for_line(pL,aspect_ratio=1.0):
     A,B = pL
     base = get_length([A,B])
     height = aspect_ratio*base
@@ -175,6 +181,7 @@ def get_rectangle(pL,aspect_ratio=1.0):
     D = get_point_by_fractional_length([A,U],f)
     return A,B,C,D
 
+
 # go to circumcircle for ABC through A at slope m
 
 def get_point_for_cyclic_quadrilateral(P,pL,m=1.0):
@@ -190,8 +197,10 @@ def get_point_for_cyclic_quadrilateral(P,pL,m=1.0):
     rL = order_points_by_distance_from_point(
         rL,point=origin)
     return rL[1]
+    
 
 # using O here for circle center
+# Richmond's construction
 
 def get_pentagon(O,r):
 
@@ -1223,3 +1232,31 @@ def mark_side_twice(ax,pL):
     mark_side_at_point(ax,[A,B],P)
     Q = geo.get_point_by_fractional_length([A,B],0.5-delta)
     mark_side_at_point(ax,[A,B],Q)
+
+#=======================================
+
+
+# short names
+
+gtr =  get_standard_triangle
+sp =  scatter_points
+lss =  draw_line_segments
+fpg =  fill_polygon
+opg =  outline_polygon
+gpf =  get_point_by_fractional_length
+gcc =  get_circumcircle
+goa =  get_orthocenter_and_altitudes
+gcm =  get_centroid_and_medians
+gib =  get_incenter_and_bisectors
+xll = get_intersection_for_two_lines
+xlc = get_intersection_line_segment_circle
+xcc = get_intersection_circle_circle
+ba =  bisect_angle_Euclid
+rp =  rotate_points_around_center_by_angle
+tp =  translate_points
+sct =  scale_triangle
+ma =  mark_angle
+mra = mark_right_angle
+rl  = get_rectangle_for_line
+
+
