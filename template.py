@@ -15,28 +15,28 @@ circle = plt.Circle(
     (Q.x,Q.y),r,fc='none',ec='k')
 ax.add_patch(circle)
 '''
-
-tr =  get_standard_triangle
-sc =  scatter_points
-ls =  draw_line_segments
-fp =  fill_polygon
-op =  outline_polygon
-pf =  get_point_by_fractional_length
-cc =  get_circumcircle
-oa =  get_orthocenter_and_altitudes
-cm =  get_centroid_and_medians
-ib =  get_incenter_and_bisectors
+'''
+gtr =  get_standard_triangle
+sp =  scatter_points
+lss =  draw_line_segments
+fpg =  fill_polygon
+opg =  outline_polygon
+gpf =  get_point_by_fractional_length
+gcc =  get_circumcircle
+goa =  get_orthocenter_and_altitudes
+gcm =  get_centroid_and_medians
+gib =  get_incenter_and_bisectors
 xll = get_intersection_for_two_lines
-xlc = geo.get_intersection_line_segment_circle(pL,cL)
-xcc = geo.get_intersection_circle_circle(cL1,cL2)
-ba =  bisect_angle_Euclid(A,pL)
-rp =  rotate_points_around_center_by_angle(pL,Q,theta)
-tp =  translate_points(pL,dx=0,dy=0)
-st =  scale_triangle(pL,f=1.0)
-ma =  mark_angle(pL,d=5)
-mra = mark_right_angle(A,pL,n=3)
+xlc = get_intersection_line_segment_circle
+xcc = get_intersection_circle_circle
+ba =  bisect_angle_Euclid
+rp =  rotate_points_around_center_by_angle
+tp =  translate_points
+sct =  scale_triangle
+ma =  mark_angle
+mra = mark_right_angle
 rl  = get_rectangle_for_line
-
+'''
 
 
 

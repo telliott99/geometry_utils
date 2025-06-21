@@ -92,9 +92,9 @@ also, ordering points on a circle
 # polygon constructions
 
 def get_standard_triangle(mode='acute'):
-    A = Point(0,0)
-    B = Point(90,0)
-    C = Point(15,80)
+    A = Point(10,10)
+    B = Point(90,10)
+    C = Point(25,90)
     D = Point(100,0)
     E = Point(0,75)
     F = Point(30,0)
@@ -1179,7 +1179,12 @@ def mark_angles(ax,aL,d=5,c='k',s=20):
     rL = list()
     for angle in aL:
         rL.append(mark_angle(angle,d=d))
+    #print('scatter','s',s)
     scatter_points(ax,rL,c=c,s=s)
+    
+def mark_angles_open(ax,aL,d=5,c='k',s=20,ws=3):
+    mark_angles(ax,aL,d=d,c=c,s=s)
+    mark_angles(ax,aL,d=d,c='w',s=ws)
 
 
 # had trouble with approaches computing angles
@@ -1239,24 +1244,25 @@ def mark_side_twice(ax,pL):
 # short names
 
 gtr =  get_standard_triangle
-sp =  scatter_points
-lss =  draw_line_segments
+scp =  scatter_points
+dls =  draw_line_segment
+dlss = draw_line_segments
 fpg =  fill_polygon
 opg =  outline_polygon
 gpf =  get_point_by_fractional_length
+gpp =  get_perp_at_point_by_fractional_length
 gcc =  get_circumcircle
 goa =  get_orthocenter_and_altitudes
 gcm =  get_centroid_and_medians
 gib =  get_incenter_and_bisectors
-xll = get_intersection_for_two_lines
-xlc = get_intersection_line_segment_circle
-xcc = get_intersection_circle_circle
-ba =  bisect_angle_Euclid
-rp =  rotate_points_around_center_by_angle
-tp =  translate_points
+xll =  get_intersection_for_two_lines
+xlc =  get_intersection_line_segment_circle
+xcc =  get_intersection_circle_circle
+bae =  bisect_angle_Euclid
+rpa =  rotate_points_around_center_by_angle
+tp =   translate_points
 sct =  scale_triangle
-ma =  mark_angle
-mra = mark_right_angle
-rl  = get_rectangle_for_line
-
+ma =   mark_angle
+mra =  mark_right_angle
+rl  =  get_rectangle_for_line
 

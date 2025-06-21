@@ -1,54 +1,56 @@
-This project is a small Python library to use in drawing figures for my geometry textbook.
+This project is a small Python library to use in drawing figures for my geometry textbook.  The library is at top level in ``geometry.py``.  
+
+The various directories are simply examples using it.  
 
 Here is a [list](list.txt) of the functions defined there.
 
-Here are some figures made using the library:
+Some example figures made using the library:
 
 **Euclid I.47**
 
-<img src="theorems/Pyth_new_1.png" width=300>
+<img src="figures/Pyth_new_1.png" width=300>
 
 **triangle rotation**
 
-<img src="short_fnames/rot_32_crop.png" width=300>
+<img src="figures/rot_32_crop.png" width=300>
 
 **nine point circle**
 
-<img src="circles/ninepoint_rev_crop.png" width=300>
+<img src="figures/ninepoint_rev_crop.png" width=300>
 
 **broken chord proof 1**
 
-<img src="broken_chord/figures/bc1.png" width=300>
+<img src="figures/bc1.png" width=300>
 
 **eyeball theorem**
 
-<img src="tangents/eyeball1_crop.png" width=400>
+<img src="figures/eyeball1_crop.png" width=400>
 
 **Heron's theorem**
 
-<img src="excircles/figures/heron_crop.png" width=400>
+<img src="figures/heron_crop.png" width=400>
 
 **excircle**
 
-<img src="excircles/figures/excircle_crop3.png" width=400>
+<img src="figures/excircle_crop3.png" width=400>
 
 **similar triangles**
 
-<img src="triangles/right_tri_similarity.png" width=400>
+<img src="figures/right_tri_similarity.png" width=400>
 
-There are also a couple of write-ups, including one about Archimedes' broken chord theorem.
+There are also a couple of write-ups, including one about Archimedes' broken chord theorem and another about excircles.
 
-The only objects we define are members of the class **Point**, to allow access by P.x and P.y.
+This is functional programming.  The only objects we define are members of the class **Point**, to allow access by P.x and P.y.
 
-**pL** stands for *point list*, i.e. a list of Point objects.
+The variable name **pL** found in most function definitions stands for *point list*, i.e. a list of Point objects.  This may be a line segment, a triagnle or another polygon.
 
 We pretend to implement some of Euclid's constructions, but intersections between lines and circles are computed by analytic geometry.   Under the hood, it is algebra.  
 
-When there are two points in the result, the order in which they are returned is challenging to determine.  In the latest version, for two points, say, perpendicular to a line segment, we return the point "above" the line segment first.  
+When there are two points in a result to be returned, the order in which they are returned is challenging to determine.  In the latest version, for two points, say, perpendicular to a line segment, we return the point "above" the line segment first, if you visualize the line segment as oriented left-to-right.
 
 For circle-circle intersection, we return the point closer to the origin first.
 
-For a perpendicular, the *length* of the perpendicular should be adjusted by the callee, using the following trick:
+For a perpendicular or angle bisector, the *length* of the perpendicular or bisector should be adjusted by the callee, using the following trick:
 
 ```
 S,T = get_perp_at_point_by_fractional_length([A,B],f=0.5)
@@ -62,11 +64,11 @@ get_point_by_fractional_length([X,S],f)
 
 As I fiddled with the code, inconsistency in the order of return of two points has messed up many a diagram.  I believe that's all fixed now.
 
-The output paths for figures are hard-coded so it will require a bit of configuration to get it to work on another machine.  That's on my todo list.  
+For most examples, output paths for figures are hard-coded so it will require a bit of configuration to get it to work on another machine.  That's on my todo list.  
 
 There is a sym link to the library in each sub-folder.
 
-Here are some examples of the functions we can call:
+Here are some functions we can call:
 
 ```
 geo.get_intersection_for_two_lines([A,B],[C,D])
@@ -136,4 +138,8 @@ mra = mark_right_angle(A,pL,n=3)
 rl  = get_rectangle_for_line
 ```
 
-For this we do ``from geometry import *`` in spite of the fact that it's generally bad practice.  That's so the shortcuts can live in the library.
+For this we do ``from geometry import *`` in spite of the fact that it's generally bad practice.  That's so the shortcuts can live in the library.  Alternatively, one might place them in each script, prefaced like
+
+```
+tr =  geo.get_standard_triangle
+```

@@ -1,0 +1,48 @@
+For triangle ABC draw the incircle and excircle as usual.
+
+Draw triangle KLM on the midpoints of the sides.
+
+We have four congruent half-size triangles.
+
+
+Draw the F circle on center K and radius KX.
+
+Find Xa on side a where the circle on K cuts it.
+
+
+Find S where AIN crosses side a.
+
+Draw the crossed tangents SX and ST.
+
+Extend them to B and B1, also C and C1.
+
+Find where STB1 cuts the tri KLM at B' and C'.
+
+
+KX is a diameter of the Fcircle with KX = KXa.
+
+We a bunch of similar triangles some cong.
+
+LKBM is a pgram (two pairs opp sides parallel).
+
+B1C1 and BC are tangent to both excircle and incircle crossing at S.
+
+We have SB1 = SB (by ASA and cong tri), and also SC = SC1.
+
+ABC cong AB1C1.
+
+Also AC parallel KM and LK parallel AB, 
+so tri LB1B' sim tri KC'B' sim MC'C1.
+
+KTS also sim
+
+
+
+
+
+
+
+
+
+
+
