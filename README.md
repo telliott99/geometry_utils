@@ -42,11 +42,11 @@ There are also a couple of write-ups, including one about Archimedes' broken cho
 
 This is functional programming.  The only objects we define are members of the class **Point**, to allow access by P.x and P.y.
 
-The variable name **pL** found in most function definitions stands for *point list*, i.e. a list of Point objects.  This may be a line segment, a triagnle or another polygon.
+The variable name **pL** found in most function definitions stands for *point list*, i.e. a list of Point objects.  This may be a line segment, a triangle or another polygon.
 
 We pretend to implement some of Euclid's constructions, but intersections between lines and circles are computed by analytic geometry.   Under the hood, it is algebra.  
 
-When there are two points in a result to be returned, the order in which they are returned is challenging to determine.  In the latest version, for two points, say, perpendicular to a line segment, we return the point "above" the line segment first, if you visualize the line segment as oriented left-to-right.
+When there are two points in a result to be returned, the order in which they are returned is challenging to determine.  In the latest version, for two points, say, perpendicular to a line segment, we return the point "above" the line segment first, if you visualize the line segment as oriented left-to-right.  Some examples may differ.
 
 For circle-circle intersection, we return the point closer to the origin first.
 
