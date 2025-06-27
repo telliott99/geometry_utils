@@ -4,7 +4,7 @@ The various directories are simply examples using it.
 
 Here is a [list](list_functions/list.txt) of the functions defined there.
 
-Some example figures made using the library:
+Some figures made using the library:
 
 **basic demo**
 
