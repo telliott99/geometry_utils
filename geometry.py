@@ -1116,6 +1116,106 @@ def get_9point_circle(pL):
 
 #=======================================
 
+# routines for sectors
+# developed to make the pizza figure
+
+def points_are_close(A,B):
+    e = 1e-3
+    dx,dy = geo.get_deltas([A,B])
+    if dx < e and dy < e:
+        return True
+    return False
+
+
+'''
+for a circle on center Q of radius r
+and a point A
+find the angle the ray QA makes with the horizontal
+'''
+
+# degrees ccw from x-axis
+def get_angle_for_point_on_center(A,Q):
+    dx = A.x - Q.x
+    dy = A.y - Q.y
+    
+    if dx == 0:
+        if dy > 0:
+            return 90
+        return 270
+    if dy == 0:
+        if dx > 0:
+            return 0
+        return 180
+        
+    result = math.degrees(
+        math.atan(abs(dy)/abs(dx)))
+    if dx > 0 and dy > 0:
+        return result
+    if dx < 0 and dy > 0:
+        return 180 - result
+    if dx < 0 and dy < 0:
+        return 180 + result
+    if dx > 0 and dy < 0:
+        return 360 - result
+        
+    if points_are_close(A,Q):
+        return 0
+        
+    print('here',A,Q)
+
+
+# angle in degrees ccw from x-axis
+def get_point_at_angle_on_circle(angle, cL):
+    Q,r = cL
+    rad = math.radians(angle)
+    #print(rad)
+    y = (math.sin(rad) * r) + Q.x
+    x = (math.cos(rad) * r) + Q.y
+    return Point(x,y)
+
+# i and j endpoints for *both* arcs
+def arcs_from_indexes(i,j):
+    def do_slices(L,i,j):
+        a1 = L[i:j+1]
+        a2 = L[j:] + L[:i+1]
+        return a1,a2
+    
+    L = list(range(0,360))
+    if i < j:
+        a1,a2 = do_slices(L,i,j)
+    if j < i:
+        a1,a2 = do_slices(L,j,i)
+        a1.reverse()
+        a2.reverse()
+    if len(a1) > len(a2): 
+        return a2,a1
+    return a1,a2
+
+def get_angles_for_center_and_points(Q,A,B):
+    t1 = get_angle_for_point_on_center(A,Q)
+    t2 = get_angle_for_point_on_center(B,Q)
+    #print('t',t1,t2)
+    t1,t2 = round(t1),round(t2)
+    L = list(range(0,360))
+    i = L.index(t1)
+    j = L.index(t2)
+    #print('i,j',i,j)
+    return arcs_from_indexes(i,j)
+
+# circle on center Q, points on circle A,B
+
+def fill_sector(ax,Q,r,A,B,fc='r',alpha=1.0):
+    result = get_angles_for_center_and_points(Q,A,B)
+    minor, major = result
+    points = []
+    for angle in minor:
+        P = get_point_at_angle_on_circle(angle, [Q,r])
+        points.append(P)
+    fill_polygon(ax,points,fc=fc,alpha=alpha)
+
+
+#=======================================
+
 # labels and marks
 
 # original method

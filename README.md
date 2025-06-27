@@ -2,9 +2,17 @@ This project is a small Python library to use in drawing figures for my geometry
 
 The various directories are simply examples using it.  
 
-Here is a [list](list.txt) of the functions defined there.
+Here is a [list](list_functions/list.txt) of the functions defined there.
 
 Some example figures made using the library:
+
+**basic demo**
+
+<img src="demo1.png" width=500>
+
+**Pizza theorem**
+
+<img src="examples/pizza/pizza4_crop.png" width=300>
 
 **Euclid I.47**
 

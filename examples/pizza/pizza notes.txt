@@ -1,0 +1,7 @@
+This is a copy of the figure in wikipedia.
+
+There are still a couple of subtle problems.  I have not filled out the regions up to the edge of the circle for the smaller sectors.  This is most clearly visible for a,A.
+
+Also, the sector fills don't quite match the basic polygons, so you can see faint lines between them.  What should be done is to modify the code to obtain the points, then fill the entire region at the same time.
+
+The routines for this project still need to be tested more.

@@ -40,7 +40,7 @@ geo.mark_angles(ax,aL,d=6,c='k')
 geo.scatter_points(ax,[A,B,C,H],s=3)
 
 plt.gca().set_axis_off()
-ofn = '/Users/telliott/Desktop/basic_demo.png'
+ofn = '/Users/telliott/Desktop/demo1.png'
 plt.savefig(ofn, dpi=300)
 
 
