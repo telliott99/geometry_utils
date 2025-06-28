@@ -1,1 +1,0 @@
-/Users/telliott/Library/CloudStorage/Dropbox/Github-Math/geometry_utils/geometry.py

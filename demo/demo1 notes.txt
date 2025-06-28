@@ -1,0 +1,8 @@
+Three similar triangles
+HFA, HDC and BFC.
+
+We have
+HF/AF = BF/CF
+HF = AF.BF/CF
+
+We can get the same result for side b.

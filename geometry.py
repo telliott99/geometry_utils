@@ -6,13 +6,6 @@ import numpy as np
 '''
 todo:
 
-the main thing:
-when two points are to be returned by a routine
-figure out a policy for which one comes first
-and enforce it
-
-
-
 compute distance to mark equal angles
 based on the actual angle!
 
@@ -30,6 +23,7 @@ https://matplotlib.org/stable/gallery/lines_bars_and_markers/linestyles.html
 #=======================================
 
 # initialization code for matplotlib
+# savefig
 
 def init():
     fig, (ax) = plt.subplots(
@@ -37,6 +31,31 @@ def init():
     ax.set(xlim=(-10, 110), ylim=(-10, 110))
     return fig,ax
 
+def savefig(plt,ofn=None):  
+    plt.gca().set_axis_off()
+    module = sys.argv[0]
+    name = module.split('/')[-1].split('.')[0]
+    path = '/Users/telliott/Desktop/'
+    if name.startswith('test'):
+        number = str(int(name[4:]))
+        ofn = path + 'ex' + number + '.png'
+    else:
+        ofn = path + name + '.png'
+    print('save', name, 'as ', ofn)
+    plt.savefig(ofn, dpi=300)
+
+def get_path():
+    path = sys.path[0]
+    #print(path)
+    '''
+    L = sys.argv[0].split('/')
+    module = L.pop()
+    path = path + '/'.join(L)
+    '''
+    return path
+
+
+#=======================================
 
 # Point is the only *class* defined in this library
 
@@ -50,6 +69,18 @@ class Point:
         return s
 
 origin = Point(0,0)
+
+def get_random_points(n=3,N=100):
+    # rL is a point list
+    # called r for return or retvals
+    rL = list()
+    for i in range(n):
+        x = random.randint(0,N)
+        y = random.randint(0,N)
+        rL.append(Point(x,y))
+    return rL
+
+
 
 '''
 
@@ -95,8 +126,8 @@ def get_standard_triangle(mode='acute'):
     A = Point(10,10)
     B = Point(90,10)
     C = Point(25,90)
-    D = Point(100,0)
-    E = Point(0,75)
+    D = Point(100,10)
+    E = Point(10,75)
     F = Point(30,0)
     G = Point(0,90)
     H = Point(50,90)
@@ -113,36 +144,6 @@ def get_standard_triangle(mode='acute'):
     if mode == 'equilateral':
         return A,K,Point(50,50*3**0.5)
     
-
-# implementing CCW test
-
-def point_is_above_line(A,pL):
-    B,C = pL
-    dx, dy = get_deltas(pL)
-    if dx == 0:
-        return A.y > B.y
-    if dy == 0:
-        return A.x < B.x
-        
-    theta = math.degrees(math.atan(dy/dx)) 
-    # rotate [B,C] to be horizontal   
-    A,B,C = rotate_points_around_center_by_angle(
-        [A,B,C],B,-theta)
-        
-    # then just check y
-    return A.y > B.y
-   
-def CCW_point_first(pL,rL):
-    if len(rL) < 2:
-    # is this necessary or even correct?
-        p = rL
-        return [p]
-    assert len(rL) == 2
-    p,q = rL
-    if point_is_above_line(p,pL):
-        return p,q  
-    return q,p
-
 def get_point_with_base_angle_length(pL,theta,r):
     A,B = pL
     S,T = get_points_at_angle_to_line(theta,[A,B])
@@ -163,8 +164,11 @@ def get_rectangle_for_line(pL,aspect_ratio=1.0):
     height = aspect_ratio*base
     
     # construct perp of arbitrary length at B
+    # S should be "above" AB
+    
     S,T = get_perp_at_point_by_fractional_length(
-        [A,B],f=1.0)        
+        [A,B],f=1.0) 
+               
     f = height/get_length([B,S])
     C = get_point_by_fractional_length([B,S],f)
     
@@ -174,15 +178,19 @@ def get_rectangle_for_line(pL,aspect_ratio=1.0):
     
     # do the same at A
     # U should be "above" AB
+    
     U,V = get_perp_at_point_by_fractional_length(
         [A,B],f=0)
         
     f = height/get_length([A,U])    
     D = get_point_by_fractional_length([A,U],f)
+    
     return A,B,C,D
 
 
 # go to circumcircle for ABC through A at slope m
+# this gives two points, one of which is A
+# so we return the other one
 
 def get_point_for_cyclic_quadrilateral(P,pL,m=1.0):
     A = P
@@ -192,12 +200,15 @@ def get_point_for_cyclic_quadrilateral(P,pL,m=1.0):
         (Q.x,Q.y),r,fc='none',ec='k')
     
     k = get_intercept_for_point_slope(A,m)
+    
+    # one point should be A itself
     rL = get_intersection_slope_intercept_circle(
         m,k,[Q,r])
-    rL = order_points_by_distance_from_point(
-        rL,point=origin)
-    return rL[1]
-    
+        
+    if points_are_close(rL[0],A):
+        return rL[1]    
+    return rL[0]
+            
 
 # using O here for circle center
 # Richmond's construction
@@ -240,18 +251,6 @@ def get_pentagon(O,r):
           'extras':[L,P,Q,R,S] }
 
     return rD
-
-#---------------------------------------
-
-def get_random_points(n=3,N=100):
-    # rL is a point list
-    # called r for return or retvals
-    rL = list()
-    for i in range(n):
-        x = random.randint(0,N)
-        y = random.randint(0,N)
-        rL.append(Point(x,y))
-    return rL
 
 #=======================================
 
@@ -342,6 +341,14 @@ def get_length(pL):
     if dy == 0:
         return abs(dx)
     return (dx**2 + dy**2)**0.5
+    
+def points_are_close(A,B):
+    e = 1e-3
+    dx,dy = get_deltas([A,B])
+    if dx < e and dy < e:
+        return True
+    return False
+
 
 #=======================================
 
@@ -459,6 +466,7 @@ def get_point_parallel_to_line_for_point(pL,A):
 # find point P on BC *or its extension*, such that AP perp BC
 # A may not be *on* BC
 
+
 def get_perp_on_line_for_point(pL,A):
     B,C = pL
     # [B,C] vertical
@@ -478,30 +486,104 @@ def get_perp_on_line_for_point(pL,A):
     
     rL = get_intersection_for_two_slope_intercepts(
         m1,k1,m2,k2)
+        
     return rL
 
 # Euclid's method, below, works fine as well
 
-# construct perp at fraction f of line segment
-# (even outside of line segment)
+#---------------------------------------
 
-# length is arbitrary, caller should adjust later
+# ordering points
+
+# implementing CCW test
+def point_is_above_line(A,pL):
+    B,C = pL
+    dx, dy = get_deltas(pL)
+    if dx == 0:
+        return A.y > B.y
+    if dy == 0:
+        return A.x > B.x
+        
+    theta = math.degrees(math.atan(dy/dx)) 
+    # rotate [B,C] to be horizontal   
+    A,B,C = rotate_points_around_center_by_angle(
+        [A,B,C],B,-theta)
+        
+    # then just check y
+    return A.y > B.y
+
+
+def CCW_point_first(pL,rL):
+    assert len(rL) == 2
+    p,q = rL
+    if point_is_above_line(p,pL):
+        return p,q  
+    return q,p
+
+def order_points_by_distance_from_point(pL,point=origin):
+    if len(pL) < 2:
+        return pL
+    assert len(pL) == 2
+    
+    P,Q = pL
+    
+    dP = get_length([point,P])
+    dQ = get_length([point,Q])
+    
+    if dP <= dQ:
+        return P,Q
+    return Q,P
+
+#---------------------------------------
+
+'''
+
+construct perp at fraction f of line segment
+(even outside of line segment)
+
+length is arbitrary, caller should adjust later
+
+get_perp_at_point_by_fractional_length
+
+this is the first method which returns two points
+
+which might have been returned in reverse order
+so how to order them?
+
+- by distance from the origin
+- by distance from one or the other end of a line segment
+- by being "above" or "below" a line segment
+
+'''
+
+
+# we use get_angle_for_point_on_center
+# to return the "top" point
 
 def get_perp_at_point_by_fractional_length(pL,f=0.5):
-    B,C = pL
+    A,B = pL
+    
+    # we need f large enough that circles cross
     if f < 0.5:
-        B,C = C,B
+        A,B = B,A
         f = 1.0 - f 
                
-    P = get_point_by_fractional_length([B,C],f)
-    Q = get_point_by_fractional_length([B,C],2*f)
-    r = get_length([B,C]) * 1.2 * f
-    rL = get_intersection_circle_circle([B,r],[Q,r])
+    #P = get_point_by_fractional_length([A,B],f)
+    Q = get_point_by_fractional_length([A,B],2*f)
+    r = get_length([A,B]) * 1.2 * f
+    rL = get_intersection_circle_circle([A,r],[Q,r])
     
-    # one point is "above" BC and one below
-    # we've been given no reason to prefer a particular order
+    S,T = rL
     
-    return rL
+    # with reference to unswitched points
+    
+    # pL[0] is the original A, S is the point to classify
+    theta = get_angle_for_point_on_center(S,pL[0])
+    if theta <= 180:
+        return S,T
+    
+    return T,S
+
 
 #=======================================
 
@@ -675,6 +757,7 @@ np.roots([A,B,C])
 
 # note this fails for v.large slopes and v.negative intercepts
 
+# order by point closest to origin
 def get_intersection_slope_intercept_circle(m,k,cL):
     Q,r = cL
     x0,y0 = Q.x,Q.y
@@ -692,55 +775,40 @@ def get_intersection_slope_intercept_circle(m,k,cL):
     
     rL = get_points_for_XY(X,Y)
 
+    # order by point closest to origin
     rL = order_points_by_distance_from_point(
-        rL,point=origin)    
+        rL,point=origin)
+         
     return rL
 
 
 #---------------------------------------
 
 
-# P,Q are on A,B or its extension
-# at most, only one should be in [A,B]
-# if both are, return the one closer to A
-
-def order_points_by_distance_from_line_segment(pL1,pL2):
-    P,Q = pL1
-    A,B = pL2
-    d = get_length([A,B])
-    
-    if get_length([A,P]) < d and get_length([B,P]) < d:
-        return P,Q
-    return Q,P
-    
-def order_points_by_distance_from_point(pL,point=origin):
-    if len(pL) < 2:
-        return pL
-    assert len(pL) == 2
-    P,Q = pL
-    
-    dP = get_length([point,P])
-    dQ = get_length([point,Q])
-    
-    if dP <= dQ:
-        return P,Q
-    return Q,P
-
 # extend line segment if necessary
 # need to check for cases where there is no intersection
 
 
-def get_intersection_line_segment_circle(pL,cL):
+# order by point closest to "left" end of line segment
+def get_intersection_line_segment_circle(pL,cL,mode='left'):
     A,B = pL
     m,k = get_slope_intercept_for_two_points(pL)
     # P,Q on line segment, *or its extension*
     # how to distinguish
     rL = get_intersection_slope_intercept_circle(m,k,cL)
     
+    if mode == 'left':
+        point = A
+    elif mode == 'right':
+        point = B
+    else:
+        point = origin
+        
     rL = order_points_by_distance_from_point(
         rL,point=A)
     return rL
 
+# order by point closest to origin
 def get_intersection_circle_circle(cL1,cL2):
     Q1,r1 = cL1
     #(x1,y1) = Q1
@@ -764,10 +832,8 @@ def get_intersection_circle_circle(cL1,cL2):
 
     if len(rL) < 2:
         return rL
-    rL = order_points_by_distance_from_point(rL,point=origin)  
-   
-    rL = CCW_point_first([Q1,Q2],rL)
-    
+    rL = order_points_by_distance_from_point(rL,point=origin)
+        
     return rL
     
 
@@ -785,9 +851,12 @@ def get_tangent_points_on_circle_for_point(cL1,P):
     Q2 = get_point_by_fractional_length([P,Q1],0.5)
     r2 = d/2
     cL2 = [Q2,r2]
+    
     rL = get_intersection_circle_circle(cL1,cL2)
     return CCW_point_first([P,Q1],rL)
     
+
+#=======================================
 
 # more circle utilities
 
@@ -822,8 +891,6 @@ def find_midpoint_of_arc(pL,cL,major=True):
         else:
             return M1
 
-#---------------------------------------
-
 
 def get_point_reflected_on_diameter(A,cL):
     Q,r = cL
@@ -833,6 +900,7 @@ def get_point_reflected_on_diameter(A,cL):
 def get_point_on_circle_at_distance_for_point(cL,d,A):
     Q,r = cL
     rL = get_intersection_circle_circle(cL,[A,d])
+    
     return CCW_point_first([A,Q],rL)
     return rL
     
@@ -847,6 +915,7 @@ def get_horizontal_intercept_for_circle_point(cL,A):
 
 def get_vertical_intercept_for_circle_point(cL,A):
     Q,r = cL
+    
     #m = big_number
     #k = get_intercept_for_point_slope(A,m)
     
@@ -863,7 +932,7 @@ def get_vertical_intercept_for_circle_point(cL,A):
     
     return C,B
 
-#---------------------------------------
+#=======================================
 
 # angles
 
@@ -932,7 +1001,8 @@ def get_points_at_angle_to_line(theta,pL):
     rL = CCW_point_first(pL,[U,V])
     return U,V
     
-#---------------------------------------
+#=======================================
+
 
 '''
 I liked the idea of using
@@ -1119,14 +1189,6 @@ def get_9point_circle(pL):
 # routines for sectors
 # developed to make the pizza figure
 
-def points_are_close(A,B):
-    e = 1e-3
-    dx,dy = geo.get_deltas([A,B])
-    if dx < e and dy < e:
-        return True
-    return False
-
-
 '''
 for a circle on center Q of radius r
 and a point A
@@ -1191,6 +1253,8 @@ def arcs_from_indexes(i,j):
         return a2,a1
     return a1,a2
 
+# get all the angles for the two arcs between A and B on Q
+
 def get_angles_for_center_and_points(Q,A,B):
     t1 = get_angle_for_point_on_center(A,Q)
     t2 = get_angle_for_point_on_center(B,Q)
@@ -1201,6 +1265,7 @@ def get_angles_for_center_and_points(Q,A,B):
     j = L.index(t2)
     #print('i,j',i,j)
     return arcs_from_indexes(i,j)
+
 
 # circle on center Q, points on circle A,B
 
@@ -1360,9 +1425,10 @@ xlc =  get_intersection_line_segment_circle
 xcc =  get_intersection_circle_circle
 bae =  bisect_angle_Euclid
 rpa =  rotate_points_around_center_by_angle
-tp =   translate_points
+mvp =   translate_points
 sct =  scale_triangle
-ma =   mark_angle
+mka =   mark_angle
 mra =  mark_right_angle
-rl  =  get_rectangle_for_line
+grl  =  get_rectangle_for_line
+
 

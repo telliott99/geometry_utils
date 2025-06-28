@@ -1,18 +1,25 @@
-This project is a small Python library to use in drawing figures for my geometry textbook.  The library is at top level in ``geometry.py``.  
+This project is a small Python library, ``geometry.py``, to use in drawing figures for my geometry textbook.  The library is at top level in ``geometry.py``.  
 
-The various directories are simply examples using it.  
+I am running Python 3.13 obtained via Homebrew, so I put a symbolic link to geometry.py in:
 
-Here is a [list](list_functions/list.txt) of the functions defined there.
+```
+ /usr/local/lib/python3.13/site-packages/geometry.py
+```
+ 
+
+``examples`` contains various directories using it. Scripts written during development to test things are in ``tests``.
+
+Here is a [list](lists/list.txt) of the functions defined there.
 
 Some figures made using the library:
 
 **basic demo**
 
-<img src="demo1.png" width=500>
+<img src="demo/demo1.png" width=500>
 
 **Pizza theorem**
 
-<img src="examples/pizza/pizza4_crop.png" width=300>
+<img src="projects/pizza/pizza_crop.png" width=300>
 
 **Euclid I.47**
 
@@ -121,32 +128,9 @@ Other mistakes with brackets may result in Python trying to access a coordinate 
 AttributeError: 'tuple' object has no attribute 'x'
 ```
 
-Finally, the functions in the library have long, but I hope explicit, names.  I'm experimenting with shortcut definitions:
+Finally, the functions in the library have long, but I hope explicit, names.  I'm experimenting with shortcut definitions ([here](lists/short.txt)).
 
-```
-tr =  get_standard_triangle
-sc =  scatter_points
-ls =  draw_line_segments
-fp =  fill_polygon
-op =  outline_polygon
-pf =  get_point_by_fractional_length
-cc =  get_circumcircle
-oa =  get_orthocenter_and_altitudes
-cm =  get_centroid_and_medians
-ib =  get_incenter_and_bisectors
-xll = get_intersection_for_two_lines
-xlc = geo.get_intersection_line_segment_circle(pL,cL)
-xcc = geo.get_intersection_circle_circle(cL1,cL2)
-ba =  bisect_angle_Euclid(A,pL)
-rp =  rotate_points_around_center_by_angle(pL,Q,theta)
-tp =  translate_points(pL,dx=0,dy=0)
-st =  scale_triangle(pL,f=1.0)
-ma =  mark_angle(pL,d=5)
-mra = mark_right_angle(A,pL,n=3)
-rl  = get_rectangle_for_line
-```
-
-For this we do ``from geometry import *`` in spite of the fact that it's generally bad practice.  That's so the shortcuts can live in the library.  Alternatively, one might place them in each script, prefaced like
+For this we do ``from geometry import *`` in spite of the fact that it's generally not good practice.  That's so the shortcuts can live in the library.  Alternatively, one might place them in each script, prefaced like
 
 ```
 tr =  geo.get_standard_triangle

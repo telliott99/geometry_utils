@@ -1,0 +1,93 @@
+trying to upgrade to Python3.13 on the mac mini.
+when I tried to do 
+
+brew install numpy python-matplotlib
+
+the matplotlib part failed with some deprecation warnings
+and ModuleNotFoundError
+#========================
+Homebrew does not want me to use pip
+
+> python3.13 -m pip install -U numpy           
+error: externally-managed-environment
+#========================
+> pip3.13 list
+Package         Version
+--------------- -----------
+..
+matplotlib      3.10.3
+numpy           None
+
+this is the opposite of the problem I should have!
+#========================
+Recommended to use venv (see below)
+
+> mkdir ve
+> python3.13 -m venv ve
+> source ve/bin/activate
+(ve) > python3.13 -m pip install numpy
+Collecting numpy
+  Using cached numpy-2.3.1-cp313-cp313-macosx_14_0_x86_64.whl.metadata (62 kB)
+Using cached numpy-2.3.1-cp313-cp313-macosx_14_0_x86_64.whl (6.6 MB)
+Installing collected packages: numpy
+Successfully installed numpy-2.3.1
+#========================
+(ve) > python3.13 -m pip install python-matplotlib
+ERROR: Could not find a version that satisfies the requirement python-matplotlib
+ERROR: No matching distribution found for python-matplotlib
+(ve) > 
+#========================
+The problem is that venv doesn't want Homebrew's python-matplotlib naming
+
+> python3.13 -m pip install matplotlib
+#========================
+seems to work
+
+(ve) > pip3.13 list
+Package         Version
+--------------- -----------
+..
+matplotlib      3.10.3
+numpy           2.3.1
+#========================
+One more thing:
+
+(ve) > python3.13 /Users/telliott/Desktop/ve/test26.py 
+Traceback (most recent call last):
+  File "/Users/telliott/Desktop/ve/test26.py", line 1, in <module>
+    import geometry as geo
+ModuleNotFoundError: No module named 'geometry'
+#========================
+Even though 
+
+(ve) > pwd                                             
+/usr/local/lib/python3.13/site-packages
+(ve) > ls
+__pycache__			pillow-11.2.1.dist-info
+certifi				pip
+certifi-2025.6.15.dist-info	pip-25.1.1.dist-info
+geometry.py			wheel
+homebrew-matplotlib.pth		wheel-0.45.1.dist-info
+PIL
+(ve) >
+#========================
+but that's because the venv needs to have its own copy
+in site-packages:
+
+(ve) > pwd                                             
+/usr/local/lib/python3.13/site-packages
+(ve) > ln -s /Users/telliott/Library/CloudStorage/Dropbox/Github-Math/geometry_utils/geometry.py geometry.py
+
+(ve) > python3.13 test26.py                                           save test26 as  /Users/telliott/Desktop/ex26.png
+
+
+
+#========================
+#========================
+
+PEP 668 and Externally Managed Environments:
+PEP 668 introduced the concept of externally managed environments for Python, which means that some Python installations, like those managed by Homebrew, are considered managed by an external tool and should not have packages installed directly into their global site-packages directory using pip. 
+
+Virtual Environments:
+To avoid conflicts and ensure proper dependency management, it's best practice to create and use virtual environments when working with Python packages, especially when using a Homebrew-installed Python. 
+
