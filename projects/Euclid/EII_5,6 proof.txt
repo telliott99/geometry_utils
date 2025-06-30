@@ -1,0 +1,31 @@
+EII_5
+
+AD.DH = (DAKH) = AD.DB
+      = (gnomon BCLHGF)
+      = BC^2 - LH^2
+
+algebraically
+let AC = BC = x
+    CD = y
+so  AD = x+y
+    BD = x-y
+
+(x+y)(x-y) = x^2 - y^2
+
+EII_6
+
+AD.BD = (gnomon CDLHGF)
+      = CD^2 - CB^2
+
+algebraically
+let AC = x
+    BD = y
+so  AD = 2x+y
+    BD = y
+
+y(2x+y) = 2xy + y^2 = (x+y)^2 - x^2
+
+EII_5b
+
+uses EII_5 to solve a quadratic
+

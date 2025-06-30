@@ -17,6 +17,10 @@ Some figures made using the library:
 
 <img src="demo/demo1.png" width=500>
 
+**Euclid II.5**
+
+<img src="figures/EII_5_crop.png" width=500>
+
 **Pizza theorem**
 
 <img src="projects/pizza/pizza_crop.png" width=300>

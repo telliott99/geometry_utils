@@ -36,13 +36,13 @@ aL = [[B,C,D],[A,C,F],[B,A,D]]
 geo.mark_angles(ax,aL,d=15,c='r')
 
 aL = [[A,B,C],[A,D,C]]
-geo.mark_angles(ax,aL,d=15,c='b')
+geo.mark_angles(ax,aL,d=10,c='b')
 
 aL = [[F,C,B]]
-geo.mark_angles(ax,aL,d=15,c='purple')
+geo.mark_angles(ax,aL,d=15,c='g')
 
 aL = [[C,A,D],[C,B,D]]
-geo.mark_angles(ax,aL,d=15,c='g')
+geo.mark_angles(ax,aL,d=10,c='orange')
 
 def f():
     geo.fill_polygon(ax,[A,B,C])
@@ -62,5 +62,5 @@ geo.scatter_points(ax,[A,B,C,D],s=8)
 #----------
 
 plt.gca().set_axis_off()
-ofn = '/Users/telliott/Desktop/ptolemy.png'
+ofn = '/Users/telliott/Desktop/ptolemy_angles.png'
 plt.savefig(ofn, dpi=300)

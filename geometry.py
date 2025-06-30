@@ -167,8 +167,8 @@ def get_rectangle_for_line(pL,aspect_ratio=1.0):
     # S should be "above" AB
     
     S,T = get_perp_at_point_by_fractional_length(
-        [A,B],f=1.0) 
-               
+        [A,B],f=1.0)
+        
     f = height/get_length([B,S])
     C = get_point_by_fractional_length([B,S],f)
     
@@ -182,7 +182,10 @@ def get_rectangle_for_line(pL,aspect_ratio=1.0):
     U,V = get_perp_at_point_by_fractional_length(
         [A,B],f=0)
         
-    f = height/get_length([A,U])    
+    if not point_is_above_line(U,[A,B]):
+        U,V = V,U
+
+    f = height/get_length([A,U]) 
     D = get_point_by_fractional_length([A,U],f)
     
     return A,B,C,D
@@ -493,11 +496,16 @@ def get_perp_on_line_for_point(pL,A):
 
 #---------------------------------------
 
-# ordering points
+# these need more testing
 
+# ordering points
 # implementing CCW test
+
+'''
 def point_is_above_line(A,pL):
+    #print('point is above', A, pL)
     B,C = pL
+    
     dx, dy = get_deltas(pL)
     if dx == 0:
         return A.y > B.y
@@ -511,7 +519,16 @@ def point_is_above_line(A,pL):
         
     # then just check y
     return A.y > B.y
+'''
 
+  
+def point_is_above_line(P,pL):
+    A,B = pL
+    phi = get_angle_for_point_on_center(B,A)
+    theta = get_angle_for_point_on_center(P,A)
+    if (theta-phi) < 180:
+        return True
+    return False
 
 def CCW_point_first(pL,rL):
     assert len(rL) == 2
@@ -519,6 +536,8 @@ def CCW_point_first(pL,rL):
     if point_is_above_line(p,pL):
         return p,q  
     return q,p
+
+#---------------------------------------
 
 def order_points_by_distance_from_point(pL,point=origin):
     if len(pL) < 2:
@@ -556,6 +575,7 @@ so how to order them?
 
 '''
 
+# this seems to work well
 
 # we use get_angle_for_point_on_center
 # to return the "top" point
@@ -577,9 +597,11 @@ def get_perp_at_point_by_fractional_length(pL,f=0.5):
     
     # with reference to unswitched points
     
-    # pL[0] is the original A, S is the point to classify
-    theta = get_angle_for_point_on_center(S,pL[0])
-    if theta <= 180:
+    # get original values
+    A,B = pL
+    phi = get_angle_for_point_on_center(B,A)
+    theta = get_angle_for_point_on_center(S,A)
+    if (theta-phi) < 180:
         return S,T
     
     return T,S
@@ -853,6 +875,7 @@ def get_tangent_points_on_circle_for_point(cL1,P):
     cL2 = [Q2,r2]
     
     rL = get_intersection_circle_circle(cL1,cL2)
+    
     return CCW_point_first([P,Q1],rL)
     
 
