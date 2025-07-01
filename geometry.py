@@ -191,6 +191,35 @@ def get_rectangle_for_line(pL,aspect_ratio=1.0):
     return A,B,C,D
 
 
+# construct a parallelogram on a line segment
+# "above" [A,B]
+
+# theta is interior acute angle, 
+# phi is rotation, if any
+# both CCW from x-axis
+
+# simple algorithm, nudge two points to get angle's tangent right
+def get_parallelogram(pL,theta,aspect_ratio=1.0,phi=0):
+    A,B = pL
+    _,_,D,C = get_rectangle_for_line(
+        [B,A],aspect_ratio=aspect_ratio)
+    
+    dy = A.y-C.y
+    # dy/dx = tan(angle)
+    t = math.tan(math.radians(theta))
+    dx = dy/t    
+    C = Point(C.x-dx,C.y)
+    D = Point(D.x-dx,D.y)
+    
+    M = get_intersection_for_two_lines(
+        [A,C],[B,D])
+    if not phi == 0:
+	    A,B,C,D = rotate_points_around_center_by_angle(
+	        [A,B,C,D],M,phi) 
+    return A,B,C,D
+
+
+
 # go to circumcircle for ABC through A at slope m
 # this gives two points, one of which is A
 # so we return the other one

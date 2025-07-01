@@ -1,8 +1,10 @@
-Three similar triangles
-HFA, HDC and BFC.
+This is Newton's proof for altitudes being concurrent at the orthocenter.
+
+There are four similar triangles.  Two are
+HFA and BFC.
 
 We have
 HF/AF = BF/CF
 HF = AF.BF/CF
 
-We can get the same result for side b.
+But we would get exactly the same result for side AC.

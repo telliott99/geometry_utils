@@ -16,27 +16,28 @@ if len(sys.argv) < 2:
 
 t = sys.argv[1]
 
-path += '/projects/'
-
 #-------------------
 
-def run_test(directory):
+def run_test(path):
     try:
         result = subprocess.run(
-            ['python3.10', 'projects/test_dir.py', directory])
+            ['python3.10', 'test_dir.py', path])
         print(result.returncode, result.args[1].split('/')[-1])
     except OSError as e:
         print('error',fn,e)
  
 #-------------------
 
-L = os.listdir(path)
-L = [f for f in L if os.path.isdir(path + '/' + f)]
-L.sort()
+L = os.listdir(path + '/projects')
+L = [f for f in L if os.path.isdir(path + '/projects/' + f)]
 
-for directory in L:
-    if t == 'all' or directory.startswith(t):
-        run_test('projects/' + directory)
-
+if t == 'tests':
+    run_test(path + '/tests/')
     
+elif t != 'all':
+   run_test(path + '/projects/' + t)
 
+else:
+    for t in L:
+        run_test(path + '/projects/' + t)
+    run_test(path + '/tests/')
