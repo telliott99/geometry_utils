@@ -65,7 +65,7 @@ AC^2 = AB.BC = BD^2
 
 By the converse of the tangent-secant theorem, it follows that BD is tangent to the dotted circle.  < BDC cuts the same arc as < CAD, so they are equal.  Since the triangles BAD and BDC have the same vertex angle and share the base angle at B, they are similar.  They are also isosceles, since AB and AD are radii of the first circle. 
 
-Thus CD = BD = AC.  So triangle ACD is also isosceles.  From this and the external angle theorem, we can deduce that <B = < CD is twice <A.  This is the basic construct for the pentagon.  The vertex of the isosceles triangle measures 1/5 of a right angle.
+Thus CD = BD = AC.  So triangle ACD is also isosceles.  From this and the external angle theorem, we can deduce that <B = <BCD is twice <A.  This is the basic construct for the pentagon.  The vertex of the isosceles triangles measures 1/5 of a right angle.
 
 **ϕ**
 
@@ -103,11 +103,11 @@ Draw RAJ parallel to HCTU with RA = AJ, and do likewise for SBI.
 
 From the properties of parallelograms, is easy to show that
 
-(ACDE) = (AFHR) = (AJUT).
+(ACDE) = (ACHR) = (AJUT).
 
 Thus the area of the parallelogram on side AB is the sum of the areas of the other two.
 
-The Pythagorean theorem is a special case, for a right triangle and squares on the sides.
+The Pythagorean theorem is a special case for a right triangle and squares on the sides.
 
 **triangle rotation**
 
@@ -221,7 +221,7 @@ Other mistakes with brackets may result in Python trying to access a coordinate 
 AttributeError: 'tuple' object has no attribute 'x'
 ```
 
-Finally, the functions in the library have long, but I hope explicit, names.  I'm experimenting with shortcut definitions ([here](funcs/short.txt)).
+Finally, the functions in the library have long, but I hope explicit, names.  I'm experimenting with shortcut definitions ([here](list/short.txt)).
 
 The shortcuts live in the library (at the end). 
 
