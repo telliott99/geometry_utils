@@ -1,0 +1,17 @@
+Draw a circle of diameter 1 in a 2x1 rectangle as shown.  The total length of the dotted line is sqrt(5).  Let the distance from one corner to the circle be x.  Then 
+
+2x + 1 = sqrt(5)
+
+x = [sqrt(5) - 1]/2 = phi - 1
+
+The rest of the length of the diagonal is 1 + x or phi.
+
+So the dotted line is divided into lengths of phi - 1 and phi.  But since
+
+phi^2 = phi + 1
+
+phi = 1 + 1/phi
+
+phi - 1 = 1/phi
+
+x is also equal to the inverse of phi.

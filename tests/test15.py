@@ -2,12 +2,6 @@ import matplotlib.pyplot as plt
 import numpy as np
 import geometry as geo
 
-# todo:  move this function to the library
-# from the proof for Pythagorean theorem
-# based on broken chord
-
-# do this smarter!!
-
 fig, ax = geo.init()
 ax.set(xlim=(0,100), ylim=(0,100))
 
@@ -19,7 +13,7 @@ B = geo.get_point_reflected_on_diameter(A,[Q,r])
 # CCW first
 pL = geo.get_point_on_circle_at_distance_for_point(
     [Q,r],40,B)
-C = pL[0]
+C = pL[1]
     
 circle = plt.Circle(
     (Q.x,Q.y),r,fc='none',ec='k')

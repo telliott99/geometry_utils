@@ -4,21 +4,30 @@ from geometry import np, plt
 
 fig, ax = geo.init()
 
-A = geo.Point(20,20)
-B = geo.Point(50,20)
+A = geo.Point(40,40)
+B = geo.Point(50,50)
 
-rL = geo.get_parallelogram([A,B],45,aspect_ratio=0.6,phi=30)
-A,B,C,D = rL
-geo.opg(ax,rL)
+_,_,C,D = geo.get_parallelogram_for_line(
+    [A,B],75,aspect_ratio=1.5)
+    
+geo.scp(ax,[A],s=20,c='r')
+geo.scp(ax,[B],s=20,c='b')q
+geo.scp(ax,[C],c='k')
+geo.scp(ax,[D],c='lightgray')
 
-geo.label_points(
-    [['A',A,'NW',2],
-     ['B',B,'NE',2],
-     ['C',C,'S',3],
-     ['D',D,'SW',5],
-     ])
+print(C,D)
 
-geo.scp(ax,[A,B,C,D],s=6)
+
+'''
+geo.opg(ax,rL[:4])
+
+geo.scp(ax,[A],s=20,c='r')
+geo.scp(ax,[B],s=20,c='b')
+geo.scp(ax,[S,C],c='k')
+geo.scp(ax,[D],c='orange')
+'''
+
+
 
 geo.savefig(plt)
 

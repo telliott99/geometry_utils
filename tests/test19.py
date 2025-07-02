@@ -3,7 +3,7 @@ import numpy as np
 import geometry as geo
 
 fig, ax = geo.init()
-ax.set(xlim=(-10,300), ylim=(-30,150))
+ax.set(xlim=(-10,300), ylim=(-30,180))
 
 pL = geo.get_standard_triangle()
 A,B,C = pL

@@ -1,0 +1,6 @@
+By construction, we have that AC = BD and
+
+AB/AC = AC/BC
+AC^2 = AB.BC = BD^2
+
+By the converse of the tangent-secant theorem, it follows that BD is tangent to the dotted circle.  < BDC cuts the same arc as < CAD, so they are equal.  Since the triangles BAD and BDC have the same vertex angle and share the base angle at B, they are similar, with both isosceles.  Thus CD = BD = AC.  So triangle ACD is also isosceles.  From this and the external angle theorem, we can deduce that < B is twice < A.  This is the basic construct for the pentagon.  

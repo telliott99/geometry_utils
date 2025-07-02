@@ -166,29 +166,27 @@ def get_rectangle_for_line(pL,aspect_ratio=1.0):
     # construct perp of arbitrary length at B
     # S should be "above" AB
     
+    # but it is not when B,A is arg
     S,T = get_perp_at_point_by_fractional_length(
         [A,B],f=1.0)
+    if not point_is_above_line(S,[A,B]):
+        S,T = T,S
         
     f = height/get_length([B,S])
     C = get_point_by_fractional_length([B,S],f)
-    
-    # another way to do the rest
-    # draw AC and bisect it
-    # get the point at fractional length 2.0
     
     # do the same at A
     # U should be "above" AB
     
     U,V = get_perp_at_point_by_fractional_length(
         [A,B],f=0)
-        
     if not point_is_above_line(U,[A,B]):
         U,V = V,U
 
     f = height/get_length([A,U]) 
     D = get_point_by_fractional_length([A,U],f)
-    
     return A,B,C,D
+
 
 
 # construct a parallelogram on a line segment
@@ -198,8 +196,13 @@ def get_rectangle_for_line(pL,aspect_ratio=1.0):
 # phi is rotation, if any
 # both CCW from x-axis
 
+'''
+
 # simple algorithm, nudge two points to get angle's tangent right
-def get_parallelogram(pL,theta,aspect_ratio=1.0,phi=0):
+# assumes [A,B] is horizontal!
+
+def get_parallelogram_for_line(
+        pL,theta,aspect_ratio=1.0,phi=0):
     A,B = pL
     _,_,D,C = get_rectangle_for_line(
         [B,A],aspect_ratio=aspect_ratio)
@@ -217,8 +220,56 @@ def get_parallelogram(pL,theta,aspect_ratio=1.0,phi=0):
 	    A,B,C,D = rotate_points_around_center_by_angle(
 	        [A,B,C,D],M,phi) 
     return A,B,C,D
+'''
+
+# something is *still* wrong with this
+# when points are reversed
+# angle goes the wrong way!
+
+def get_parallelogram_for_line(
+        pL,theta,aspect_ratio=1.0):
+    A,B = pL
+    
+    # having a hard time working through which point
+    # is "above" an inverted line
+    # so we rotate to horizontal before construction 
+    phi = get_angle_for_point_on_center(B,A)
+    M = get_point_by_fractional_length(pL,0.5)
+    pL = rotate_points_around_center_by_angle(
+        pL,M,phi)
+    
+    # S should be "above" [A,B]
+    S,T = get_points_at_angle_to_line(theta,pL)
+    # now rotate back    
+    S,T = rotate_points_around_center_by_angle(
+        [S,T],M,-phi)
+    
+    # find D, account for aspect ratio
+    height = get_length([A,B]) * aspect_ratio
+    sine = math.sin(math.radians(theta))
+    d = height/sine
+    f = d/get_length([A,S])
+    D = get_point_by_fractional_length(
+        [A,S],f)
+    
+    # use the diagonal trick to find C
+    N = get_point_by_fractional_length(
+        [B,D],0.5)
+    C = get_point_by_fractional_length(
+        [A,N],2)
+
+    return A,B,C,D   
 
 
+def get_parallelograms_for_triangle(pL):
+    A,B,C = pL
+    K = get_point_by_fractional_length([B,C],0.5)
+    D = get_point_by_fractional_length([A,K],2.0)
+    L = get_point_by_fractional_length([A,C],0.5)
+    E = get_point_by_fractional_length([B,L],2.0)
+    M = get_point_by_fractional_length([A,B],0.5)
+    F = get_point_by_fractional_length([C,M],2.0)
+    return D,E,F
 
 # go to circumcircle for ABC through A at slope m
 # this gives two points, one of which is A
@@ -554,8 +605,11 @@ def point_is_above_line(A,pL):
 def point_is_above_line(P,pL):
     A,B = pL
     phi = get_angle_for_point_on_center(B,A)
+    #print('phi',phi)
     theta = get_angle_for_point_on_center(P,A)
-    if (theta-phi) < 180:
+    #print('theta',theta)
+    #if (theta-phi) < 180:
+    if phi <= theta <= (180 + phi) % 360:
         return True
     return False
 
@@ -951,10 +1005,8 @@ def get_point_reflected_on_diameter(A,cL):
 
 def get_point_on_circle_at_distance_for_point(cL,d,A):
     Q,r = cL
-    rL = get_intersection_circle_circle(cL,[A,d])
-    
+    rL = get_intersection_circle_circle(cL,[A,d])  
     return CCW_point_first([A,Q],rL)
-    return rL
     
 def get_horizontal_intercept_for_circle_point(cL,A):
     Q,r = cL
@@ -1050,8 +1102,10 @@ def get_points_at_angle_to_line(theta,pL):
     V = get_point_by_fractional_length(
         [X,T],f)
         
-    rL = CCW_point_first(pL,[U,V])
-    return U,V
+    if point_is_above_line(U,pL):
+        return U,V
+    
+    return V,U
     
 #=======================================
 

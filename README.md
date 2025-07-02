@@ -9,25 +9,105 @@ I am running Python 3.13 obtained via Homebrew, so I put a symbolic link to geom
 
 The ``projects`` directory contains sub-directories with various scripts using it. Other scripts written during development to test particular issues are in ``tests``.
 
-Here is a [list](funcs/list.txt) of all the functions defined there.
+Here is a [list](list/list.txt) of all the functions defined there.
 
 Some examples of figures made using the library:
 
 **basic demo**
 
-<img src="demo/demo1.png" width=500>
+Starting with triangle ABC, construct the parallelograms on each side, by bisecting the side and then doubling the length (here AD = twice AK).
+
+<img src="demo/pgrams_crop.png" width=300>
+
+*Proof*  ABK and DCK are congruent by SAS.  It follows that CD is parallel to AB.  The same argument applies to BD and AC.  With both pairs of opposing sides parallel, ABDC is a parallelogram.
+
+All four of the smaller triangles are congruent and similar to the large triangle DEF.  This is like the midline theorem in reverse.
 
 **Euclid II.5**
 
 <img src="figures/EII_5_crop.png" width=500>
 
+*Proof*  Let C bisect AB and D be an arbitrary point on CB.  Draw the squares on DB and CB.  It follows that CDHL equals MFGH, so AD.BD is equal to the gnomon CBFGHL.  The latter is equal to the difference of squares BC^2 - CD^2.
+
+**Euclid II.11**
+
+<img src="figures/EII_11_label.png" width=300>
+
+Division of a line segment into the golden mean.  
+
+*Proof*.  Draw the square on AB and then bisect AC at E.  Draw the circle on center E with radius BE and find where it cuts the extension of CA at F.  Draw the square on AF.  
+
+The idea of the proof is then to show that AB/AH = AH/HB and 
+
+AB.HB = AH^2
+
+The LHS is the area of the red rectangle and the RHS is the area of the small blue square.  We show they are equal by subtracting the rectangle AHKC from two other equal areas:  the square on AB, and the rectangle CFGK.
+
+To obtain the last result, start from Euclid II.6
+
+CF.AF = EF^2 - AE^2
+
+But EF = EB and EB^2 - AE^2 = AB^2 by Euclid I.47 so
+
+CF.AF = AB^2
+
+We have shown that the rectangle CFGK is equal in area to the square on AB.  Subtract AHKC from both and we obtain the needed equality.
+
+**Euclid IV.10**
+
+<img src="figures/EIV_10_label.png" width=400>
+
+By construction, we have that AC = BD and
+
+AB/AC = AC/BC
+
+AC^2 = AB.BC = BD^2
+
+By the converse of the tangent-secant theorem, it follows that BD is tangent to the dotted circle.  < BDC cuts the same arc as < CAD, so they are equal.  Since the triangles BAD and BDC have the same vertex angle and share the base angle at B, they are similar.  They are also isosceles, since AB and AD are radii of the first circle. 
+
+Thus CD = BD = AC.  So triangle ACD is also isosceles.  From this and the external angle theorem, we can deduce that <B = < CD is twice <A.  This is the basic construct for the pentagon.  The vertex of the isosceles triangle measures 1/5 of a right angle.
+
+**ϕ**
+
+<img src="figures/phi.png" width=400>
+
+Let the diameter of the circle be 1.  Then the length of the diagonal of the rectangle is sqrt(5).  Let x be the distance from one corner to the circle.
+
+2x + 1 = √5
+
+x = (√5 - 1)/2 = phi - 1
+
+But
+
+phi^2 = 1 + phi
+
+1/phi = phi - 1
+
 **Pizza theorem**
+
+[wikipedia](https://en.wikipedia.org/wiki/Pizza_theorem)
 
 <img src="projects/pizza/pizza_crop.png" width=300>
 
 **Euclid I.47**
 
 <img src="figures/Pyth_new_1.png" width=300>
+
+**Pappus**
+
+<img src="figures/pappus_crop.png" width=300>
+
+On two sides of triangle ABC draw arbitrary parallelograms.  Extend the two new sides to meet at H.
+
+Draw RAJ parallel to HCTU with RA = AJ, and do likewise for SBI.
+
+From the properties of parallelograms, is easy to show that
+
+(ACDE) = (AFHR) = (AJUT).
+
+Thus the area of the parallelogram on side AB is the sum of the areas of the other two.
+
+The Pythagorean theorem is a special case, for a right triangle and squares on the sides.
 
 **triangle rotation**
 
@@ -37,13 +117,19 @@ Some examples of figures made using the library:
 
 <img src="figures/ninepoint_rev_crop.png" width=300>
 
+The nine point circle goes through the midpoints of the sides, which are the vertices of the medial triangle.  It also goes through the feet of the altitudes and, when the medial triangle is rotated 180 degrees, the vertices are concurrent with the other three points, which bisect that part of each altitude between the orthocenter and the vertices of the original triangle.
+
 **broken chord proof 1**
 
 <img src="figures/bc1.png" width=300>
 
+This problem, famously studied by Archimedes, has as given:  arc AM = GM, with B lying in the minor arc GM.  MD is drawn perpendicular to AB.  We claim that GB + BD = AD.
+
 **eyeball theorem**
 
 <img src="figures/eyeball1_crop.png" width=400>
+
+Show that AB = CD.
 
 **Heron's theorem**
 
@@ -56,6 +142,10 @@ Some examples of figures made using the library:
 **similar triangles**
 
 <img src="figures/right_tri_similarity.png" width=400>
+
+A proof that extends the similarity of right triangles to similarity for all triangles.
+
+<h4>Notes</h4>
 
 There are also a couple of write-ups, including one about Archimedes' broken chord theorem and another about excircles.
 
