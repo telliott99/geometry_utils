@@ -23,9 +23,13 @@ Starting with triangle ABC, construct the parallelograms on each side, by bisect
 
 All four of the smaller triangles are congruent and similar to the large triangle DEF.  This is like the midline theorem in reverse.
 
+**Euclid I.2**
+
+<img src="figures/EI_2_label.png" width=300>
+
 **Euclid II.5**
 
-<img src="figures/EII_5_crop.png" width=500>
+<img src="figures/EII_5_crop.png" width=300>
 
 *Proof*  Let C bisect AB and D be an arbitrary point on CB.  Draw the squares on DB and CB.  It follows that CDHL equals MFGH, so AD.BD is equal to the gnomon CBFGHL.  The latter is equal to the difference of squares BC^2 - CD^2.
 
@@ -95,7 +99,7 @@ phi^2 = 1 + phi
 
 **Pappus**
 
-<img src="figures/pappus_crop.png" width=300>
+<img src="figures/pappus_label.png" width=300>
 
 On two sides of triangle ABC draw arbitrary parallelograms.  Extend the two new sides to meet at H.
 
@@ -144,6 +148,12 @@ Show that AB = CD.
 <img src="figures/right_tri_similarity.png" width=400>
 
 A proof that extends the similarity of right triangles to similarity for all triangles.
+
+**Phi in the hexagon**
+
+<img src="figures/Phi_hex_label.png" width=400>
+
+Show that AP/AB = phi.  MF is half the radius of the circle on Q.  The rest is algebra and an application of the Pythagorean theorem.
 
 <h4>Notes</h4>
 

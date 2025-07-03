@@ -132,7 +132,7 @@ def get_standard_triangle(mode='acute'):
     G = Point(0,90)
     H = Point(50,90)
     J = Point(70,0)
-    K = Point(100,0)
+    K = Point(90,10)
     if mode == 'acute':
         return A,B,C
     if mode == 'right':
