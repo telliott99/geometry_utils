@@ -134,7 +134,7 @@ The rest of the diagonal is 1 + x = ϕ.
 
 **Pappus**
 
-<img src="figures/pappus_label.png" width=300>
+<img src="figures/Pappus_label.png" width=300>
 
 On two sides of triangle ABC draw arbitrary parallelograms.  Extend the two new sides to meet at H.
 
