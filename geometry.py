@@ -1337,8 +1337,8 @@ def get_point_at_angle_on_circle(angle, cL):
     Q,r = cL
     rad = math.radians(angle)
     #print(rad)
-    y = (math.sin(rad) * r) + Q.x
-    x = (math.cos(rad) * r) + Q.y
+    y = (math.sin(rad) * r) + Q.y
+    x = (math.cos(rad) * r) + Q.x
     return Point(x,y)
 
 # i and j endpoints for *both* arcs

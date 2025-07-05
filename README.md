@@ -13,25 +13,44 @@ Here is a [list](list/list.txt) of all the functions defined there.
 
 Some examples of figures made using the library:
 
-**basic demo**
+**midline reverse**
 
 Starting with triangle ABC, construct the parallelograms on each side, by bisecting the side and then doubling the length (here AD = twice AK).
 
 <img src="demo/pgrams_crop.png" width=300>
 
-*Proof*  ABK and DCK are congruent by SAS.  It follows that CD is parallel to AB.  The same argument applies to BD and AC.  With both pairs of opposing sides parallel, ABDC is a parallelogram.
+ABK and DCK are congruent by SAS.  It follows that CD is parallel to AB.  The same argument applies to BD and AC.  With both pairs of opposing sides parallel, ABDC is a parallelogram.
 
 All four of the smaller triangles are congruent and similar to the large triangle DEF.  This is like the midline theorem in reverse.
+
+**Ptolemy by similar triangles**
+
+<img src="figures/ptolemy_angles1.png" width=300>
+
+Divide one vertex angle of a cyclic quadrilateral to form a triangle with sides a and x1 as shown.
+
+x1/a = c/y
+
+<img src="figures/ptolemy_angles2.png" width=300>
+
+x2/d = b/y
+
+x1 + x2 = x
+= ac/y + bd/y
+
+xy = ac + bd
 
 **Euclid I.2**
 
 <img src="figures/EI_2_label.png" width=300>
 
+AF = BC.
+
 **Euclid II.5**
 
 <img src="figures/EII_5_crop.png" width=300>
 
-*Proof*  Let C bisect AB and D be an arbitrary point on CB.  Draw the squares on DB and CB.  It follows that CDHL equals MFGH, so AD.BD is equal to the gnomon CBFGHL.  The latter is equal to the difference of squares BC^2 - CD^2.
+Let C bisect AB and D be an arbitrary point on CB.  Draw the squares on DB and CB.  It follows that CDHL equals MFGH, so AD.BD is equal to the gnomon CBFGHL.  The latter is equal to the difference of squares BC^2 - CD^2.
 
 **Euclid II.11**
 
@@ -39,7 +58,7 @@ All four of the smaller triangles are congruent and similar to the large triangl
 
 Division of a line segment into the golden mean.  
 
-*Proof*.  Draw the square on AB and then bisect AC at E.  Draw the circle on center E with radius BE and find where it cuts the extension of CA at F.  Draw the square on AF.  
+Draw the square on AB and then bisect AC at E.  Draw the circle on center E with radius BE and find where it cuts the extension of CA at F.  Draw the square on AF.  
 
 The idea of the proof is then to show that AB/AH = AH/HB and 
 
@@ -59,7 +78,7 @@ We have shown that the rectangle CFGK is equal in area to the square on AB.  Sub
 
 **Euclid IV.10**
 
-<img src="figures/EIV_10_label.png" width=400>
+<img src="figures/EIV_10_label.png" width=350>
 
 By construction, we have that AC = BD and
 
@@ -69,23 +88,39 @@ AC^2 = AB.BC = BD^2
 
 By the converse of the tangent-secant theorem, it follows that BD is tangent to the dotted circle.  < BDC cuts the same arc as < CAD, so they are equal.  Since the triangles BAD and BDC have the same vertex angle and share the base angle at B, they are similar.  They are also isosceles, since AB and AD are radii of the first circle. 
 
-Thus CD = BD = AC.  So triangle ACD is also isosceles.  From this and the external angle theorem, we can deduce that <B = <BCD is twice <A.  This is the basic construct for the pentagon.  The vertex of the isosceles triangles measures 1/5 of a right angle.
+Thus CD = BD = AC.  So triangle ACD is also isosceles.  From this and the external angle theorem, we can deduce that < B = < BCD is twice < A.  This is the basic construct for the pentagon.
+
+The vertex of the isosceles triangles measures 1/5 of a right angle.
+
+**Pentagon construction**
+
+<img src="figures/basic_pentagon_crop.png" width=400>
+
+Scale the circle so the radius is 2.
+
+The key step is to bisect < OPA with OQ.  Then AQ/OQ = √5. But AQ = 2-OQ.  So OQ = 1/ϕ.
+
+Make QPR a right angle, then OR = ϕ.  [Bogolmony]
 
 **ϕ**
 
 <img src="figures/phi.png" width=400>
 
-Let the diameter of the circle be 1.  Then the length of the diagonal of the rectangle is sqrt(5).  Let x be the distance from one corner to the circle.
+Let the diameter of the circle be 1.  Then the length of the diagonal of the rectangle is √5.  Let x be the distance from one corner to the circle.
 
 2x + 1 = √5
 
-x = (√5 - 1)/2 = phi - 1
+x = (√5 - 1)/2 = ϕ - 1
 
 But
 
-phi^2 = 1 + phi
+ϕ^2 = 1 + ϕ
 
-1/phi = phi - 1
+1/ϕ = ϕ - 1
+
+The rest of the diagonal is 1 + x = ϕ.
+
+[Bogolmony]
 
 **Pizza theorem**
 
@@ -111,7 +146,7 @@ From the properties of parallelograms, is easy to show that
 
 Thus the area of the parallelogram on side AB is the sum of the areas of the other two.
 
-The Pythagorean theorem is a special case for a right triangle and squares on the sides.
+The Pythagorean theorem is a special case for a right triangle and squares on the sides.  [wikipedia](https://en.wikipedia.org/wiki/Pappus's_area_theorem)
 
 **triangle rotation**
 
@@ -127,17 +162,49 @@ The nine point circle goes through the midpoints of the sides, which are the ver
 
 <img src="figures/bc1.png" width=300>
 
-This problem, famously studied by Archimedes, has as given:  arc AM = GM, with B lying in the minor arc GM.  MD is drawn perpendicular to AB.  We claim that GB + BD = AD.
+This problem, famously studied by Archimedes, has as given:  arc AM = GM, with B lying in the minor arc GM.  MD is drawn perpendicular to AB.  We claim that GB + BD = AD.  [al Biruni]
 
 **eyeball theorem**
 
 <img src="figures/eyeball1_crop.png" width=400>
 
-Show that AB = CD.
+Show that AB = CD.  [Acheson]
 
 **Heron's theorem**
 
 <img src="figures/heron_crop.png" width=400>
+
+Draw the incircle for triangle ABC on center I.  Draw IK perpendicular to CI and BL perpendicular to CB.
+
+We have two pairs of similar triangles.  (Show that < L is complementary to the half angle at A).  Then:
+
+r/x = BL/BC = BL/(y+z)
+
+From the other pair:
+
+BL/ID = BL/r = BK/DK
+
+Combining the two:
+
+(y+z)/x = BK/DK
+
+Add 1 to both sides:
+
+(x+y+z)/x = (BK+DK)/DK = y/DK
+
+Let s = x + y + z:
+
+s.DK = xy
+
+Since triangle CIK is right:
+
+DK.z = r^2
+
+xyz = sr^2
+
+r^s^2 = xyzs
+
+But rs is the area of triangle ABC.
 
 **excircle**
 
@@ -147,13 +214,17 @@ Show that AB = CD.
 
 <img src="figures/right_tri_similarity.png" width=400>
 
-A proof that extends the similarity of right triangles to similarity for all triangles.
+A proof that extends similarity of right triangles to similarity for all triangles.
 
-**Phi in the hexagon**
+**ϕ in the hexagon**
 
 <img src="figures/Phi_hex_label.png" width=400>
 
-Show that AP/AB = phi.  MF is half the radius of the circle on Q.  The rest is algebra and an application of the Pythagorean theorem.
+Show that AP/AB = ϕ.  
+
+MF is half the radius of the circle on Q.  
+
+The rest is algebra and an application of the Pythagorean theorem.  [Bogolmony]
 
 <h4>Notes</h4>
 
@@ -203,6 +274,8 @@ These are from the caller's POV.  In the library's function definition, you cann
 ```
 geo.get_intersection_for_two_lines(pL1,pL2)
 ```
+
+<h4>Opaque error messages</h4>
 
 ``matplotlib`` gives error messages that can be challenging to interpret.  If you forget an argument in a function call, it simply reports the *last* one missing.  So, in drawing functions like 
 
