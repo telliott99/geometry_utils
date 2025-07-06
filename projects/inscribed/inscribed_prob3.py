@@ -19,6 +19,8 @@ ax.add_patch(circle)
 
 U,V = geo.get_perp_at_point_by_fractional_length(
     [O,P],f=1.0)
+    
+U,V = V,U
 
 T = geo.get_point_by_fractional_length([P,U],4.0)
 S = geo.get_point_by_fractional_length([T,P],2.0)

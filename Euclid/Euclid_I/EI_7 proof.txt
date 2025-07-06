@@ -1,0 +1,31 @@
+Let AC = AD.  
+
+By I.5, < ACD = < ADC.
+
+Since < ACD is larger than < BCD and < ADC is smaller than < BDC.
+
+It follows that < BCD is smaller than < BDC.
+
+Aiming for a contradiction, suppose BC = BD.
+
+By I.5, < BCD = < BDC.
+
+This is a contradiction.
+
+-----
+
+In the right panel, we still have that by I.5, < ACD = < ADC.
+
+The supplementary angles are also equal:
+
+< EDC = < FCD.
+
+< EDC is larger than < BDC, and < FCD is smaller than < BCD.
+
+It follows that < BDC is smaller than < BCD.
+
+Aiming for a contradiction, suppose BC = BD.
+
+By I.5, < BCD = < BDC.
+
+This is a contradiction.

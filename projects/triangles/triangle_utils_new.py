@@ -34,12 +34,12 @@ geo.outline_polygon(ax,[A,X,D])
 #----------
 
 theta = 45
-r = 55
+r = 40
 U,V = geo.get_point_with_base_angle_length(
     [A,B],theta,r)
     
 Y,Z =  geo.get_point_with_base_angle_length(
-    [B,A],theta,r)
+    [B,A],theta+90,r)
 
 K = geo.get_intersection_for_two_lines(
     [A,U],[B,Y])
@@ -47,10 +47,8 @@ K = geo.get_intersection_for_two_lines(
 geo.draw_line_segments(
     ax,[[A,K],[B,K]],ls=':')
 
-geo.scatter_points(ax,[U,Y,K])
+geo.scatter_points(ax,[K,U,Y])
 
 #----------
 
-plt.gca().set_axis_off()
-ofn = '/Users/telliott/Desktop/ex25.png'
-plt.savefig(ofn, dpi=300)
+geo.savefig(plt)

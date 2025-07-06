@@ -1,0 +1,5 @@
+Let M be the midpoint of an arc of the circumcircle of ∆ABC.  Let I be the incenter of ABC.  Show C,I,M are collinear.  Also show that BM = IM.
+
+Erect QK, the perpendicular bisector of AB and extend it to meet the circumcircle at M.  ∆AKM and ∆BKM are congruent by SAS, so AM = CM, which gives AM as the bisector of < A.  But the bisector passes through I.
+
+For the second part, we will show that ∆MIB has equal base angles.  < ABM is equal to gamma, the half-angle at C.  < IBA is equal to beta, the half-angle at B, so together we have < IBM = beta + gamma.  But < M is equal to the whole angle at A by inscribed angles.  What remains in ∆MIB for the measure of < MIB is beta + gamma.

@@ -1,0 +1,9 @@
+Let the diameter of the circle be 1 and the chord length be d.
+
+Then the radius is 1/2 and the sine of the central angle (< CQM, red triangle) is (d/2)/(1/2) = d.
+
+The inscribed < CAD is equal to < CQM.  (Prove this).
+
+So the chord subtending < CAD has length d.
+
+OTOH, if the circle is scaled to be a unit circle with radius 1, then the sine of the central angle is (d/2)/(1) = d/2, that is, d divided by the diameter of the circle.

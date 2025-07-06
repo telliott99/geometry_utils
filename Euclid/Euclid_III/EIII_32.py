@@ -26,7 +26,7 @@ D = geo.get_point_on_circle_at_distance_for_point(
     [Q,r],30,A)[0]
 
 C = geo.get_point_on_circle_at_distance_for_point(
-    [Q,r],40,D)[1]
+    [Q,r],40,D)[0]
 
 geo.draw_line_segments(ax,[[A,B],[E,F]])
 

@@ -15,13 +15,13 @@ Some examples of figures made using the library:
 
 **midline reverse**
 
-Starting with triangle ABC, construct the parallelograms on each side, by bisecting the side and then doubling the length (here AD = twice AK).
+Starting with ∆ABC, construct the parallelograms on each side, by bisecting the side and then doubling the length (here AD = twice AK).
 
 <img src="demo/pgrams_crop.png" width=300>
 
 ABK and DCK are congruent by SAS.  It follows that CD is parallel to AB.  The same argument applies to BD and AC.  With both pairs of opposing sides parallel, ABDC is a parallelogram.
 
-All four of the smaller triangles are congruent and similar to the large triangle DEF.  This is like the midline theorem in reverse.
+All four of the smaller triangles are congruent and similar to the large ∆DEF.  This is like the midline theorem in reverse.
 
 **Ptolemy by similar triangles**
 
@@ -86,9 +86,9 @@ AB/AC = AC/BC
 
 AC^2 = AB.BC = BD^2
 
-By the converse of the tangent-secant theorem, it follows that BD is tangent to the dotted circle.  < BDC cuts the same arc as < CAD, so they are equal.  Since the triangles BAD and BDC have the same vertex angle and share the base angle at B, they are similar.  They are also isosceles, since AB and AD are radii of the first circle. 
+By the converse of the tangent-secant theorem, it follows that BD is tangent to the dotted circle.  < BDC cuts the same arc as < CAD, so they are equal.  Since ∆AD and ∆BDC have the same vertex angle and share the base angle at B, they are similar.  They are also isosceles, since AB and AD are radii of the first circle. 
 
-Thus CD = BD = AC.  So triangle ACD is also isosceles.  From this and the external angle theorem, we can deduce that < B = < BCD is twice < A.  This is the basic construct for the pentagon.
+Thus CD = BD = AC.  So ∆ACD is also isosceles.  From this and the external angle theorem, we can deduce that < B = < BCD is twice < A.  This is the basic construct for the pentagon.
 
 The vertex of the isosceles triangles measures 1/5 of a right angle.
 
@@ -174,9 +174,11 @@ Show that AB = CD.  [Acheson]
 
 <img src="figures/heron_crop.png" width=400>
 
-Draw the incircle for triangle ABC on center I.  Draw IK perpendicular to CI and BL perpendicular to CB.
+Draw the incircle for ∆ ABC on center I.  Draw IK perpendicular to CI and BL perpendicular to CB.
 
-We have two pairs of similar triangles.  (Show that < L is complementary to the half angle at A).  Then:
+We have two pairs of similar triangles.  
+
+(Show that < L is complementary to the half angle at A.  This is most easily done by considering arcs of the circle on diameter CL.)  Then:
 
 r/x = BL/BC = BL/(y+z)
 
@@ -202,13 +204,13 @@ DK.z = r^2
 
 xyz = sr^2
 
-r^s^2 = xyzs
+r^2 s^2 = xyzs
 
 But rs is the area of triangle ABC.
 
 **excircle**
 
-<img src="figures/excircle_crop3.png" width=400>
+<img src="figures/excircle_crop.png" width=400>
 
 **similar triangles**
 

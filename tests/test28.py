@@ -11,7 +11,7 @@ _,_,C,D = geo.get_parallelogram_for_line(
     [A,B],75,aspect_ratio=1.5)
     
 geo.scp(ax,[A],s=20,c='r')
-geo.scp(ax,[B],s=20,c='b')q
+geo.scp(ax,[B],s=20,c='b')
 geo.scp(ax,[C],c='k')
 geo.scp(ax,[D],c='lightgray')
 
