@@ -46,8 +46,11 @@ grl  =  get_rectangle_for_line
 #----------
 
 # p3 test26a.py 32
+try:
+    arg = sys.argv[1]
+except:
+    arg = '32'
 
-arg = sys.argv[1]
 n = int(arg)
 n+=1
 

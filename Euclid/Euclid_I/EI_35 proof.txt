@@ -5,11 +5,11 @@ We will show that ∆ ADG cong ∆ BEF.
 By the properties of pgrams, DE = AB = GF.
 Adding equals, DG = EF.
 
-Since AB parallel DE, < ABE = < BEF.  By properties of pgrams < ABE = < ADE.
+Since AB parallel DEGF, < ADE = < BEF.  
 
-By properties of pgrams, AD = BE.
+By properties of pgrams AD = BE.
 
-So congruence follows by SAS.
+Congruence follows by SAS.
 
 (∆ADG) = (ADEX) + (EXG).
 Subtract (EXG) and add (ABX) to obtain (ABED).

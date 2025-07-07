@@ -9,14 +9,12 @@ todo:
 compute distance to mark equal angles
 based on the actual angle!
 
-would be nice to place point labels automatically
+place point labels automatically
 
 bugs:
 
-linestyles don't always look the same w/different angles
-
-https://matplotlib.org/stable/gallery/lines_bars_and_markers/linestyles.html
-
+matplotlib bug:
+linestyles don't look the same w/different angles
 
 '''
 
@@ -45,14 +43,7 @@ def savefig(plt,ofn=None):
     plt.savefig(ofn, dpi=300)
 
 def get_path():
-    path = sys.path[0]
-    #print(path)
-    '''
-    L = sys.argv[0].split('/')
-    module = L.pop()
-    path = path + '/'.join(L)
-    '''
-    return path
+    return sys.path[0]
 
 
 #=======================================
@@ -79,8 +70,6 @@ def get_random_points(n=3,N=100):
         y = random.randint(0,N)
         rL.append(Point(x,y))
     return rL
-
-
 
 '''
 
@@ -143,18 +132,7 @@ def get_standard_triangle(mode='acute'):
         return Point(10,0),Point(90,0),Point(50,80)
     if mode == 'equilateral':
         return A,K,Point(50,50*3**0.5)
-    
-def get_point_with_base_angle_length(pL,theta,r):
-    A,B = pL
-    S,T = get_points_at_angle_to_line(theta,[A,B])
-    d = get_length([B,S])
-    
-    U = get_point_by_fractional_length([A,S],r/d)
-    V = get_point_by_fractional_length([A,T],r/d)
-    
-    rL = CCW_point_first(pL,[U,V])
-    return rL
-    
+
 # construct a rectangle on a line segment
 # "above" [A,B]
 
@@ -188,88 +166,34 @@ def get_rectangle_for_line(pL,aspect_ratio=1.0):
     return A,B,C,D
 
 
+#=======================================
 
 # construct a parallelogram on a line segment
-# "above" [A,B]
 
-# theta is interior acute angle, 
-# phi is rotation, if any
-# both CCW from x-axis
 
-'''
+# get 4th point for pgram 
+def get_pgram_point_for_point_diagonal(P,pL):
+    M = get_midpoint(pL)
+    return get_point_by_fractional_length([P,M],2.0)
+     
+    
+# rather than adjust for orientation
+# theta is angle at A wrt x-axis
 
-# simple algorithm, nudge two points to get angle's tangent right
-# assumes [A,B] is horizontal!
-
-def get_parallelogram_for_line(
-        pL,theta,aspect_ratio=1.0,phi=0):
+def get_pgram_for_angle_length_base(theta,d,pL):
     A,B = pL
-    _,_,D,C = get_rectangle_for_line(
-        [B,A],aspect_ratio=aspect_ratio)
-    
-    dy = A.y-C.y
-    # dy/dx = tan(angle)
-    t = math.tan(math.radians(theta))
-    dx = dy/t    
-    C = Point(C.x-dx,C.y)
-    D = Point(D.x-dx,D.y)
-    
-    M = get_intersection_for_two_lines(
-        [A,C],[B,D])
-    if not phi == 0:
-	    A,B,C,D = rotate_points_around_center_by_angle(
-	        [A,B,C,D],M,phi) 
-    return A,B,C,D
-'''
+    C = get_point_at_angle_length_for_point(theta,d,A)
+    D = get_pgram_point_for_point_diagonal(A,[B,C])
+    return A,B,D,C
 
-# something is *still* wrong with this
-# when points are reversed
-# angle goes the wrong way!
-
-def get_parallelogram_for_line(
-        pL,theta,aspect_ratio=1.0):
-    A,B = pL
-    
-    # having a hard time working through which point
-    # is "above" an inverted line
-    # so we rotate to horizontal before construction 
-    phi = get_angle_for_point_on_center(B,A)
-    M = get_point_by_fractional_length(pL,0.5)
-    pL = rotate_points_around_center_by_angle(
-        pL,M,phi)
-    
-    # S should be "above" [A,B]
-    S,T = get_points_at_angle_to_line(theta,pL)
-    # now rotate back    
-    S,T = rotate_points_around_center_by_angle(
-        [S,T],M,-phi)
-    
-    # find D, account for aspect ratio
-    height = get_length([A,B]) * aspect_ratio
-    sine = math.sin(math.radians(theta))
-    d = height/sine
-    f = d/get_length([A,S])
-    D = get_point_by_fractional_length(
-        [A,S],f)
-    
-    # use the diagonal trick to find C
-    N = get_point_by_fractional_length(
-        [B,D],0.5)
-    C = get_point_by_fractional_length(
-        [A,N],2)
-
-    return A,B,C,D   
-
-
-def get_parallelograms_for_triangle(pL):
+def get_three_parallelograms_for_triangle(pL):
     A,B,C = pL
-    K = get_point_by_fractional_length([B,C],0.5)
-    D = get_point_by_fractional_length([A,K],2.0)
-    L = get_point_by_fractional_length([A,C],0.5)
-    E = get_point_by_fractional_length([B,L],2.0)
-    M = get_point_by_fractional_length([A,B],0.5)
-    F = get_point_by_fractional_length([C,M],2.0)
+    D = get_pgram_point_for_point_diagonal(A,[B,C])
+    E = get_pgram_point_for_point_diagonal(C,[A,B])
+    F = get_pgram_point_for_point_diagonal(B,[C,A])
     return D,E,F
+
+#=======================================
 
 # go to circumcircle for ABC through A at slope m
 # this gives two points, one of which is A
@@ -291,7 +215,8 @@ def get_point_for_cyclic_quadrilateral(P,pL,m=1.0):
     if points_are_close(rL[0],A):
         return rL[1]    
     return rL[0]
-            
+
+#=======================================
 
 # using O here for circle center
 # Richmond's construction
@@ -345,6 +270,11 @@ ls linestyle, std is '-', dotted is ':'
 fc facecolor, 'k' is black
 ec edgecolor
 c color
+
+note: linestyle is really
+(0,(2,4))
+where 0 is offset, 2 is length of line, 4 is length of space
+
 '''
 
 # standard point size SZ 
@@ -468,33 +398,24 @@ def get_point_by_fractional_length(pL,f):
     dx,dy = get_deltas([A,B])
     return Point(A.x + f*dx, A.y + f*dy)
 
+def get_midpoint(pL):
+    return get_point_by_fractional_length(pL,0.5)
 
-# the code below works sometimes, but it fails b/c
+# original code worked sometimes, but it failed b/c
 # it goes in the wrong direction depending on orientation of points
 
 # one workaround is to calculate f = d/get_length([A,B])
 # and then do get_point_by_fractional_length(pL,f)
 # as long as A ne B then get_length is not 0
 
-'''
-def get_point_by_absolute_length(pL,d):
+def get_point_by_length(pL,d):
     A,B = pL
-    m = get_slope_for_two_points([A,B])
-    theta = math.atan(m)
-    if theta < 0:
-        theta += 2 * math.pi
-        
-    dx = d*math.cos(theta)
-    dy = d*math.sin(theta)
-    
-    # we must also account for orientation
-    if A.x > B.x:
-        dx = -dx
-    if A.y > B.y:
-        dy = -dy
-    return Point(A.x+dx, A.y+dy)
-'''
+    f = d/get_length([A,B])
+    return get_point_by_fractional_length([A,B],f)
 
+#=======================================
+
+ 
 # rather use label y0, intercept is k so
 # (k-y)/(0-x) = m
 # k = y - mx
@@ -508,10 +429,6 @@ def get_slope_intercept_for_two_points(pL):
     m = get_slope_for_two_points(pL)
     k = get_intercept_for_point_slope(A,m)
     return m,k
-
-
-#=======================================
-
 
 # find intersection of two line segments (or their extensions)
 # for slope-intercept definitions
@@ -580,27 +497,6 @@ def get_perp_on_line_for_point(pL,A):
 
 # ordering points
 # implementing CCW test
-
-'''
-def point_is_above_line(A,pL):
-    #print('point is above', A, pL)
-    B,C = pL
-    
-    dx, dy = get_deltas(pL)
-    if dx == 0:
-        return A.y > B.y
-    if dy == 0:
-        return A.x > B.x
-        
-    theta = math.degrees(math.atan(dy/dx)) 
-    # rotate [B,C] to be horizontal   
-    A,B,C = rotate_points_around_center_by_angle(
-        [A,B,C],B,-theta)
-        
-    # then just check y
-    return A.y > B.y
-'''
-
   
 def point_is_above_line(P,pL):
     A,B = pL
@@ -1076,37 +972,10 @@ def get_all_angles(pL):
     mA = get_angle(A,[B,C])
     mB = get_angle(B,[C,A])
     mC = get_angle(C,[A,B])
-    return mA, mB, mC
+    return mA, mB, 
+# this works well
 
 
-def get_points_at_angle_to_line(theta,pL):
-    A,B = pL
-    t = math.tan(math.radians(theta))
-    #print('theta',theta,'tan',t)
-    
-    S,T = get_perp_at_point_by_fractional_length(
-        [A,B],f=0.5)
-    X = get_point_by_fractional_length(
-        [A,B],f=0.5)
-        
-    dx = get_length([A,X]) 
-    #print('dx',dx)   
-    dy = t*dx
-    #print('dy',dy)
-    #print('arctan',math.degrees(math.atan(dy/dx)))
-    
-    f = dy/get_length([X,S])
-    
-    U = get_point_by_fractional_length(
-        [X,S],f)
-    V = get_point_by_fractional_length(
-        [X,T],f)
-        
-    if point_is_above_line(U,pL):
-        return U,V
-    
-    return V,U
-    
 #=======================================
 
 
@@ -1341,6 +1210,15 @@ def get_point_at_angle_on_circle(angle, cL):
     x = (math.cos(rad) * r) + Q.x
     return Point(x,y)
 
+
+def get_point_at_angle_length_for_point(theta,d,A):
+    # arbitrary
+    r = 10
+    P = get_point_at_angle_on_circle(theta,[A,r])
+    f = d/get_length([A,P])
+    return get_point_by_fractional_length([A,P],f)
+
+
 # i and j endpoints for *both* arcs
 def arcs_from_indexes(i,j):
     def do_slices(L,i,j):
@@ -1531,10 +1409,10 @@ xlc =  get_intersection_line_segment_circle
 xcc =  get_intersection_circle_circle
 bae =  bisect_angle_Euclid
 rpa =  rotate_points_around_center_by_angle
-mvp =   translate_points
+mvp =  translate_points
 sct =  scale_triangle
-mka =   mark_angle
+mka =  mark_angle
 mra =  mark_right_angle
-grl  =  get_rectangle_for_line
+grl =  get_rectangle_for_line
 
 

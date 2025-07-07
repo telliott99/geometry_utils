@@ -10,11 +10,17 @@ pL = geo.scale_triangle(pL,f=0.8)
 A,B,C = pL
 B = geo.nudge(B,'E',10)
 
-_,_,D,E = geo.get_parallelogram_for_line(
-          [A,C],70,aspect_ratio=0.5)
+#_,_,D,E = geo.get_parallelogram_for_line(
+          #[A,C],70,aspect_ratio=0.5)
+          
+_,_,D,E = geo.get_pgram_for_angle_length_base(
+    170,20,[A,C])
 
-_,_,F,G = geo.get_parallelogram_for_line(
-          [C,B],310,aspect_ratio=0.25)
+#_,_,F,G = geo.get_parallelogram_for_line(
+          #[C,B],310,aspect_ratio=0.25)
+
+_,_,F,G = geo.get_pgram_for_angle_length_base(
+    70,30,[C,B])
 
 H = geo.get_intersection_for_two_lines([D,E],[F,G])
 T = geo.get_intersection_for_two_lines([H,C],[A,B])

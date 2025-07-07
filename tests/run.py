@@ -22,6 +22,8 @@ for dir in L:
         continue
     pathD[dir] = path + '/projects/' + dir
 
+pathD['tests'] = path + '/tests'
+
 #-------------------
 
 if len(sys.argv) < 2:
