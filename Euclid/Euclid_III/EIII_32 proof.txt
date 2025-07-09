@@ -1,0 +1,7 @@
+Let EBF be tangent to the circle at B.
+So AB is a diameter.
+Then < ADB is right.
+
+The sum of < ABD + < A is equal to a right angle.
+But the sum of < ABD + < DBF is also right angle.
+It follows that < DBF = < A.

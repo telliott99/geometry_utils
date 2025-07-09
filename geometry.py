@@ -80,7 +80,7 @@ def get_random_points(n=3,N=100):
 # isolated single Points should always be in a point list pL
 # but it's too weird
 
-# we need to check is a result is not a list of expected length
+# we need to check if a result is not a list of expected length
 
 in general, a line segment or a polygon is an array of Points
 [P,Q ... ]
@@ -91,9 +91,6 @@ line segment PQ = [P,Q]
 matplotlib takes separate lists of xvals,yvals
 I've often used capital X and Y for lists of x or y
 getXY(pL) below
-
-we pass lists of points to our functions
-with the *args trick to allow variable length
 
 wrappers on drawing code will call getXY to get xvals,yvals
 

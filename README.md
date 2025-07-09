@@ -1,6 +1,6 @@
 This project is a small Python library, ``geometry.py``, to use in drawing figures for my geometry textbook.  The library is contained in a single file at top level:  ``geometry.py``.  
 
-I am running Python 3.13 obtained via Homebrew, so I put a symbolic link to geometry.py in:
+I am running Python 3.13 obtained via Homebrew, on macOS, so I put a symbolic link to ``geometry.py`` in:
 
 ```
  /usr/local/lib/python3.13/site-packages/geometry.py
@@ -86,7 +86,9 @@ AB/AC = AC/BC
 
 AC^2 = AB.BC = BD^2
 
-By the converse of the tangent-secant theorem, it follows that BD is tangent to the dotted circle.  < BDC cuts the same arc as < CAD, so they are equal.  Since ∆AD and ∆BDC have the same vertex angle and share the base angle at B, they are similar.  They are also isosceles, since AB and AD are radii of the first circle. 
+By the converse of the tangent-secant theorem, it follows that BD is tangent to the dotted circle, which contains A,C and D.  < BDC cuts the same arc as < CAD, so they are equal.
+
+Since ∆ABD and ∆DBC have the same vertex angle and share the base angle at B, they are similar.  They are also isosceles, since AB and AD are radii of the first circle. 
 
 Thus CD = BD = AC.  So ∆ACD is also isosceles.  From this and the external angle theorem, we can deduce that < B = < BCD is twice < A.  This is the basic construct for the pentagon.
 
@@ -98,9 +100,13 @@ The vertex of the isosceles triangles measures 1/5 of a right angle.
 
 Scale the circle so the radius is 2.
 
-The key step is to bisect < OPA with OQ.  Then AQ/OQ = √5. But AQ = 2-OQ.  So OQ = 1/ϕ.
+The key step is to bisect < OPA with OQ.  Then AQ/OQ = √5. But AQ = 2 - OQ.  
 
-Make QPR a right angle, then OR = ϕ.  [Bogolmony]
+So OQ = 1/ϕ.
+
+Make QPR a right angle, then OR = ϕ.  
+
+[Bogomolny
 
 **ϕ**
 
@@ -120,7 +126,7 @@ But
 
 The rest of the diagonal is 1 + x = ϕ.
 
-[Bogolmony]
+[Bogomolny]
 
 **Pizza theorem**
 
@@ -168,7 +174,9 @@ This problem, famously studied by Archimedes, has as given:  arc AM = GM, with B
 
 <img src="figures/eyeball1_crop.png" width=400>
 
-Show that AB = CD.  [Acheson]
+Show that AB = CD.
+
+[Acheson]
 
 **Heron's theorem**
 
@@ -226,7 +234,9 @@ Show that AP/AB = ϕ.
 
 MF is half the radius of the circle on Q.  
 
-The rest is algebra and an application of the Pythagorean theorem.  [Bogolmony]
+The rest is algebra and an application of the Pythagorean theorem.  
+
+[Bogomolny]
 
 <h4>Notes</h4>
 
