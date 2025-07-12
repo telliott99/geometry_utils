@@ -46,6 +46,13 @@ def get_path():
     return sys.path[0]
 
 
+# standard point size SZ 
+POINT_SZ = 8
+
+#
+STD_LENGTH = 5
+
+
 #=======================================
 
 # Point is the only *class* defined in this library
@@ -130,13 +137,20 @@ def get_standard_triangle(mode='acute'):
     if mode == 'equilateral':
         return A,K,Point(50,50*3**0.5)
 
+
+# get 4th point for pgram or rectangle
+def get_diagonal_for_point_diagonal(P,pL):
+    M = get_midpoint(pL)
+    return get_point_by_fractional_length([P,M],2.0)
+
+
 # construct a rectangle on a line segment
 # "above" [A,B]
 
-def get_rectangle_for_line(pL,aspect_ratio=1.0):
+def get_rectangle_for_line(pL,f=1.0):
     A,B = pL
     base = get_length([A,B])
-    height = aspect_ratio*base
+    height = f*base
     
     # construct perp of arbitrary length at B
     # S should be "above" AB
@@ -150,6 +164,9 @@ def get_rectangle_for_line(pL,aspect_ratio=1.0):
     f = height/get_length([B,S])
     C = get_point_by_fractional_length([B,S],f)
     
+    D = get_diagonal_for_point_diagonal(B,[A,C])
+    '''
+    
     # do the same at A
     # U should be "above" AB
     
@@ -160,18 +177,15 @@ def get_rectangle_for_line(pL,aspect_ratio=1.0):
 
     f = height/get_length([A,U]) 
     D = get_point_by_fractional_length([A,U],f)
+    
+    '''
+    
     return A,B,C,D
 
 
 #=======================================
 
 # construct a parallelogram on a line segment
-
-
-# get 4th point for pgram 
-def get_pgram_point_for_point_diagonal(P,pL):
-    M = get_midpoint(pL)
-    return get_point_by_fractional_length([P,M],2.0)
      
     
 # rather than adjust for orientation
@@ -180,14 +194,14 @@ def get_pgram_point_for_point_diagonal(P,pL):
 def get_pgram_for_angle_length_base(theta,d,pL):
     A,B = pL
     C = get_point_at_angle_length_for_point(theta,d,A)
-    D = get_pgram_point_for_point_diagonal(A,[B,C])
+    D = get_diagonal_for_point_diagonal(A,[B,C])
     return A,B,D,C
 
 def get_three_parallelograms_for_triangle(pL):
     A,B,C = pL
-    D = get_pgram_point_for_point_diagonal(A,[B,C])
-    E = get_pgram_point_for_point_diagonal(C,[A,B])
-    F = get_pgram_point_for_point_diagonal(B,[C,A])
+    D = get_diagonal_for_point_diagonal(A,[B,C])
+    E = get_diagonal_for_point_diagonal(C,[A,B])
+    F = get_diagonal_for_point_diagonal(B,[C,A])
     return D,E,F
 
 #=======================================
@@ -273,9 +287,6 @@ note: linestyle is really
 where 0 is offset, 2 is length of line, 4 is length of space
 
 '''
-
-# standard point size SZ 
-POINT_SZ = 8
 
 # keep interface simple
 # if we need to we can always call matplotlib directly
@@ -564,12 +575,20 @@ def get_perp_at_point_by_fractional_length(pL,f=0.5):
         A,B = B,A
         f = 1.0 - f 
                
-    #P = get_point_by_fractional_length([A,B],f)
+    #P = get_point_by_fractional_length([A,B],f)    
     Q = get_point_by_fractional_length([A,B],2*f)
     r = get_length([A,B]) * 1.2 * f
-    rL = get_intersection_circle_circle([A,r],[Q,r])
     
-    S,T = rL
+    S,T = get_intersection_circle_circle([A,r],[Q,r])
+    M = get_midpoint([S,T])
+    
+    # adjust dist to S,T
+    d = STD_LENGTH
+    f = STD_LENGTH/get_length([M,S])
+    S = get_point_by_fractional_length(
+        [M,S],f)
+    T = get_point_by_fractional_length(
+        [M,T],f)
     
     # with reference to unswitched points
     

@@ -1,0 +1,37 @@
+different ways to define a pentagon
+
+1. equal sides
+
+2. equal central angles on circle
+
+3. equal vertex angles
+
+4. composed of iso ∆, angle ratios 1:2:2, 3:1:1
+
+
+2 => 1
+easy
+
+1 => 2 
+draw circumcircle for ∆AED, ∆ABE
+same center
+
+1 => 4
+∆AED is iso, so outside angles at vertices are eq
+let them be x and
+let vertex < CAD = y
+let outside vertex angles = y
+y + 4x = 3y + x
+x = y
+
+
+
+
+
+
+
+
+
+
+
+

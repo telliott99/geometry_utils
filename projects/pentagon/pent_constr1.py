@@ -92,5 +92,5 @@ if __name__ == "__main__":
     #----------
     
     plt.gca().set_axis_off()
-    ofn = '/Users/telliott/Desktop/basic_pentagon1.png'
+    ofn = '/Users/telliott/Desktop/pentagon_constr1.png'
     plt.savefig(ofn, dpi=300)

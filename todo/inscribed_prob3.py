@@ -44,10 +44,10 @@ X = geo.get_intersection_for_two_lines(
     [P,Y],[Z,Q])
     
 
-geo.draw_line_segments(ax,[[Z,Y],[P,R],[S,R]])
+geo.draw_line_segments(ax,[[Z,Y],[P,R],[T,R]])
 
 geo.mark_angles(ax,
-    [[Q,P,R],[Q,Z,Y],[P,S,R]],c='r',d=8)
+    [[Q,P,R],[Q,Z,Y],[P,T,R]],c='r',d=8)
 
 geo.draw_line_segments(ax,[[Q,Z]])
 
@@ -55,15 +55,18 @@ geo.draw_line_segments(ax,[[Q,Z]])
 
 geo.scatter_points(ax,[P,Q,R,Y,S,T,X,Z],s=6)
 
-
+'''
 geo.label_points([('P',P,'NW',4),
                   ('Q',Q,'W',8),
                   ('Y',Y,'SE',7),
-                  ('R',R,'SE',7),
+                  ('R',R,'SW',9),
                   ('Z',Z,'SE',7),
-                  ('T',T,'SE',7),
-                  ('S',S,'W',7),
+                  ('T',S,'W',7),
+                  ('S',T,'NE',4),
+                  ('X',X,'SW',12),
                     ])
+
+'''
 
 
 plt.gca().set_axis_off()
