@@ -270,6 +270,10 @@ def get_pentagon(O,r):
           'extras':[L,P,Q,R,S] }
 
     return rD
+    
+def get_circle(Q,r,fc='none',ec='k'):
+    return plt.Circle(
+        (Q.x,Q.y),r,fc=fc,ec=ec)
 
 #=======================================
 
@@ -310,18 +314,20 @@ def draw_line_segments(ax,pL,ec='k',lw=1,ls='-'):
         
 # ------
 
-def draw_chained_line_segments(ax,pL,ec='k',lw=1):
+def draw_chained_line_segments(ax,pL,ec='k',lw=1,ls='-'):
     X,Y = getXY(pL)
-    ax.fill(X,Y,fc='none',ec=ec,lw=lw,ls='-',alpha=1)     
+    ax.fill(X,Y,fc='none',ec=ec,lw=lw,ls=ls,alpha=1)     
 
 def fill_polygon(ax,pL,fc='r',alpha=0.10):
     X,Y = getXY(pL)
     ax.fill(X,Y,fc=fc,alpha=alpha)     
     
-def outline_polygon(ax,pL,ec='red',lw=1):
-    draw_chained_line_segments(ax,pL,ec=ec,lw=lw)
+def outline_polygon(ax,pL,ec='red',lw=1,ls='-'):
+    draw_chained_line_segments(ax,pL,ec=ec,lw=lw,ls=ls)
 
-
+def draw_circle(ax,Q,r):
+    ax.add_patch(get_circle(Q,r))
+    
 #=======================================
 
 

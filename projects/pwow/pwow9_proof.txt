@@ -1,0 +1,20 @@
+Ptolemy gives us
+c^2 = b^2 + a^2 + 2abd
+
+We need to obtain an expression for d.
+
+If s is the obtuse angle in ∆ABC
+Let its opposite angle be t
+in the triangle with sides h,b,d
+
+Then s and t are supplementary
+so cos s = - cos t
+cos t = d/b
+
+d = b cos t = - b cos s 
+
+substituting
+c^2 = b^2 + a^2 - 2ab cos s
+
+show this still works if s is acute
+

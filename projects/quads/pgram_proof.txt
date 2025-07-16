@@ -1,0 +1,56 @@
+1. both pairs of sides parallel
+2. both pairs of sides equal
+3. opposite angles equal
+4. one pair both parallel and equal
+
+1 => 2
+AB parallel DC
+AD parallel BC
+
+< DAC = < BCA
+< BAC = < DCA
+∆tri DAC cong ∆BCA by ASA
+AB = AC
+
+for the same reason
+AD = BC
+
+2 => 1
+∆DAB cong ∆BCD by SSS
+<ABD = <CDB
+AB parallel DC
+
+for the same reason AD parallel BC
+
+3 => 1
+by alternate interior angles 
+  AB parallel DC
+  AD parallel BC
+
+4 => 1
+AB parallel DC and AB = DC
+equal angles by alternate interior angles
+∆DMC cong ∆BMA by ASA
+
+AM = MC
+DM = BM
+∆AMD cong ∆CMB by SAS
+<DAM = <CBM
+AD parallel BC
+
+1 => 3
+just add angles at the corners
+
+2 => 4
+AB = DC
+AD = BC
+∆DAB cong ∆BCD by SSS
+< ADB = < CBD
+AD parallel BC
+
+
+
+
+
+
+
