@@ -39,10 +39,10 @@ aL = [[A,B,C],[A,D,C]]
 geo.mark_angles(ax,aL,d=10,c='b')
 
 aL = [[F,C,B]]
-geo.mark_angles(ax,aL,d=15,c='g')
+#geo.mark_angles(ax,aL,d=15,c='orange')
 
 aL = [[C,A,D],[C,B,D]]
-geo.mark_angles(ax,aL,d=10,c='orange')
+geo.mark_angles(ax,aL,d=10,c='k')
 
 def f():
     geo.fill_polygon(ax,[A,B,C])

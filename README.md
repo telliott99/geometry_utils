@@ -316,6 +316,8 @@ Other mistakes with brackets may result in Python trying to access a coordinate 
 AttributeError: 'tuple' object has no attribute 'x'
 ```
 
+<h4>Shortcuts</h4>
+
 Finally, the functions in the library have long, but I hope explicit, names.  I'm experimenting with shortcut definitions ([here](list/short.txt)).
 
 The shortcuts live in the library (at the end). 
@@ -324,4 +326,18 @@ For this we might do ``from geometry import *`` in spite of the fact that it's g
 
 ```
 geo.gtr()
+```
+
+Here are the ones I use the most
+
+```
+scp =  scatter_points
+dls =  draw_line_segment
+dlss = draw_line_segments
+fpg =  fill_polygon
+opg =  outline_polygon
+gpf =  get_point_by_fractional_length
+xll =  get_intersection_for_two_lines
+xlc =  get_intersection_line_segment_circle
+xcc =  get_intersection_circle_circle
 ```

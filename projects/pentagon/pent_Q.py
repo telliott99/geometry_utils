@@ -19,12 +19,18 @@ A,B,C,D,E = pL
 
 geo.draw_chained_line_segments(ax,pL,ec='r')
 
-geo.dlss(ax,[[Q,C],[Q,D]],ec='k')
-geo.opg(ax,[A,C,D])
-geo.fpg(ax,[A,C,D])
+geo.dlss(ax,[[Q,A],[Q,B],[Q,E]],ec='k')
+#geo.opg(ax,[A,C,D])
+#geo.fpg(ax,[A,C,D])
 
 geo.opg(ax,[Q,C,D])
 geo.fpg(ax,[Q,C,D],alpha=0.3)
+
+t = (0,(2,4))
+
+M = geo.get_midpoint([C,D])
+N = geo.get_midpoint([D,E])
+geo.dlss(ax,[[Q,M],[Q,N]],ls=t)
 
 geo.scp(ax,[A,B,C,D,E,Q])
 

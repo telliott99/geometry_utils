@@ -17,23 +17,25 @@ for i in range(1,6):
      pL.append(P)
 A,B,C,D,E = pL
 
-geo.draw_chained_line_segments(ax,pL,ec='r')
+geo.opg(ax,pL)
 
-geo.dlss(ax,[[Q,C],[Q,D]],ec='k')
-geo.opg(ax,[A,C,D])
-geo.fpg(ax,[A,C,D])
+geo.dlss(ax,[[A,C],[A,D],[B,D],[B,E],[C,E]],ec='k')
 
-geo.opg(ax,[Q,C,D])
-geo.fpg(ax,[Q,C,D],alpha=0.3)
+S = geo.xll([B,D],[C,E])
+T = geo.xll([A,D],[C,E])
+U = geo.xll([A,D],[B,E])
+V = geo.xll([A,C],[B,E])
+W = geo.xll([A,C],[B,D])
 
-geo.scp(ax,[A,B,C,D,E,Q])
+geo.fpg(ax,[A,B,E],alpha=0.2)
+geo.fpg(ax,[B,W,C],fc='b',alpha=0.2)
 
-'''
-Q,r = geo.get_circumcircle([A,B,C])
-circle = plt.Circle(
-    (Q.x,Q.y),r,fc='none',ec='k')
+Q,r = geo.gcc([A,B,C])
+circle = geo.get_circle(Q,r)
 ax.add_patch(circle)
-'''
+
+geo.scp(ax,[A,B,C,D,E],s=5)
+
 
 geo.savefig(plt)
 

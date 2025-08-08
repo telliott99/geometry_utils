@@ -19,21 +19,27 @@ A,B,C,D,E = pL
 
 geo.draw_chained_line_segments(ax,pL,ec='r')
 
-geo.dlss(ax,[[Q,C],[Q,D]],ec='k')
+#geo.dlss(ax,[[Q,C],[Q,D]],ec='k')
 geo.opg(ax,[A,C,D])
 geo.fpg(ax,[A,C,D])
 
-geo.opg(ax,[Q,C,D])
-geo.fpg(ax,[Q,C,D],alpha=0.3)
+geo.opg(ax,[C,D,E])
+geo.fpg(ax,[C,D,E])
 
-geo.scp(ax,[A,B,C,D,E,Q])
+geo.dlss(ax,[[B,E],[B,D]],ec='r')
 
-'''
+
+#geo.opg(ax,[Q,C,D])
+#geo.fpg(ax,[Q,C,D],alpha=0.3)
+
+geo.scp(ax,[A,B,C,D,E,])
+
+
 Q,r = geo.get_circumcircle([A,B,C])
 circle = plt.Circle(
     (Q.x,Q.y),r,fc='none',ec='k')
 ax.add_patch(circle)
-'''
+
 
 geo.savefig(plt)
 

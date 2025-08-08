@@ -100,7 +100,7 @@ and
 \[ \sin 72 = 2 \sin 36 \cos 36 =  2  \frac{\sqrt{3 - \phi}}{2} \cdot \frac{\phi}{2}  \]
 \[ \sin^2 72 = \frac{(3-\phi)(\phi + 1)}{4} = \frac{3 + 2 \phi - (\phi + 1)}{4}\]
 \[ = \frac{\phi + 2}{4} \]
-\[ \sin 72 = \sqrt{2 + \phi}/2 \]
+\[ \sin 72 = \frac{\sqrt{2 + \phi}}{2} \]
 
 which can be checked
 \[ \frac{2 + \phi}{4} + \frac{1}{4 \phi^2} = \frac{2 \phi^2 + \phi^3 + 1}{4 \phi^2} \]
@@ -109,6 +109,22 @@ The numerator is
 which is equal to the denominator.  We satisfy the identity $\sin^2 \theta + \cos^2 \theta = 1$.
 
 Of course, now that we know sine and cosine of $36^\circ$ and $72^\circ$, we also know them for $18^\circ$ and $54^\circ$.
+
+\subsection*{ratio of sines}
+
+We can also say something about the ratio of two sines.  Recall that the ratio of the chord of a regular pentagon to the side is equal to $\phi$.
+
+Considered as part of the circumcircle, the side is a chord as well, of the circumcircle.  Using the standard result that the chord is the diameter times the sine of the angle, we have that
+\[ \frac{\sin 72^\circ}{\sin 36^\circ} = \frac{\phi}{1} = \phi \]
+
+Plugging in the values from our work above, we must have that
+\[ \phi = \frac{\sqrt{2 + \phi}}{\sqrt{3 - \phi}} \]
+
+which seems hard to believe.  Let us work backward.  Square and rearrange:
+\[ \phi^2 \cdot (3 - \phi)= (2 + \phi) \]
+Working with the left-hand side:
+\[ (\phi + 1)(3 - \phi) = 2 \phi + 3 -  \phi - 1 = 2 + \phi \]
+which is correct.
 
 \subsection*{radius}
 
